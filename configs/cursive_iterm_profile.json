@@ -1,0 +1,139 @@
+{
+  "Name": "Cursive Elegance",
+  "Guid": "CURSIVE-ELEGANCE-PROFILE",
+  "Tags": ["cursive", "elegant"],
+  "Badge Text": "✒️",
+  "Working Directory": "~/",
+  "Command": "",
+  "Custom Command": "No",
+  
+  "Ansi 0 Color": {
+    "Red Component": 0.10196078431372549,
+    "Green Component": 0.08627450980392157,
+    "Blue Component": 0.14509803921568629
+  },
+  "Ansi 1 Color": {
+    "Red Component": 1.0,
+    "Green Component": 0.41960784313725491,
+    "Blue Component": 0.41960784313725491
+  },
+  "Ansi 2 Color": {
+    "Red Component": 0.30588235294117649,
+    "Green Component": 0.80392156862745101,
+    "Blue Component": 0.76862745098039209
+  },
+  "Ansi 3 Color": {
+    "Red Component": 1.0,
+    "Green Component": 0.84313725490196079,
+    "Blue Component": 0.0
+  },
+  "Ansi 4 Color": {
+    "Red Component": 0.41960784313725491,
+    "Green Component": 0.35686274509803922,
+    "Blue Component": 0.58431372549019611
+  },
+  "Ansi 5 Color": {
+    "Red Component": 0.76862745098039209,
+    "Green Component": 0.27058823529411763,
+    "Blue Component": 0.41176470588235292
+  },
+  "Ansi 6 Color": {
+    "Red Component": 0.53333333333333333,
+    "Green Component": 0.84705882352941175,
+    "Blue Component": 0.69019607843137254
+  },
+  "Ansi 7 Color": {
+    "Red Component": 0.90980392156862744,
+    "Green Component": 0.8901960784313725,
+    "Blue Component": 0.8901960784313725
+  },
+  
+  "Background Color": {
+    "Red Component": 0.10196078431372549,
+    "Green Component": 0.08627450980392157,
+    "Blue Component": 0.14509803921568629
+  },
+  "Foreground Color": {
+    "Red Component": 0.90980392156862744,
+    "Green Component": 0.8901960784313725,
+    "Blue Component": 0.8901960784313725
+  },
+  "Cursor Color": {
+    "Red Component": 1.0,
+    "Green Component": 0.84313725490196079,
+    "Blue Component": 0.0
+  },
+  "Selection Color": {
+    "Red Component": 0.41960784313725491,
+    "Green Component": 0.35686274509803922,
+    "Blue Component": 0.58431372549019611
+  },
+  
+  "Normal Font": "VictorMono-Italic 14",
+  "Bold Font": "VictorMono-BoldItalic 14",
+  "Non Ascii Font": "VictorMono-Italic 14",
+  "Use Bold Font": true,
+  "Use Bright Bold": true,
+  "Use Italic Font": true,
+  "Use Non-ASCII Font": false,
+  
+  "Transparency": 0.05,
+  "Blur": true,
+  "Blur Radius": 2.0,
+  "Background Image Location": "",
+  "Blend": 0.3,
+  
+  "Cursor Guide Color": {
+    "Red Component": 0.65,
+    "Green Component": 0.91,
+    "Blue Component": 1.0,
+    "Alpha Component": 0.25
+  },
+  "Cursor Type": 2,
+  "Cursor Boost": 0.0,
+  "Blinking Cursor": true,
+  
+  "Scrollback Lines": 10000,
+  "Unlimited Scrollback": false,
+  "Scrollback With Status Bar": false,
+  
+  "Terminal Type": "xterm-256color",
+  "Environment": {
+    "TERM_PROGRAM": "iTerm.app"
+  },
+  
+  "Window Type": 0,
+  "Screen": -1,
+  "Space": -1,
+  "Columns": 120,
+  "Rows": 35,
+  
+  "ASCII Anti Aliased": true,
+  "Non-ASCII Anti Aliased": true,
+  "ASCII Ligatures": true,
+  "Non-ASCII Ligatures": true,
+  
+  "Minimum Contrast": 0.0,
+  "Draw Powerline Glyphs": true,
+  "Only The Default BG Color Uses Transparency": false,
+  
+  "Prompt Before Closing 2": 0,
+  "Silence Bell": true,
+  "Flashing Bell": false,
+  "Visual Bell": true,
+  
+  "Smart Cursor Color": true,
+  "Smart Selection Rules": [
+    {
+      "notes": "Word bounded by whitespace",
+      "precision": "low",
+      "regex": "\\S+",
+      "actions": [
+        {
+          "title": "Open with system editor",
+          "action": "OpenWithEditor"
+        }
+      ]
+    }
+  ]
+}

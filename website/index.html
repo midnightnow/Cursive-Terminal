@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursive Terminal - Transform Your Code into Art</title>
+    <meta name="description" content="Beautiful cursive fonts for developers. Transform your terminal into elegant, flowing script while maintaining perfect code alignment.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cursive Terminal - Beautiful Fonts for Developers">
+    <meta property="og:description" content="Transform your boring terminal into a beautiful cursive writing experience">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cursiveterminal.com">
+    <meta property="og:image" content="https://cursiveterminal.com/assets/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cursive Terminal - Beautiful Fonts for Developers">
+    <meta name="twitter:description" content="Transform your boring terminal into a beautiful cursive writing experience">
+    <meta name="twitter:image" content="https://cursiveterminal.com/assets/twitter-card.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Victor+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="src/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- Analytics -->
+    <script defer data-domain="cursiveterminal.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <svg class="nav-logo" viewBox="0 0 32 32" fill="none">
+                    <path d="M4 8h24v16H4z" stroke="currentColor" stroke-width="2" fill="none" rx="2"/>
+                    <path d="M8 12h16M8 16h12M8 20h8" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+                    <circle cx="24" cy="20" r="2" fill="currentColor" opacity="0.5"/>
+                </svg>
+                <span class="nav-title">Cursive Terminal</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#fonts">Fonts</a>
+                <a href="#download">Download</a>
+                <a href="#docs">Docs</a>
+                <a href="https://github.com/cursive-terminal/setup" target="_blank" class="nav-github">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                ✨ Transform your terminal into art
+            </div>
+            
+            <h1 class="hero-title">
+                Beautiful <span class="hero-cursive">Cursive</span> Fonts<br>
+                for Developers
+            </h1>
+            
+            <p class="hero-subtitle">
+                Make coding feel like writing poetry. Perfect monospace alignment meets elegant, flowing cursive typography in your terminal.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                    Download Free
+                </a>
+                <a href="#demo" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Watch Demo
+                </a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Downloads</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Cursive Fonts</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4.9★</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="btn-close"></span>
+                        <span class="btn-minimize"></span>
+                        <span class="btn-maximize"></span>
+                    </div>
+                    <div class="terminal-title">Terminal — cursive-demo</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">echo "Welcome to cursive coding!"</span>
+                    </div>
+                    <div class="terminal-line output">
+                        <span class="cursive-text">Welcome to cursive coding!</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">function fibonacci(n) {</span>
+                    </div>
+                    <div class="terminal-line comment">
+                        <span class="cursive-text">  // Beautiful cursive comments</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="code">  return n <= 1 ? n : fib(n-1) + fib(n-2);</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="code">}</span>
+                    </div>
+                    <div class="terminal-cursor">_</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Cursive Terminal?</h2>
+                <p>Perfect for developers who value both functionality and aesthetics</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔤</div>
+                    <h3>5+ Curated Fonts</h3>
+                    <p>Carefully selected cursive monospace fonts including Victor Mono, Cascadia Code, and JetBrains Mono</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>One-Click Setup</h3>
+                    <p>Automatic installation and configuration for Terminal.app, iTerm2, Alacritty, and more</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Themes</h3>
+                    <p>Professionally designed color schemes optimized specifically for cursive fonts</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Advanced Tools</h3>
+                    <p>Font comparison, custom oblique generator, and syntax highlighting configuration</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Perfect Alignment</h3>
+                    <p>Maintains monospace spacing for perfect code formatting while adding cursive elegance</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Cross-Platform</h3>
+                    <p>Works across different terminals and shells with comprehensive documentation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Showcase -->
+    <section id="fonts" class="fonts">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Fonts</h2>
+                <p>Each font offers a unique cursive personality while maintaining code readability</p>
+            </div>
+            
+            <div class="font-cards">
+                <div class="font-card featured">
+                    <div class="font-header">
+                        <h3>Victor Mono</h3>
+                        <span class="font-badge">Most Popular</span>
+                    </div>
+                    <div class="font-preview">
+                        <pre class="font-sample victor-mono">function example() {
+  // Semi-connected cursive
+  const beauty = true;
+  return beauty;
+}</pre>
+                    </div>
+                    <p class="font-description">Beautiful semi-connected cursive letters with excellent ligature support</p>
+                    <div class="font-stats">
+                        <span>★★★★★</span>
+                        <span>Free • OFL License</span>
+                    </div>
+                </div>
+                
+                <div class="font-card">
+                    <div class="font-header">
+                        <h3>Cascadia Code</h3>
+                        <span class="font-badge">Microsoft</span>
+                    </div>
+                    <div class="font-preview">
+                        <pre class="font-sample cascadia">function example() {
+  // Elegant cursive
+  const beauty = true;
+  return beauty;
+}</pre>
+                    </div>
+                    <p class="font-description">Microsoft's elegant approach to cursive programming fonts</p>
+                    <div class="font-stats">
+                        <span>★★★★☆</span>
+                        <span>Free • OFL License</span>
+                    </div>
+                </div>
+                
+                <div class="font-card">
+                    <div class="font-header">
+                        <h3>JetBrains Mono</h3>
+                        <span class="font-badge">Subtle</span>
+                    </div>
+                    <div class="font-preview">
+                        <pre class="font-sample jetbrains">function example() {
+  // Subtle cursive
+  const beauty = true;
+  return beauty;
+}</pre>
+                    </div>
+                    <p class="font-description">Subtle cursive styling with exceptional readability for long coding sessions</p>
+                    <div class="font-stats">
+                        <span>★★★★☆</span>
+                        <span>Free • OFL License</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-info">
+                    <h2>Get Started Today</h2>
+                    <p>Transform your terminal in minutes with our easy installation process</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <h3>🖥️ Command Line</h3>
+                            <p>For developers who love terminal tools</p>
+                            <div class="code-block">
+                                <code>git clone https://github.com/cursive-terminal/setup.git<br>cd cursive-terminal-setup<br>./install.sh</code>
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            </div>
+                        </div>
+                        
+                        <div class="download-option">
+                            <h3>📱 Mac App Store</h3>
+                            <p>Beautiful GUI application for macOS</p>
+                            <a href="#" class="app-store-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                </svg>
+                                Download from App Store
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="system-requirements">
+                        <h4>System Requirements</h4>
+                        <ul>
+                            <li>macOS 11.0+ (Big Sur or later)</li>
+                            <li>Homebrew (for command line installation)</li>
+                            <li>Terminal.app, iTerm2, or Alacritty</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="download-visual">
+                    <div class="installation-steps">
+                        <div class="step active">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Download</h4>
+                                <p>Clone or download the setup repository</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Install</h4>
+                                <p>Run the installation script to set up fonts</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Configure</h4>
+                                <p>Apply cursive font to your terminal</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Enjoy</h4>
+                                <p>Start coding in beautiful cursive!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community">
+        <div class="container">
+            <div class="section-header">
+                <h2>Join the Community</h2>
+                <p>Connect with developers who love beautiful terminals</p>
+            </div>
+            
+            <div class="community-cards">
+                <a href="https://github.com/cursive-terminal/setup" class="community-card">
+                    <div class="community-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>Contribute, report issues, and follow development</p>
+                    <span class="community-stats">15K+ stars</span>
+                </a>
+                
+                <a href="https://discord.gg/cursive-terminal" class="community-card">
+                    <div class="community-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </div>
+                    <h3>Discord</h3>
+                    <p>Chat with other users, get help, and share setups</p>
+                    <span class="community-stats">5K+ members</span>
+                </a>
+                
+                <a href="https://twitter.com/cursiveterminal" class="community-card">
+                    <div class="community-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </div>
+                    <h3>Twitter</h3>
+                    <p>Follow for updates, tips, and beautiful terminal showcases</p>
+                    <span class="community-stats">12K+ followers</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg class="footer-logo" viewBox="0 0 32 32" fill="none">
+                        <path d="M4 8h24v16H4z" stroke="currentColor" stroke-width="2" fill="none" rx="2"/>
+                        <path d="M8 12h16M8 16h12M8 20h8" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+                        <circle cx="24" cy="20" r="2" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                    <div>
+                        <div class="footer-title">Cursive Terminal</div>
+                        <div class="footer-subtitle">Beautiful fonts for developers</div>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#fonts">Fonts</a>
+                        <a href="#download">Download</a>
+                        <a href="#pricing">Pricing</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <a href="/docs">Documentation</a>
+                        <a href="/tutorials">Tutorials</a>
+                        <a href="/changelog">Changelog</a>
+                        <a href="/api">API</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <a href="https://github.com/cursive-terminal/setup">GitHub</a>
+                        <a href="https://discord.gg/cursive-terminal">Discord</a>
+                        <a href="https://twitter.com/cursiveterminal">Twitter</a>
+                        <a href="/blog">Blog</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <a href="/about">About</a>
+                        <a href="/privacy">Privacy</a>
+                        <a href="/terms">Terms</a>
+                        <a href="/contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cursive Terminal. Made with ❤️ for beautiful code.</p>
+                <div class="footer-social">
+                    <a href="https://twitter.com/cursiveterminal" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/cursive-terminal/setup" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="src/script.js"></script>
+</body>
+</html>

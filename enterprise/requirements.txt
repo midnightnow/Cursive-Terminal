@@ -1,0 +1,134 @@
+# Cursive Terminal Enterprise - Python Dependencies
+
+# Core framework
+asyncio>=3.4.3
+dataclasses>=0.6
+typing-extensions>=4.0.0
+
+# Cryptography and security
+cryptography>=41.0.0
+paramiko>=3.3.1
+bcrypt>=4.0.1
+
+# Configuration and data
+pyyaml>=6.0.1
+configparser>=5.3.0
+
+# HTTP and API
+requests>=2.31.0
+urllib3>=2.0.4
+aiohttp>=3.8.5
+
+# Database and storage
+sqlite3  # Built-in with Python
+sqlalchemy>=2.0.19  # Optional ORM for advanced use
+
+# System and process management
+psutil>=5.9.5
+subprocess32>=3.5.4; python_version<"3.0"
+
+# SSH and remote execution
+fabric>=3.2.2
+invoke>=2.2.0
+
+# LDAP integration (optional)
+python-ldap>=3.4.3
+ldap3>=2.9.1
+
+# SAML/OAuth integration (optional)
+python-saml>=1.15.0
+authlib>=1.2.1
+pyjwt>=2.8.0
+
+# Monitoring and logging
+prometheus-client>=0.17.1
+structlog>=23.1.0
+colorama>=0.4.6
+
+# Date and time
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# Template rendering
+jinja2>=3.1.2
+markupsafe>=2.1.3
+
+# File and path handling
+pathlib>=1.0.1  # Built-in with Python 3.4+
+watchdog>=3.0.0
+
+# Networking and communication
+netifaces>=0.11.0
+ipaddress  # Built-in with Python 3.3+
+
+# Progress and CLI
+tqdm>=4.66.1
+click>=8.1.6
+rich>=13.5.2
+
+# Testing (development)
+pytest>=7.4.0
+pytest-asyncio>=0.21.1
+pytest-mock>=3.11.1
+coverage>=7.3.0
+
+# Documentation (development)
+sphinx>=7.1.2
+sphinx-rtd-theme>=1.3.0
+
+# Linting and formatting (development)
+black>=23.7.0
+flake8>=6.0.0
+mypy>=1.5.1
+isort>=5.12.0
+
+# Performance monitoring
+memory-profiler>=0.61.0
+line-profiler>=4.1.1
+
+# Enterprise integrations
+# Slack
+slack-sdk>=3.22.0
+
+# Microsoft Teams
+pymsteams>=0.2.2
+
+# Ansible (optional)
+ansible>=8.2.0
+ansible-core>=2.15.2
+
+# PowerShell (optional, Windows)
+# powershell  # External dependency
+
+# Kubernetes (optional)
+kubernetes>=27.2.0
+
+# Docker (optional)
+docker>=6.1.3
+
+# Cloud providers (optional)
+boto3>=1.28.0  # AWS
+azure-identity>=1.14.0  # Azure
+google-cloud>=0.34.0  # GCP
+
+# Metrics and telemetry
+opentelemetry-api>=1.19.0
+opentelemetry-sdk>=1.19.0
+opentelemetry-exporter-prometheus>=1.12.0
+
+# Email notifications
+smtplib  # Built-in with Python
+email-validator>=2.0.0
+
+# PDF reporting (optional)
+reportlab>=4.0.4
+matplotlib>=3.7.2
+
+# Excel reporting (optional)
+openpyxl>=3.1.2
+xlsxwriter>=3.1.3
+
+# Backup and compression
+tarfile  # Built-in with Python
+zipfile  # Built-in with Python
+gzip  # Built-in with Python

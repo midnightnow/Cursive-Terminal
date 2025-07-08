@@ -11,10 +11,13 @@ This repository contains everything you need to set up a **fully cursive termina
 ## ✨ Features
 
 - **5+ Cursive Monospace Fonts**: Victor Mono, Cascadia Code, JetBrains Mono, and more
+- **Visual Font Gallery**: PNG previews showing each font's cursive style
+- **Animated Showcase**: GIF demonstrations of cursive terminal in action
 - **Custom Terminal Themes**: Beautiful color schemes optimized for cursive fonts
 - **Enhanced Syntax Highlighting**: Make comments and strings extra beautiful
 - **Font Generation Tools**: Create your own oblique/cursive variants
 - **Complete Configuration**: iTerm2 profiles, Neovim configs, and more
+- **Professional Setup**: Full installation script and MIT license
 
 ## 🚀 Quick Start
 
@@ -35,17 +38,24 @@ cd cursive-terminal-setup
 ```
 cursive-terminal-setup/
 ├── scripts/
-│   ├── cursive_font_demo.sh      # Demo script showing cursive features
-│   ├── create_oblique_font.py    # Create custom slanted fonts
-│   └── quick_setup.sh            # Quick installation script
+│   ├── cursive_font_demo.sh         # Demo script showing cursive features
+│   ├── font_comparison.sh           # Compare different cursive fonts
+│   ├── showcase.sh                  # Animated feature showcase
+│   ├── font_preview_generator.py    # Generate font preview images
+│   ├── showcase_gif_generator.sh    # Create animated GIF demos
+│   ├── license_generator.sh         # Generate MIT license
+│   └── create_oblique_font.py       # Create custom slanted fonts
 ├── themes/
-│   └── cursive_terminal_themes.sh # Beautiful terminal color themes
+│   └── cursive_terminal_themes.sh   # Beautiful terminal color themes
 ├── configs/
-│   ├── cursive_iterm_profile.json # iTerm2 profile with cursive settings
-│   ├── cursive_neovim_config.lua  # Neovim configuration for cursive
-│   └── starship.toml              # Starship prompt with cursive styling
-└── docs/
-    └── full_setup_guide.md        # Comprehensive setup instructions
+│   ├── cursive_iterm_profile.json   # iTerm2 profile with cursive settings
+│   ├── cursive_neovim_config.lua    # Neovim configuration for cursive
+│   └── starship.toml                # Starship prompt with cursive styling
+├── docs/
+│   ├── images/                      # Font previews and demo GIFs
+│   └── FONT_GALLERY.md             # Visual font comparison gallery
+├── install.sh                       # Complete installation script
+└── LICENSE                          # MIT license
 ```
 
 ## 🎯 Recommended Fonts
@@ -104,6 +114,20 @@ Manual pages render with cursive emphasis for readability.
 </details>
 
 ## 🛠️ Advanced Setup
+
+### Generate Font Previews
+Create visual comparisons of all cursive fonts:
+```bash
+# Requires: pip install Pillow
+python scripts/font_preview_generator.py
+```
+
+### Create Animated Demo
+Generate a showcase GIF for your repository:
+```bash
+# Requires: brew install asciinema && cargo install --git https://github.com/asciinema/agg
+./scripts/showcase_gif_generator.sh
+```
 
 ### Create Your Own Oblique Font
 ```bash

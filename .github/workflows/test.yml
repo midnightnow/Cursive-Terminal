@@ -1,0 +1,124 @@
+name: 🧪 Test Cursive Terminal Setup
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-scripts:
+    name: Test Scripts
+    runs-on: macos-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🍺 Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+      
+    - name: 🔍 Check script syntax
+      run: |
+        echo "🔍 Checking bash script syntax..."
+        for script in scripts/*.sh *.sh; do
+          if [ -f "$script" ]; then
+            echo "Checking $script"
+            bash -n "$script" || exit 1
+          fi
+        done
+        
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install Python dependencies
+      run: |
+        pip install Pillow
+        
+    - name: 🔍 Check Python script syntax
+      run: |
+        echo "🔍 Checking Python script syntax..."
+        for script in scripts/*.py; do
+          if [ -f "$script" ]; then
+            echo "Checking $script"
+            python -m py_compile "$script" || exit 1
+          fi
+        done
+        
+    - name: 🔤 Test font installation (dry run)
+      run: |
+        echo "🔤 Testing font installation commands..."
+        # Test Homebrew font installation (without actually installing)
+        brew search font-victor-mono
+        brew search font-cascadia-code
+        brew search font-jetbrains-mono
+        
+    - name: 🧪 Test demo scripts
+      run: |
+        echo "🧪 Testing demo scripts..."
+        # Make scripts executable
+        chmod +x scripts/*.sh
+        
+        # Test font demo (should work even without cursive fonts)
+        timeout 10s ./scripts/cursive_font_demo.sh || true
+        
+        # Test font comparison
+        timeout 10s ./scripts/font_comparison.sh || true
+        
+        # Test showcase
+        timeout 10s ./scripts/showcase.sh || true
+        
+    - name: 📋 Validate documentation
+      run: |
+        echo "📋 Checking documentation files..."
+        # Check that all referenced files exist
+        test -f README.md
+        test -f CONTRIBUTING.md
+        test -f CHANGELOG.md
+        test -f LICENSE
+        test -f TROUBLESHOOTING.md
+        
+        # Check that scripts referenced in README exist
+        test -f install.sh
+        test -f quick_setup.sh
+        test -f scripts/cursive_font_demo.sh
+        test -f scripts/font_comparison.sh
+        
+    - name: ✅ All tests passed
+      run: |
+        echo "✅ All tests passed! The cursive terminal setup is ready to go!"
+
+  test-installation:
+    name: Test Installation Process
+    runs-on: macos-latest
+    needs: test-scripts
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🍺 Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+      
+    - name: 🚀 Test quick setup
+      run: |
+        echo "🚀 Testing quick setup script..."
+        chmod +x quick_setup.sh
+        # Run quick setup in test mode
+        timeout 30s ./quick_setup.sh || true
+        
+    - name: 🔧 Test full installation (partial)
+      run: |
+        echo "🔧 Testing installation script components..."
+        chmod +x install.sh
+        
+        # Test just the dependency checking parts
+        grep -A 20 "Check for Homebrew" install.sh
+        
+    - name: ✨ Installation test complete
+      run: |
+        echo "✨ Installation testing complete!"

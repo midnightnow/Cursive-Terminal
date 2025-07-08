@@ -1,0 +1,95 @@
+name: 🔤 Font Request
+description: Request support for a new cursive monospace font
+title: "[Font]: Add support for "
+labels: ["font-request", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found an amazing cursive monospace font that should be included? 
+        Let us know and we'll consider adding it to the setup!
+
+  - type: input
+    id: font-name
+    attributes:
+      label: Font Name
+      description: What's the name of the font?
+      placeholder: e.g. "Comic Code"
+    validations:
+      required: true
+
+  - type: input
+    id: font-website
+    attributes:
+      label: Font Website/Repository
+      description: Where can we find this font?
+      placeholder: https://github.com/example/font-name
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Font License
+      description: What license is the font released under?
+      options:
+        - Open Font License (OFL)
+        - MIT License
+        - Apache License
+        - BSD License
+        - Proprietary/Commercial
+        - Unknown
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: availability
+    attributes:
+      label: Installation Method
+      description: How can users install this font?
+      options:
+        - Homebrew Cask (brew install)
+        - Direct download from website
+        - Google Fonts
+        - Package manager (apt, pacman, etc.)
+        - Manual installation only
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: cursive-features
+    attributes:
+      label: Cursive Features
+      description: What makes this font special for cursive terminals?
+      placeholder: |
+        Describe the cursive characteristics:
+        - Connected letters?
+        - Script-like italics?
+        - Special ligatures?
+        - Unique style elements?
+    validations:
+      required: true
+
+  - type: textarea
+    id: sample-text
+    attributes:
+      label: Sample Text/Screenshot
+      description: Can you provide a sample of what the font looks like?
+      placeholder: Paste sample text or describe how to see font samples
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: This font is monospaced (fixed-width)
+          required: true
+        - label: This font has cursive/italic variants
+          required: true
+        - label: This font is freely available or has clear licensing
+          required: true

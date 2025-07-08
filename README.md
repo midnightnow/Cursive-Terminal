@@ -1,8 +1,20 @@
 # ✒️ Cursive Terminal Setup
 
-> Transform your boring monospace terminal into a beautiful cursive writing experience!
+<div align="center">
+
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![macOS](https://img.shields.io/badge/macOS-12%2B-success.svg)](https://www.apple.com/macos/)
+[![Terminal](https://img.shields.io/badge/Terminal-iTerm2%20%7C%20Terminal.app-lightgrey.svg)](#terminal-setup)
+[![Fonts](https://img.shields.io/badge/Fonts-5%2B%20Cursive-purple.svg)](#recommended-fonts)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+*Transform your boring monospace terminal into a beautiful cursive writing experience!*
 
 ![Victor Mono Cursive](https://raw.githubusercontent.com/rubjo/victor-mono/master/public/header.gif)
+
+**[Quick Start](#-quick-start) • [Font Gallery](docs/FONT_GALLERY.md) • [Contributing](CONTRIBUTING.md) • [Troubleshooting](TROUBLESHOOTING.md)**
+
+</div>
 
 ## 🎨 What is this?
 
@@ -146,23 +158,44 @@ source themes/cursive-garden.sh
 
 Found a new cursive monospace font? Have a beautiful theme? PRs welcome!
 
-1. Fork this repository
-2. Add your enhancement
-3. Submit a pull request
+We love contributions! Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
+
+### Quick Contribution Ideas
+- 🔤 Add support for new cursive fonts
+- 🎨 Create new terminal themes
+- 📚 Improve documentation
+- 🐛 Fix bugs and issues
+- 🎬 Create demo videos or GIFs
+
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed release notes and version history.
 
 ## 📝 License
 
-MIT - Because beautiful terminals should be free!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- [Victor Mono](https://rubjo.github.io/victor-mono/) by Rune Bjørnerås
-- [Cascadia Code](https://github.com/microsoft/cascadia-code) by Microsoft
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/) by JetBrains
-- Created with the help of Claude Code
+### Fonts
+- **[Victor Mono](https://rubjo.github.io/victor-mono/)** by Rune Bjørnerås
+- **[Cascadia Code](https://github.com/microsoft/cascadia-code)** by Microsoft
+- **[JetBrains Mono](https://www.jetbrains.com/lp/mono/)** by JetBrains
+- **[Fira Code](https://github.com/tonsky/FiraCode)** by Nikita Prokopov
+
+### Tools & Inspiration
+- Terminal emulator developers for excellent font rendering
+- The typography community for beautiful monospace fonts
+- Developers who value aesthetics in their tools
 
 ---
 
+<div align="center">
+
 **⚡ Fun Fact**: You're joining an elite group of developers who code entirely in cursive! Welcome to the club! ✨
 
-Made with ❤️ and a love for beautiful typography.
+*Made with ❤️ and a love for beautiful typography*
+
+**[⭐ Star this repo](../../stargazers) if it made your terminal beautiful!**
+
+</div>

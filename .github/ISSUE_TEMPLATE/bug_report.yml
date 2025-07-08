@@ -1,0 +1,84 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve the cursive terminal setup
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 
+        Please provide as much detail as possible to help us resolve the issue.
+
+  - type: dropdown
+    id: terminal
+    attributes:
+      label: Terminal Application
+      description: Which terminal app are you using?
+      options:
+        - Terminal.app (macOS default)
+        - iTerm2
+        - Alacritty
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: font
+    attributes:
+      label: Font
+      description: Which cursive font are you having issues with?
+      options:
+        - Victor Mono
+        - Cascadia Code
+        - JetBrains Mono
+        - Fira Code
+        - SF Mono Oblique (custom)
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug you encountered
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Tell us what you expected!
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Run the command...
+        2. Set font to...
+        3. See error...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: macOS Version
+      description: What version of macOS are you running?
+      placeholder: e.g. macOS 14.0 Sonoma
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output/screenshots
+      description: Please copy and paste any relevant terminal output or attach screenshots
+      render: shell

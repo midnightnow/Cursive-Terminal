@@ -10,7 +10,7 @@
 
 *Transform your boring monospace terminal into a beautiful cursive writing experience!*
 
-![Victor Mono Cursive](https://raw.githubusercontent.com/rubjo/victor-mono/master/public/header.gif)
+![Cursive Terminal Themes](docs/images/theme-gallery-grid.png)
 
 **[Quick Start](#-quick-start) • [Font Gallery](docs/FONT_GALLERY.md) • [Contributing](CONTRIBUTING.md) • [Troubleshooting](TROUBLESHOOTING.md)**
 
@@ -22,30 +22,57 @@ This repository contains everything you need to set up a **fully cursive termina
 
 ## ✨ Features
 
+- **33 Beautiful Themes**: From Vampire's Letter to Ancient Papyrus
 - **5+ Cursive Monospace Fonts**: Victor Mono, Cascadia Code, JetBrains Mono, and more
+- **Interactive Theme Selector**: Browse, preview, and apply themes instantly
 - **Visual Font Gallery**: PNG previews showing each font's cursive style
 - **Animated Showcase**: GIF demonstrations of cursive terminal in action
-- **Custom Terminal Themes**: Beautiful color schemes optimized for cursive fonts
 - **Enhanced Syntax Highlighting**: Make comments and strings extra beautiful
 - **Font Generation Tools**: Create your own oblique/cursive variants
 - **Complete Configuration**: iTerm2 profiles, Neovim configs, and more
 - **Professional Setup**: Full installation script and MIT license
 
+## 🎨 33 Beautiful Themes
+
+Transform your terminal with our collection of 33 hand-crafted cursive themes. Each theme is carefully designed for comfort and beauty.
+
+<div align="center">
+
+### ✨ Featured Themes
+
+| Dark Themes | Light Themes | Colorful Themes |
+|:-----------:|:------------:|:---------------:|
+| ![Vampire's Letter](docs/images/theme-demos/vampires-letter/demo.png) | ![Ancient Papyrus](docs/images/theme-demos/ancient-papyrus/demo.png) | ![Rainbow Prism](docs/images/theme-demos/rainbow-prism/demo.png) |
+| **🧛 Vampire's Letter** | **📜 Ancient Papyrus** | **🌈 Rainbow Prism** |
+| Dark velvet & blood red | Aged manuscript feel | Vibrant rainbow syntax |
+
+### 🌟 Theme Categories
+
+- **Dark Themes (9)**: Perfect for late-night coding sessions
+- **Light Themes (6)**: Manuscript-inspired for bright environments  
+- **Colorful Themes (6)**: Vibrant colors for creative coding
+- **Business Themes (6)**: Professional document styles
+- **WCAG-AA Themes (6)**: High contrast, accessibility-focused
+
+[**🎨 Browse All 33 Themes →**](https://midnightnow.github.io/Cursive-Terminal/themes/)
+
+</div>
+
 ## 🚀 Quick Start
 
 ```bash
 # Clone this repository
-git clone https://github.com/yourusername/cursive-terminal-setup.git
-cd cursive-terminal-setup
+git clone https://github.com/midnightnow/Cursive-Terminal.git
+cd Cursive-Terminal
 
-# Run the quick setup
-./quick_setup.sh
+# Install all 33 themes
+./scripts/install-all-themes.sh
 
-# Test cursive rendering
-./scripts/cursive_font_demo.sh
+# Launch interactive theme selector
+./scripts/theme-selector.sh
 
-# View colorful cursive demo
-./scripts/colored_text_demo.sh
+# Or try a specific theme
+source ~/.config/terminal-themes/vampires-letter.sh
 ```
 
 ## 📦 What's Included

@@ -113,7 +113,7 @@ Set Victor Mono Italic as your main terminal font to make EVERYTHING cursive!
 ## 📸 Screenshots
 
 ### Font Showcase
-![Cursive Font Showcase](docs/images/cursive_font_showcase.jpeg)
+![Cursive Font Showcase](docs/images/cursive_font_showcase.png)
 *Beautiful cursive fonts in action*
 
 ### ASCII Art Display

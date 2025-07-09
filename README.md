@@ -43,6 +43,9 @@ cd cursive-terminal-setup
 
 # Test cursive rendering
 ./scripts/cursive_font_demo.sh
+
+# View colorful cursive demo
+./scripts/colored_text_demo.sh
 ```
 
 ## 📦 What's Included
@@ -51,6 +54,7 @@ cd cursive-terminal-setup
 cursive-terminal-setup/
 ├── scripts/
 │   ├── cursive_font_demo.sh         # Demo script showing cursive features
+│   ├── colored_text_demo.sh         # Colorful text demo with cursive fonts
 │   ├── font_comparison.sh           # Compare different cursive fonts
 │   ├── showcase.sh                  # Animated feature showcase
 │   ├── font_preview_generator.py    # Generate font preview images
@@ -108,8 +112,33 @@ Set Victor Mono Italic as your main terminal font to make EVERYTHING cursive!
 
 ## 📸 Screenshots
 
+### Font Showcase
+![Cursive Font Showcase](docs/images/cursive_font_showcase.jpeg)
+*Beautiful cursive fonts in action*
+
+### ASCII Art Display
+![Cursive Font ASCII Art](docs/images/cursive_font_ascii_art.jpg)
+*ASCII art looks amazing in cursive fonts*
+
+### Font Comparison
+![Font Comparison](docs/images/font_comparison.jpg)
+*Side-by-side comparison of cursive fonts*
+
+### Colored Text Demo
+![Cursive Terminal Color Showcase](docs/images/color_screenshots/cursive_terminal_color_showcase.jpg)
+*Colorful text rendering with cursive fonts*
+
+![Cursive Code Color ASCII](docs/images/color_screenshots/cursive_code_color_ascii.jpg)
+*Colored ASCII art in cursive*
+
+![Cursive Code Color Text Styles](docs/images/color_screenshots/cursive_code_color_text_styles.jpg)
+*Various text styles and colors*
+
+![Cursor Code Color Effects](docs/images/color_screenshots/cursor_code_color_effects.jpg)
+*Beautiful color effects and gradients*
+
 <details>
-<summary>Click to see terminal screenshots</summary>
+<summary>View code examples in cursive</summary>
 
 ### Code Comments in Cursive
 ```javascript

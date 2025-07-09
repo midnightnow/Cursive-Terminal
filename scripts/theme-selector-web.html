@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursive Terminal Theme Selector</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-color: #1a1a2e;
+            --text-color: #e8e3e3;
+            --accent-color: #ffd700;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --shadow: rgba(255, 215, 0, 0.2);
+            --font-style: italic;
+        }
+        
+        body {
+            font-family: 'Victor Mono', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-style: var(--font-style);
+            color: var(--accent-color);
+            text-shadow: 0 0 20px var(--shadow);
+            margin-bottom: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        button, select, input {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover, select:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        input[type="search"] {
+            width: 300px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .tab.active {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        .tab .count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .theme-card {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+            border-color: var(--accent-color);
+        }
+        
+        .theme-card.active {
+            border-width: 3px;
+            box-shadow: 0 0 30px var(--shadow);
+        }
+        
+        .theme-card .emoji {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+        }
+        
+        .theme-card .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            font-style: var(--font-style);
+        }
+        
+        .theme-card .description {
+            font-size: 14px;
+            opacity: 0.8;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .theme-card .preview {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 12px;
+            font-style: var(--font-style);
+        }
+        
+        .preview-panel {
+            position: fixed;
+            right: 20px;
+            top: 120px;
+            width: 400px;
+            max-height: calc(100vh - 140px);
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 90;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .preview-panel.active {
+            display: block;
+        }
+        
+        .preview-panel h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .preview-content {
+            font-style: var(--font-style);
+        }
+        
+        .code-preview {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .floating-actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .fab:hover {
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+        
+        .customizer {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        .customizer.active {
+            display: block;
+        }
+        
+        .slider-group {
+            margin: 15px 0;
+        }
+        
+        .slider-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-panel {
+                position: static;
+                width: 100%;
+                margin: 20px 0;
+            }
+            
+            input[type="search"] {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Cursive Terminal Theme Selector</h1>
+        <p>Choose from 33 beautiful themes for your cursive terminal experience</p>
+        
+        <div class="controls">
+            <div class="control-group">
+                <input type="search" id="searchInput" placeholder="Search themes..." />
+            </div>
+            <div class="control-group">
+                <button id="randomBtn">🎲 Random</button>
+                <button id="previewToggle">👁️ Preview</button>
+                <button id="saveBtn">💾 Save</button>
+            </div>
+            <div class="control-group">
+                <select id="sortSelect">
+                    <option value="name">Sort by Name</option>
+                    <option value="category">Sort by Category</option>
+                    <option value="brightness">Sort by Brightness</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <div class="category-tabs">
+        <div class="tab active" data-category="all">
+            All Themes
+            <span class="count">33</span>
+        </div>
+        <div class="tab" data-category="dark">
+            Dark
+            <span class="count">9</span>
+        </div>
+        <div class="tab" data-category="light">
+            Light
+            <span class="count">6</span>
+        </div>
+        <div class="tab" data-category="colorful">
+            Colorful
+            <span class="count">6</span>
+        </div>
+        <div class="tab" data-category="business">
+            Business
+            <span class="count">6</span>
+        </div>
+        <div class="tab" data-category="feather">
+            WCAG-AA
+            <span class="count">6</span>
+        </div>
+    </div>
+    
+    <div class="theme-grid" id="themeGrid"></div>
+    
+    <div class="preview-panel" id="previewPanel">
+        <h3>Theme Preview</h3>
+        <div class="preview-content">
+            <p>This is how your terminal will look with this theme.</p>
+            <div class="code-preview">
+                <pre><code>function cursiveDemo() {
+  // Beautiful cursive comments
+  const message = 'Coding in style!';
+  return message;
+}</code></pre>
+            </div>
+            <p>Special characters: -> => != === ++ -- <= >= <> ...</p>
+        </div>
+    </div>
+    
+    <div class="floating-actions">
+        <button class="fab" id="customizeBtn" title="Customize">🎨</button>
+        <button class="fab" id="exportBtn" title="Export">📤</button>
+    </div>
+    
+    <div class="customizer" id="customizer">
+        <h3>Customize Theme</h3>
+        <div class="slider-group">
+            <label>Background Darkness: <span id="bgValue">50</span>%</label>
+            <input type="range" id="bgSlider" min="0" max="100" value="50">
+        </div>
+        <div class="slider-group">
+            <label>Text Contrast: <span id="contrastValue">75</span>%</label>
+            <input type="range" id="contrastSlider" min="0" max="100" value="75">
+        </div>
+        <div class="slider-group">
+            <label>Accent Intensity: <span id="accentValue">80</span>%</label>
+            <input type="range" id="accentSlider" min="0" max="100" value="80">
+        </div>
+        <button id="resetCustom">Reset to Default</button>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        // Theme data
+        const themes = {
+            'cursive-elegance': {
+                name: 'Cursive Elegance',
+                emoji: '✨',
+                category: 'dark',
+                description: 'Purple/Gold - Sophisticated and elegant',
+                colors: { bg: '#1A1625', text: '#E8E3E3', accent: '#FFD700' }
+            },
+            'cursive-noir': {
+                name: 'Cursive Noir',
+                emoji: '⚫',
+                category: 'dark',
+                description: 'Black/Silver - Classic monochrome',
+                colors: { bg: '#0A0A0A', text: '#C0C0C0', accent: '#FFFFFF' }
+            },
+            'cursive-garden': {
+                name: 'Cursive Garden',
+                emoji: '🌿',
+                category: 'dark',
+                description: 'Green/Brown - Natural earth tones',
+                colors: { bg: '#2D3E2D', text: '#FAF8F3', accent: '#8B4513' }
+            },
+            'pirate-scroll': {
+                name: 'Pirate\'s Scroll',
+                emoji: '🏴‍☠️',
+                category: 'dark',
+                description: 'Brown/Gold - Weather-beaten parchment',
+                colors: { bg: '#341A0F', text: '#FFEBCD', accent: '#FFD700' }
+            },
+            'vampires-letter': {
+                name: 'Vampire\'s Letter',
+                emoji: '🧛',
+                category: 'dark',
+                description: 'Black/Red - Dark velvet night',
+                colors: { bg: '#0B0A0C', text: '#F8F8F8', accent: '#FF0033' }
+            },
+            'ocean-mist': {
+                name: 'Ocean Mist',
+                emoji: '🌊',
+                category: 'dark',
+                description: 'Blue/Teal - Deep-sea blues',
+                colors: { bg: '#012B36', text: '#E0F7FA', accent: '#00C2D1' }
+            },
+            'sunset-glow': {
+                name: 'Sunset Glow',
+                emoji: '🌅',
+                category: 'dark',
+                description: 'Orange/Pink - Warm sunset colors',
+                colors: { bg: '#2E1503', text: '#FFF8E7', accent: '#FFA500' }
+            },
+            'forest-grove': {
+                name: 'Forest Grove',
+                emoji: '🌲',
+                category: 'dark',
+                description: 'Green/Brown - Deep forest',
+                colors: { bg: '#0B190D', text: '#E8F5E9', accent: '#8FBC8F' }
+            },
+            'midnight-quill': {
+                name: 'Midnight Quill',
+                emoji: '🌙',
+                category: 'dark',
+                description: 'Indigo/Silver - Night sky',
+                colors: { bg: '#0A0F1A', text: '#EAEAEA', accent: '#6A5ACD' }
+            },
+            'ancient-papyrus': {
+                name: 'Ancient Papyrus',
+                emoji: '📜',
+                category: 'light',
+                description: 'Beige/Brown - Aged papyrus',
+                colors: { bg: '#F5E6D3', text: '#4B3621', accent: '#8B4513' }
+            },
+            'ivory-parchment': {
+                name: 'Ivory Parchment',
+                emoji: '🏛️',
+                category: 'light',
+                description: 'Ivory/Brown - Smooth ivory',
+                colors: { bg: '#FFFFF0', text: '#4B0082', accent: '#800080' }
+            },
+            'linen-manuscript': {
+                name: 'Linen Manuscript',
+                emoji: '🧵',
+                category: 'light',
+                description: 'Linen/Slate - Natural texture',
+                colors: { bg: '#FAF0E6', text: '#2F4F4F', accent: '#708090' }
+            },
+            'calligraphy-scroll': {
+                name: 'Calligraphy Scroll',
+                emoji: '✒️',
+                category: 'light',
+                description: 'Cream/Black - Classic calligraphy',
+                colors: { bg: '#FFF8DC', text: '#000000', accent: '#8B0000' }
+            },
+            'illuminated-manuscript': {
+                name: 'Illuminated Manuscript',
+                emoji: '🎨',
+                category: 'light',
+                description: 'Blue/Navy - Medieval illuminated',
+                colors: { bg: '#F0F8FF', text: '#191970', accent: '#DAA520' }
+            },
+            'invisible-ink': {
+                name: 'Invisible Ink',
+                emoji: '🔍',
+                category: 'light',
+                description: 'Light Gray - Secret messages',
+                colors: { bg: '#F5F5F5', text: '#2F2F2F', accent: '#FF4500' }
+            },
+            'rainbow-prism': {
+                name: 'Rainbow Prism',
+                emoji: '🌈',
+                category: 'colorful',
+                description: 'Dark/Vibrant - Rainbow highlights',
+                colors: { bg: '#1A1A2E', text: '#E94560', accent: '#F39C12' }
+            },
+            'neon-cyberpunk': {
+                name: 'Neon Cyberpunk',
+                emoji: '⚡',
+                category: 'colorful',
+                description: 'Black/Green - Matrix neon',
+                colors: { bg: '#0D1117', text: '#00FF41', accent: '#FF0080' }
+            },
+            'tropical-paradise': {
+                name: 'Tropical Paradise',
+                emoji: '🌺',
+                category: 'colorful',
+                description: 'Teal/Orange - Tropical colors',
+                colors: { bg: '#004D40', text: '#E8F5E8', accent: '#FF6F00' }
+            },
+            'cotton-candy': {
+                name: 'Cotton Candy Dreams',
+                emoji: '🍭',
+                category: 'colorful',
+                description: 'Pink/Purple - Soft swirls',
+                colors: { bg: '#FFE4E1', text: '#8B008B', accent: '#FF1493' }
+            },
+            'aurora-borealis': {
+                name: 'Aurora Borealis',
+                emoji: '🌌',
+                category: 'colorful',
+                description: 'Navy/Green - Aurora lights',
+                colors: { bg: '#0C1445', text: '#E0E0E0', accent: '#00FF7F' }
+            },
+            'sunset-festival': {
+                name: 'Sunset Festival',
+                emoji: '🎪',
+                category: 'colorful',
+                description: 'Purple/Orange - Festival vibes',
+                colors: { bg: '#2D1B69', text: '#FFF8DC', accent: '#FF4500' }
+            },
+            'office-memo': {
+                name: 'Office Memo',
+                emoji: '📄',
+                category: 'business',
+                description: 'White/Blue - Professional',
+                colors: { bg: '#F8F8FF', text: '#2F2F2F', accent: '#4169E1' }
+            },
+            'receipt-paper': {
+                name: 'Receipt Paper',
+                emoji: '🧾',
+                category: 'business',
+                description: 'Cream/Black - Thermal paper',
+                colors: { bg: '#FFFEF7', text: '#1C1C1C', accent: '#FF6347' }
+            },
+            'carbon-copy': {
+                name: 'Carbon Copy',
+                emoji: '📑',
+                category: 'business',
+                description: 'Lavender/Purple - Carbon paper',
+                colors: { bg: '#E6E6FA', text: '#191970', accent: '#8B008B' }
+            },
+            'blueprint-tech': {
+                name: 'Blueprint Technical',
+                emoji: '📐',
+                category: 'business',
+                description: 'Blue/Cyan - Technical blueprint',
+                colors: { bg: '#003366', text: '#E0E0E0', accent: '#00FFFF' }
+            },
+            'legal-document': {
+                name: 'Legal Document',
+                emoji: '⚖️',
+                category: 'business',
+                description: 'White/Brown - Formal legal',
+                colors: { bg: '#FFFAF0', text: '#2F2F2F', accent: '#B8860B' }
+            },
+            'ditto-spirit': {
+                name: 'Ditto Spirit',
+                emoji: '🖨️',
+                category: 'business',
+                description: 'Blue/Purple - Ditto machine',
+                colors: { bg: '#F0F8FF', text: '#4B0082', accent: '#8A2BE2' }
+            },
+            'papyrus-scroll': {
+                name: 'Papyrus Scroll',
+                emoji: '📜',
+                category: 'feather',
+                description: 'Ochre/Brown - WCAG-AA compliant',
+                colors: { bg: '#F4E4C1', text: '#5A4632', accent: '#D7B66D' }
+            },
+            'ancient-parchment-aa': {
+                name: 'Ancient Parchment',
+                emoji: '🦴',
+                category: 'feather',
+                description: 'Ivory/Sepia - Warm sepia',
+                colors: { bg: '#F8F5EC', text: '#594A36', accent: '#D4B483' }
+            },
+            'linen-sheet': {
+                name: 'Linen Sheet',
+                emoji: '🧵',
+                category: 'feather',
+                description: 'White/Charcoal - Cool white',
+                colors: { bg: '#FBFAF7', text: '#4F4F4A', accent: '#A4B69F' }
+            },
+            'illuminated-manuscript-aa': {
+                name: 'Illuminated Manuscript',
+                emoji: '✨',
+                category: 'feather',
+                description: 'Cream/Gold - High contrast',
+                colors: { bg: '#FFFBEA', text: '#483B1E', accent: '#C89B2C' }
+            },
+            'calligraphy-flourish': {
+                name: 'Calligraphy Flourish',
+                emoji: '✒️',
+                category: 'feather',
+                description: 'Pearl/Black - Maximum contrast',
+                colors: { bg: '#FCFCFC', text: '#1F1F1F', accent: '#7571E6' }
+            },
+            'invisible-ink-aa': {
+                name: 'Invisible Ink',
+                emoji: '🕵️',
+                category: 'feather',
+                description: 'Pale Lemon - Easter egg!',
+                colors: { bg: '#FFFFF2', text: '#FFFFF2', accent: '#F7E96B' }
+            }
+        };
+        
+        let currentTheme = 'cursive-elegance';
+        let currentCategory = 'all';
+        let previewMode = true;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderThemes();
+            attachEventListeners();
+            applyTheme(currentTheme);
+        });
+        
+        function renderThemes(filter = '') {
+            const grid = document.getElementById('themeGrid');
+            grid.innerHTML = '';
+            
+            Object.entries(themes).forEach(([id, theme]) => {
+                if (currentCategory !== 'all' && theme.category !== currentCategory) return;
+                if (filter && !theme.name.toLowerCase().includes(filter.toLowerCase()) &&
+                    !theme.description.toLowerCase().includes(filter.toLowerCase())) return;
+                
+                const card = document.createElement('div');
+                card.className = 'theme-card';
+                card.dataset.theme = id;
+                if (id === currentTheme) card.classList.add('active');
+                
+                card.innerHTML = `
+                    <span class="emoji">${theme.emoji}</span>
+                    <div class="name">${theme.name}</div>
+                    <div class="description">${theme.description}</div>
+                    <div class="preview" style="background: ${theme.colors.bg}; color: ${theme.colors.text}; border: 1px solid ${theme.colors.accent};">
+                        Sample text in this theme...
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => selectTheme(id));
+                grid.appendChild(card);
+            });
+        }
+        
+        function selectTheme(themeId) {
+            if (previewMode) {
+                showPreview(themeId);
+            } else {
+                applyTheme(themeId);
+            }
+        }
+        
+        function applyTheme(themeId) {
+            const theme = themes[themeId];
+            if (!theme) return;
+            
+            currentTheme = themeId;
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--bg-color', theme.colors.bg);
+            document.documentElement.style.setProperty('--text-color', theme.colors.text);
+            document.documentElement.style.setProperty('--accent-color', theme.colors.accent);
+            document.documentElement.style.setProperty('--shadow', `${theme.colors.accent}33`);
+            
+            // Update active state
+            document.querySelectorAll('.theme-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.theme === themeId);
+            });
+            
+            showToast(`Applied ${theme.name} theme`);
+        }
+        
+        function showPreview(themeId) {
+            const theme = themes[themeId];
+            if (!theme) return;
+            
+            const panel = document.getElementById('previewPanel');
+            panel.classList.add('active');
+            panel.style.background = theme.colors.bg;
+            panel.style.color = theme.colors.text;
+            panel.style.borderColor = theme.colors.accent;
+            
+            panel.querySelector('h3').style.color = theme.colors.accent;
+            panel.querySelector('.code-preview').style.border = `1px solid ${theme.colors.accent}`;
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        function attachEventListeners() {
+            // Category tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentCategory = tab.dataset.category;
+                    renderThemes();
+                });
+            });
+            
+            // Search
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                renderThemes(e.target.value);
+            });
+            
+            // Random theme
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                const themeIds = Object.keys(themes);
+                const randomId = themeIds[Math.floor(Math.random() * themeIds.length)];
+                applyTheme(randomId);
+            });
+            
+            // Preview toggle
+            document.getElementById('previewToggle').addEventListener('click', () => {
+                previewMode = !previewMode;
+                const panel = document.getElementById('previewPanel');
+                panel.classList.toggle('active', false);
+                showToast(`Preview mode: ${previewMode ? 'ON' : 'OFF'}`);
+            });
+            
+            // Save theme
+            document.getElementById('saveBtn').addEventListener('click', () => {
+                const command = `echo "source ~/.config/terminal-themes/${currentTheme}.sh" >> ~/.zshrc`;
+                navigator.clipboard.writeText(command);
+                showToast('Save command copied to clipboard!');
+            });
+            
+            // Sort
+            document.getElementById('sortSelect').addEventListener('change', (e) => {
+                const sortedEntries = Object.entries(themes).sort((a, b) => {
+                    switch (e.target.value) {
+                        case 'name':
+                            return a[1].name.localeCompare(b[1].name);
+                        case 'category':
+                            return a[1].category.localeCompare(b[1].category);
+                        case 'brightness':
+                            return getLightness(a[1].colors.bg) - getLightness(b[1].colors.bg);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                // Rebuild themes object in sorted order
+                const sortedThemes = {};
+                sortedEntries.forEach(([id, theme]) => {
+                    sortedThemes[id] = theme;
+                });
+                Object.assign(themes, sortedThemes);
+                renderThemes();
+            });
+            
+            // Customize button
+            document.getElementById('customizeBtn').addEventListener('click', () => {
+                document.getElementById('customizer').classList.toggle('active');
+            });
+            
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', () => {
+                const exportData = {
+                    theme: currentTheme,
+                    customization: {
+                        bgDarkness: document.getElementById('bgSlider').value,
+                        contrast: document.getElementById('contrastSlider').value,
+                        accent: document.getElementById('accentSlider').value
+                    }
+                };
+                
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `cursive-theme-${currentTheme}.json`;
+                a.click();
+                
+                showToast('Theme exported!');
+            });
+            
+            // Customizer sliders
+            document.getElementById('bgSlider').addEventListener('input', (e) => {
+                document.getElementById('bgValue').textContent = e.target.value;
+                adjustThemeBrightness(e.target.value);
+            });
+            
+            document.getElementById('contrastSlider').addEventListener('input', (e) => {
+                document.getElementById('contrastValue').textContent = e.target.value;
+                adjustThemeContrast(e.target.value);
+            });
+            
+            document.getElementById('accentSlider').addEventListener('input', (e) => {
+                document.getElementById('accentValue').textContent = e.target.value;
+                adjustAccentIntensity(e.target.value);
+            });
+            
+            document.getElementById('resetCustom').addEventListener('click', () => {
+                document.getElementById('bgSlider').value = 50;
+                document.getElementById('contrastSlider').value = 75;
+                document.getElementById('accentSlider').value = 80;
+                applyTheme(currentTheme);
+            });
+        }
+        
+        function getLightness(hexColor) {
+            const rgb = hexToRgb(hexColor);
+            return (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+        }
+        
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        function adjustThemeBrightness(value) {
+            const factor = value / 50;
+            const theme = themes[currentTheme];
+            const bg = adjustBrightness(theme.colors.bg, factor);
+            document.documentElement.style.setProperty('--bg-color', bg);
+        }
+        
+        function adjustThemeContrast(value) {
+            const factor = value / 75;
+            const theme = themes[currentTheme];
+            const text = adjustContrast(theme.colors.text, theme.colors.bg, factor);
+            document.documentElement.style.setProperty('--text-color', text);
+        }
+        
+        function adjustAccentIntensity(value) {
+            const factor = value / 80;
+            const theme = themes[currentTheme];
+            const accent = adjustSaturation(theme.colors.accent, factor);
+            document.documentElement.style.setProperty('--accent-color', accent);
+        }
+        
+        function adjustBrightness(hex, factor) {
+            const rgb = hexToRgb(hex);
+            const adjusted = {
+                r: Math.min(255, rgb.r * factor),
+                g: Math.min(255, rgb.g * factor),
+                b: Math.min(255, rgb.b * factor)
+            };
+            return rgbToHex(adjusted);
+        }
+        
+        function adjustContrast(textHex, bgHex, factor) {
+            const text = hexToRgb(textHex);
+            const bg = hexToRgb(bgHex);
+            
+            const adjusted = {
+                r: Math.min(255, Math.max(0, (text.r - bg.r) * factor + bg.r)),
+                g: Math.min(255, Math.max(0, (text.g - bg.g) * factor + bg.g)),
+                b: Math.min(255, Math.max(0, (text.b - bg.b) * factor + bg.b))
+            };
+            
+            return rgbToHex(adjusted);
+        }
+        
+        function adjustSaturation(hex, factor) {
+            const rgb = hexToRgb(hex);
+            const hsl = rgbToHsl(rgb);
+            hsl.s = Math.min(100, hsl.s * factor);
+            const newRgb = hslToRgb(hsl);
+            return rgbToHex(newRgb);
+        }
+        
+        function rgbToHex(rgb) {
+            return '#' + ['r', 'g', 'b'].map(c => 
+                Math.round(rgb[c]).toString(16).padStart(2, '0')
+            ).join('');
+        }
+        
+        function rgbToHsl(rgb) {
+            const r = rgb.r / 255;
+            const g = rgb.g / 255;
+            const b = rgb.b / 255;
+            
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            const l = (max + min) / 2;
+            
+            let h, s;
+            
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                
+                h /= 6;
+            }
+            
+            return { h: h * 360, s: s * 100, l: l * 100 };
+        }
+        
+        function hslToRgb(hsl) {
+            const h = hsl.h / 360;
+            const s = hsl.s / 100;
+            const l = hsl.l / 100;
+            
+            let r, g, b;
+            
+            if (s === 0) {
+                r = g = b = l;
+            } else {
+                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                const p = 2 * l - q;
+                
+                r = hueToRgb(p, q, h + 1/3);
+                g = hueToRgb(p, q, h);
+                b = hueToRgb(p, q, h - 1/3);
+            }
+            
+            return { r: r * 255, g: g * 255, b: b * 255 };
+        }
+        
+        function hueToRgb(p, q, t) {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1/6) return p + (q - p) * 6 * t;
+            if (t < 1/2) return q;
+            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+        }
+    </script>
+</body>
+</html>

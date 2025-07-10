@@ -214,17 +214,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 📧 Email: support@cursiveterminal.com
-- 💬 Discord: [Join our community](https://discord.gg/cursive)
 - 🐛 Issues: [GitHub Issues](https://github.com/midnightnow/Cursive-Terminal/issues)
+- 📖 Documentation: [Project Wiki](https://github.com/midnightnow/Cursive-Terminal/wiki)
+- 💡 Discussions: [GitHub Discussions](https://github.com/midnightnow/Cursive-Terminal/discussions)
+
+## 📊 Project Status
+
+- ✅ **33 Themes Available** - Complete collection ready to use
+- ✅ **Cross-Platform Tested** - Works on macOS, Linux, Windows
+- ✅ **Documentation Complete** - Installation, usage, and contribution guides
+- 🔄 **Active Development** - Regular updates and new themes
 
 ---
 
 <div align="center">
-  <p>Made with 💜 by the Cursive Terminal Team</p>
+  <p>Made with 💜 by the Open Source Community</p>
   <p>
     <a href="https://github.com/midnightnow/Cursive-Terminal/stargazers">⭐ Star us on GitHub</a> •
-    <a href="https://twitter.com/cursiveterminal">🐦 Follow on Twitter</a> •
-    <a href="https://cursiveterminal.com">🌐 Visit our website</a>
+    <a href="https://github.com/midnightnow/Cursive-Terminal/fork">🍴 Fork the Project</a> •
+    <a href="https://midnightnow.github.io/Cursive-Terminal/themes/">🎨 Browse Themes</a>
   </p>
 </div>

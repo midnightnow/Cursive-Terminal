@@ -1,0 +1,486 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  Code, Ship, GitBranch, Database, Cloud, Package, 
+  Activity, Layers, Eye, Play, Pause, Maximize2,
+  Settings, Sparkles, Anchor, Cpu, Globe, Server
+} from 'lucide-react';
+
+const CursiveEcosystemDashboard = () => {
+  const [activeView, setActiveView] = useState('overview');
+  const [isRunning, setIsRunning] = useState(false);
+  const [ecosystemData, setEcosystemData] = useState({
+    bubbles: [],
+    dnaStrands: [],
+    ships: [],
+    ports: [],
+    metrics: {
+      codeGenerated: 0,
+      transcriptions: 0,
+      deliveries: 0,
+      activeRoutes: 0
+    }
+  });
+  const [visualIntensity, setVisualIntensity] = useState(75);
+  const [showConnections, setShowConnections] = useState(true);
+  const animationRef = useRef(null);
+
+  // View modes
+  const viewModes = [
+    { id: 'overview', name: 'Ecosystem Overview', icon: Layers },
+    { id: 'generation', name: 'Bubble Generation', icon: Sparkles },
+    { id: 'transcription', name: 'DNA Transcription', icon: Cpu },
+    { id: 'supply', name: 'Supply Chain', icon: Anchor }
+  ];
+
+  // Port/Service definitions shared across views
+  const services = [
+    { id: 'local', name: 'Local Dev', icon: Code, color: '#4ECDC4', x: 20, y: 50 },
+    { id: 'git', name: 'GitHub', icon: GitBranch, color: '#F05032', x: 35, y: 30 },
+    { id: 'npm', name: 'NPM', icon: Package, color: '#CB3837', x: 50, y: 20 },
+    { id: 'api', name: 'API', icon: Server, color: '#00D9FF', x: 65, y: 30 },
+    { id: 'db', name: 'Database', icon: Database, color: '#336791', x: 50, y: 70 },
+    { id: 'cloud', name: 'Cloud', icon: Cloud, color: '#FF9900', x: 80, y: 50 },
+    { id: 'cdn', name: 'CDN', icon: Globe, color: '#45B7D1', x: 65, y: 65 }
+  ];
+
+  // Generate ecosystem activity
+  const generateActivity = () => {
+    if (!isRunning) return;
+
+    // Generate bubbles
+    if (Math.random() < 0.1) {
+      const newBubble = {
+        id: Date.now() + Math.random(),
+        x: 10 + Math.random() * 10,
+        y: 50 + Math.random() * 40,
+        type: ['function', 'component', 'module'][Math.floor(Math.random() * 3)],
+        size: 20 + Math.random() * 30,
+        color: ['#4ECDC4', '#45B7D1', '#FF6B6B', '#F7DC6F'][Math.floor(Math.random() * 4)],
+        velocity: { x: 0.5 + Math.random() * 0.5, y: -0.1 - Math.random() * 0.2 },
+        age: 0,
+        state: 'floating'
+      };
+      
+      setEcosystemData(prev => ({
+        ...prev,
+        bubbles: [...prev.bubbles, newBubble],
+        metrics: { ...prev.metrics, codeGenerated: prev.metrics.codeGenerated + 1 }
+      }));
+    }
+
+    // Transcribe bubbles to DNA
+    setEcosystemData(prev => {
+      const readyBubbles = prev.bubbles.filter(b => b.age > 50 && b.state === 'floating');
+      if (readyBubbles.length > 0 && Math.random() < 0.05) {
+        const bubble = readyBubbles[0];
+        const dnaStrand = {
+          id: Date.now() + Math.random(),
+          x: bubble.x + 10,
+          y: bubble.y,
+          sequence: generateDNASequence(bubble.type),
+          source: bubble.id,
+          age: 0
+        };
+        
+        return {
+          ...prev,
+          bubbles: prev.bubbles.map(b => b.id === bubble.id ? { ...b, state: 'transcribed' } : b),
+          dnaStrands: [...prev.dnaStrands, dnaStrand],
+          metrics: { ...prev.metrics, transcriptions: prev.metrics.transcriptions + 1 }
+        };
+      }
+      return prev;
+    });
+
+    // Convert DNA to ships
+    setEcosystemData(prev => {
+      const readyDNA = prev.dnaStrands.filter(d => d.age > 30);
+      if (readyDNA.length > 0 && Math.random() < 0.1) {
+        const dna = readyDNA[0];
+        const targetService = services[Math.floor(Math.random() * services.length)];
+        const ship = {
+          id: Date.now() + Math.random(),
+          x: dna.x,
+          y: dna.y,
+          targetX: targetService.x,
+          targetY: targetService.y,
+          cargo: dna.sequence.substring(0, 4),
+          color: targetService.color,
+          size: 30,
+          speed: 0.5 + Math.random() * 0.5,
+          trail: []
+        };
+        
+        return {
+          ...prev,
+          dnaStrands: prev.dnaStrands.filter(d => d.id !== dna.id),
+          ships: [...prev.ships, ship],
+          metrics: { ...prev.metrics, activeRoutes: prev.metrics.activeRoutes + 1 }
+        };
+      }
+      return prev;
+    });
+
+    // Update entities
+    setEcosystemData(prev => ({
+      ...prev,
+      bubbles: prev.bubbles.map(b => ({
+        ...b,
+        x: b.x + b.velocity.x,
+        y: b.y + b.velocity.y,
+        velocity: {
+          x: b.velocity.x + (Math.random() - 0.5) * 0.02,
+          y: b.velocity.y
+        },
+        age: b.age + 1
+      })).filter(b => b.x < 100 && b.y > 0 && b.age < 200),
+      
+      dnaStrands: prev.dnaStrands.map(d => ({
+        ...d,
+        x: d.x + 0.2,
+        age: d.age + 1
+      })).filter(d => d.age < 100),
+      
+      ships: prev.ships.map(ship => {
+        const dx = ship.targetX - ship.x;
+        const dy = ship.targetY - ship.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 2) {
+          // Ship reached destination
+          return null;
+        }
+        
+        const vx = (dx / distance) * ship.speed;
+        const vy = (dy / distance) * ship.speed;
+        
+        ship.trail.push({ x: ship.x, y: ship.y });
+        if (ship.trail.length > 10) ship.trail.shift();
+        
+        return {
+          ...ship,
+          x: ship.x + vx,
+          y: ship.y + vy
+        };
+      }).filter(Boolean).map(ship => ship)
+    }));
+  };
+
+  const generateDNASequence = (type) => {
+    const bases = ['A', 'T', 'G', 'C'];
+    const length = type === 'module' ? 8 : type === 'component' ? 6 : 4;
+    return Array.from({ length }, () => bases[Math.floor(Math.random() * 4)]).join('');
+  };
+
+  // Animation loop
+  useEffect(() => {
+    const animate = () => {
+      generateActivity();
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    if (isRunning) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isRunning]);
+
+  // Render ecosystem overview
+  const renderOverview = () => (
+    <div className="relative w-full h-full">
+      {/* Service nodes */}
+      {services.map(service => {
+        const Icon = service.icon;
+        return (
+          <div
+            key={service.id}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${service.x}%`, top: `${service.y}%` }}
+          >
+            <div
+              className="w-20 h-20 rounded-full border-2 flex items-center justify-center backdrop-blur-sm transition-all hover:scale-110"
+              style={{
+                backgroundColor: `${service.color}22`,
+                borderColor: service.color,
+                boxShadow: `0 0 20px ${service.color}44`
+              }}
+            >
+              <Icon size={32} color={service.color} />
+            </div>
+            <div className="text-center mt-2 text-xs font-bold" style={{ color: service.color }}>
+              {service.name}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Connections */}
+      {showConnections && (
+        <svg className="absolute inset-0 w-full h-full pointer-events-none">
+          {services.map((from, i) => 
+            services.slice(i + 1).map(to => (
+              <line
+                key={`${from.id}-${to.id}`}
+                x1={`${from.x}%`}
+                y1={`${from.y}%`}
+                x2={`${to.x}%`}
+                y2={`${to.y}%`}
+                stroke={from.color}
+                strokeWidth="1"
+                strokeOpacity="0.2"
+                strokeDasharray="5,5"
+              />
+            ))
+          )}
+        </svg>
+      )}
+
+      {/* Bubbles */}
+      {ecosystemData.bubbles.map(bubble => (
+        <div
+          key={bubble.id}
+          className="absolute rounded-full backdrop-blur-sm animate-pulse"
+          style={{
+            left: `${bubble.x}%`,
+            top: `${bubble.y}%`,
+            width: bubble.size,
+            height: bubble.size,
+            backgroundColor: `${bubble.color}33`,
+            border: `2px solid ${bubble.color}`,
+            transform: 'translate(-50%, -50%)',
+            opacity: bubble.state === 'transcribed' ? 0.3 : 1
+          }}
+        />
+      ))}
+
+      {/* DNA strands */}
+      {ecosystemData.dnaStrands.map(dna => (
+        <div
+          key={dna.id}
+          className="absolute text-xs font-mono"
+          style={{
+            left: `${dna.x}%`,
+            top: `${dna.y}%`,
+            transform: 'translate(-50%, -50%)',
+            color: '#F7DC6F',
+            textShadow: '0 0 10px #F7DC6F'
+          }}
+        >
+          {dna.sequence}
+        </div>
+      ))}
+
+      {/* Ships */}
+      {ecosystemData.ships.map(ship => (
+        <div key={ship.id}>
+          {/* Trail */}
+          {ship.trail.map((point, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                left: `${point.x}%`,
+                top: `${point.y}%`,
+                width: 4,
+                height: 4,
+                backgroundColor: ship.color,
+                opacity: i / ship.trail.length * 0.5,
+                transform: 'translate(-50%, -50%)'
+              }}
+            />
+          ))}
+          
+          {/* Ship */}
+          <div
+            className="absolute text-2xl"
+            style={{
+              left: `${ship.x}%`,
+              top: `${ship.y}%`,
+              transform: `translate(-50%, -50%) rotate(${Math.atan2(ship.targetY - ship.y, ship.targetX - ship.x)}rad)`,
+              filter: `drop-shadow(0 0 10px ${ship.color})`
+            }}
+          >
+            ⛵
+          </div>
+        </div>
+      ))}
+
+      {/* Flow indicators */}
+      <div className="absolute bottom-4 left-4 text-xs space-y-1 bg-black bg-opacity-60 p-3 rounded-lg">
+        <div>💭 Bubble → 🧬 DNA → ⛵ Ship → 📦 Delivery</div>
+        <div className="text-gray-400">The complete code lifecycle</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+      {/* Header */}
+      <div className="absolute top-4 left-4 right-4 z-20 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold italic mb-1">🌊 Cursive Code Ecosystem</h1>
+          <p className="text-sm opacity-75">Watch code flow through its complete lifecycle</p>
+        </div>
+        
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setIsRunning(!isRunning)}
+            className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
+              isRunning 
+                ? 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/50' 
+                : 'bg-green-600 hover:bg-green-700 shadow-lg shadow-green-600/50'
+            }`}
+          >
+            {isRunning ? <Pause size={20} /> : <Play size={20} />}
+            <span className="font-semibold">{isRunning ? 'Pause' : 'Start'} Ecosystem</span>
+          </button>
+        </div>
+      </div>
+
+      {/* View mode selector */}
+      <div className="absolute top-24 left-4 z-20 flex space-x-2">
+        {viewModes.map(mode => {
+          const Icon = mode.icon;
+          return (
+            <button
+              key={mode.id}
+              onClick={() => setActiveView(mode.id)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                activeView === mode.id 
+                  ? 'bg-purple-600 text-white' 
+                  : 'bg-black bg-opacity-40 text-gray-300 hover:bg-opacity-60'
+              }`}
+            >
+              <Icon size={16} />
+              <span className="text-sm">{mode.name}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Controls */}
+      <div className="absolute top-24 right-4 z-20 bg-black bg-opacity-60 backdrop-blur-sm p-6 rounded-lg">
+        <h3 className="flex items-center space-x-2 mb-4 text-lg font-semibold">
+          <Settings size={20} />
+          <span>Controls</span>
+        </h3>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm mb-2 block">Visual Intensity</label>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={visualIntensity}
+              onChange={(e) => setVisualIntensity(e.target.value)}
+              className="w-40"
+            />
+            <div className="text-xs text-gray-400 mt-1">{visualIntensity}%</div>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="showConnections"
+              checked={showConnections}
+              onChange={(e) => setShowConnections(e.target.checked)}
+              className="rounded"
+            />
+            <label htmlFor="showConnections" className="text-sm">Show Connections</label>
+          </div>
+        </div>
+      </div>
+
+      {/* Metrics */}
+      <div className="absolute bottom-4 right-4 z-20 bg-black bg-opacity-60 backdrop-blur-sm p-6 rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">📊 Ecosystem Metrics</h3>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Code Generated:</span>
+            <span className="font-mono text-green-400">{ecosystemData.metrics.codeGenerated}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Transcriptions:</span>
+            <span className="font-mono text-yellow-400">{ecosystemData.metrics.transcriptions}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Active Routes:</span>
+            <span className="font-mono text-blue-400">{ecosystemData.metrics.activeRoutes}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Deliveries:</span>
+            <span className="font-mono text-purple-400">{ecosystemData.metrics.deliveries}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main viewport */}
+      <div className="w-full h-full pt-32 pb-4 px-4">
+        <div 
+          className="w-full h-full relative rounded-lg overflow-hidden"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            backdropFilter: `blur(${100 - visualIntensity}px)`,
+            border: '1px solid rgba(255, 255, 255, 0.1)'
+          }}
+        >
+          {activeView === 'overview' && renderOverview()}
+          
+          {activeView === 'generation' && (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-center">
+                <Sparkles size={64} className="mx-auto mb-4 text-purple-400" />
+                <h2 className="text-2xl font-bold mb-2">Bubble Generation View</h2>
+                <p className="text-gray-400">Watch as code bubbles emerge from the stream</p>
+              </div>
+            </div>
+          )}
+          
+          {activeView === 'transcription' && (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-center">
+                <Cpu size={64} className="mx-auto mb-4 text-yellow-400" />
+                <h2 className="text-2xl font-bold mb-2">DNA Transcription View</h2>
+                <p className="text-gray-400">See code replicate and transform</p>
+              </div>
+            </div>
+          )}
+          
+          {activeView === 'supply' && (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-center">
+                <Anchor size={64} className="mx-auto mb-4 text-blue-400" />
+                <h2 className="text-2xl font-bold mb-2">Supply Chain View</h2>
+                <p className="text-gray-400">Track deliveries across services</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Background particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-20 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default CursiveEcosystemDashboard;

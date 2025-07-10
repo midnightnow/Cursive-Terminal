@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧬 DNA Helix Theme - Cursive Terminal</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            overflow-x: hidden;
+        }
+        
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        /* DNA Animations */
+        @keyframes helix-rotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        @keyframes transcription {
+            0% { transform: translateX(-100px) scale(0.5); opacity: 0; }
+            50% { transform: translateX(0) scale(1); opacity: 1; }
+            100% { transform: translateX(100px) scale(0.5); opacity: 0; }
+        }
+        
+        @keyframes base-pulse {
+            0%, 100% { box-shadow: 0 0 10px currentColor; }
+            50% { box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+        
+        .dna-helix {
+            animation: helix-rotate 10s linear infinite;
+        }
+        
+        .transcription-bubble {
+            animation: transcription 3s ease-in-out infinite;
+        }
+        
+        .base-pulse {
+            animation: base-pulse 2s ease-in-out infinite;
+        }
+        
+        /* Code syntax highlighting */
+        .dna-function { color: #FF6B6B; }  /* Adenine */
+        .dna-class { color: #4ECDC4; }     /* Thymine */
+        .dna-const { color: #45B7D1; }     /* Guanine */
+        .dna-import { color: #96CEB4; }    /* Cytosine */
+        .dna-rna { color: #00FF9F; }       /* RNA */
+        .dna-mutation { color: #FFD93D; }  /* Mutations */
+        .dna-protein { color: #E8F4FD; }   /* Proteins */
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { Dna, Code, GitBranch, Database, Settings, Download, Play, Pause } = lucide;
+
+        const DNAThemeShowcase = () => {
+            const [isTranscribing, setIsTranscribing] = useState(true);
+            const [activeBase, setActiveBase] = useState('A');
+            const [helixSpeed, setHelixSpeed] = useState(50);
+            const [showCode, setShowCode] = useState(true);
+            const [transcriptionPhase, setTranscriptionPhase] = useState(0);
+
+            // DNA Theme Configuration
+            const dnaTheme = {
+                bases: {
+                    A: { name: "Adenine", color: "#FF6B6B", code: "function", complement: "T" },
+                    T: { name: "Thymine", color: "#4ECDC4", code: "class", complement: "A" },
+                    G: { name: "Guanine", color: "#45B7D1", code: "const", complement: "C" },
+                    C: { name: "Cytosine", color: "#96CEB4", code: "import", complement: "G" }
+                },
+                secondary: {
+                    RNA: "#00FF9F",
+                    mutation: "#FFD93D",
+                    protein: "#E8F4FD",
+                    enzyme: "#9B59B6"
+                }
+            };
+
+            // Generate DNA sequence
+            const generateDNASequence = () => {
+                const bases = Object.keys(dnaTheme.bases);
+                return Array.from({ length: 20 }, (_, i) => ({
+                    id: i,
+                    base: bases[Math.floor(Math.random() * bases.length)],
+                    position: i * 18,
+                    angle: (i * 36) % 360
+                }));
+            };
+
+            const [dnaSequence, setDnaSequence] = useState(generateDNASequence());
+
+            // Animation loop
+            useEffect(() => {
+                if (isTranscribing) {
+                    const interval = setInterval(() => {
+                        setDnaSequence(prev => 
+                            prev.map(nucleotide => ({
+                                ...nucleotide,
+                                angle: (nucleotide.angle + helixSpeed / 10) % 360
+                            }))
+                        );
+                        
+                        setTranscriptionPhase(prev => (prev + 1) % 100);
+                    }, 100);
+                    return () => clearInterval(interval);
+                }
+            }, [isTranscribing, helixSpeed]);
+
+            // Code samples with DNA highlighting
+            const codeExamples = [
+                {
+                    title: "DNA-Styled JavaScript",
+                    code: `import React from 'react';
+const DNA_SEQUENCE = 'ATGC';
+class Ribosome extends Cell {
+  function transcribe(dna) {
+    // Genetic transcription
+    return "protein synthesis";
+  }
+}`
+                },
+                {
+                    title: "Genetic Python",
+                    code: `import genetics
+class GeneExpression:
+    def __init__(self):
+        self.bases = ['A', 'T', 'G', 'C']
+    
+    def transcribe(self, sequence):
+        # DNA to RNA transcription
+        return sequence.replace('T', 'U')`
+                },
+                {
+                    title: "Biological Bash",
+                    code: `#!/bin/bash
+# DNA Helix Theme
+function replicate_dna() {
+    local sequence="ATGC"
+    class Chromosome {
+        const BASES=4
+        echo "Replication complete"
+    }
+}`
+                }
+            ];
+
+            const [currentExample, setCurrentExample] = useState(0);
+
+            // Render DNA base pair
+            const renderBasePair = (nucleotide) => {
+                const baseInfo = dnaTheme.bases[nucleotide.base];
+                const complementInfo = dnaTheme.bases[baseInfo.complement];
+                
+                const x1 = Math.cos((nucleotide.angle * Math.PI) / 180) * 80;
+                const y1 = nucleotide.position - 180;
+                const x2 = Math.cos(((nucleotide.angle + 180) * Math.PI) / 180) * 80;
+                const y2 = y1;
+
+                return (
+                    <div key={nucleotide.id} className="absolute">
+                        {/* Connection line */}
+                        <svg className="absolute" style={{ left: x1 + 150, top: y1 + 200, width: Math.abs(x2 - x1), height: 2 }}>
+                            <line
+                                x1="0"
+                                y1="1"
+                                x2={Math.abs(x2 - x1)}
+                                y2="1"
+                                stroke={dnaTheme.secondary.RNA}
+                                strokeWidth="1"
+                                strokeDasharray="2,2"
+                                opacity="0.5"
+                            />
+                        </svg>
+
+                        {/* Primary base */}
+                        <div
+                            className={`absolute w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all duration-200 base-pulse ${
+                                activeBase === nucleotide.base ? 'ring-2 ring-white' : ''
+                            }`}
+                            style={{
+                                left: x1 + 142,
+                                top: y1 + 192,
+                                backgroundColor: `${baseInfo.color}30`,
+                                borderColor: baseInfo.color,
+                                color: baseInfo.color,
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => setActiveBase(nucleotide.base)}
+                        >
+                            {nucleotide.base}
+                        </div>
+
+                        {/* Complement base */}
+                        <div
+                            className="absolute w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all duration-200"
+                            style={{
+                                left: x2 + 142,
+                                top: y2 + 192,
+                                backgroundColor: `${complementInfo.color}30`,
+                                borderColor: complementInfo.color,
+                                color: complementInfo.color
+                            }}
+                        >
+                            {baseInfo.complement}
+                        </div>
+                    </div>
+                );
+            };
+
+            // Syntax highlight code
+            const highlightCode = (code) => {
+                return code
+                    .replace(/\b(function)\b/g, '<span class="dna-function">$1</span>')
+                    .replace(/\b(class)\b/g, '<span class="dna-class">$1</span>')
+                    .replace(/\b(const|let|var)\b/g, '<span class="dna-const">$1</span>')
+                    .replace(/\b(import|from|export)\b/g, '<span class="dna-import">$1</span>')
+                    .replace(/(\/\/.*$)/gm, '<span class="dna-mutation">$1</span>')
+                    .replace(/(['"`].*?['"`])/g, '<span class="dna-protein">$1</span>');
+            };
+
+            return (
+                <div className="w-full h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 text-white overflow-hidden relative">
+                    {/* Header */}
+                    <div className="absolute top-4 left-4 right-4 z-20 flex justify-between items-center">
+                        <div>
+                            <h1 className="text-4xl font-bold italic flex items-center">
+                                <Dna className="mr-3 text-green-400" size={40} />
+                                DNA Helix Theme
+                            </h1>
+                            <p className="text-lg opacity-75 mt-2">Genetic Programming Laboratory</p>
+                        </div>
+                        
+                        <div className="flex items-center space-x-4">
+                            <button
+                                onClick={() => setIsTranscribing(!isTranscribing)}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
+                                    isTranscribing ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
+                                }`}
+                            >
+                                {isTranscribing ? <Pause size={20} /> : <Play size={20} />}
+                                <span>{isTranscribing ? 'Pause' : 'Start'} Transcription</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* DNA Base Legend */}
+                    <div className="absolute top-24 left-4 z-20 bg-black bg-opacity-60 backdrop-blur-sm p-6 rounded-lg">
+                        <h3 className="text-xl font-semibold mb-4 flex items-center">
+                            <Code size={20} className="mr-2 text-blue-400" />
+                            Base Pair Syntax
+                        </h3>
+                        
+                        <div className="space-y-3">
+                            {Object.entries(dnaTheme.bases).map(([base, info]) => (
+                                <div 
+                                    key={base}
+                                    className={`flex items-center space-x-3 p-2 rounded cursor-pointer transition-all ${
+                                        activeBase === base ? 'bg-white bg-opacity-10' : ''
+                                    }`}
+                                    onClick={() => setActiveBase(base)}
+                                >
+                                    <div
+                                        className="w-8 h-8 rounded border-2 flex items-center justify-center font-bold text-sm"
+                                        style={{
+                                            backgroundColor: `${info.color}20`,
+                                            borderColor: info.color,
+                                            color: info.color
+                                        }}
+                                    >
+                                        {base}
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="font-medium" style={{ color: info.color }}>
+                                            {info.name}
+                                        </div>
+                                        <div className="text-xs opacity-75">
+                                            {info.code} → pairs with {info.complement}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-4 pt-4 border-t border-gray-600">
+                            <div className="text-sm space-y-2">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 rounded" style={{ backgroundColor: dnaTheme.secondary.RNA }}></div>
+                                    <span>RNA - Transcription</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 rounded" style={{ backgroundColor: dnaTheme.secondary.mutation }}></div>
+                                    <span>Mutations - Comments</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 rounded" style={{ backgroundColor: dnaTheme.secondary.protein }}></div>
+                                    <span>Proteins - Strings</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="absolute top-24 right-4 z-20 bg-black bg-opacity-60 backdrop-blur-sm p-6 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-4 flex items-center">
+                            <Settings size={20} className="mr-2" />
+                            DNA Controls
+                        </h3>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium mb-2">
+                                    Helix Speed ({helixSpeed}%)
+                                </label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={helixSpeed}
+                                    onChange={(e) => setHelixSpeed(e.target.value)}
+                                    className="w-full"
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <span>Show Code</span>
+                                <button
+                                    onClick={() => setShowCode(!showCode)}
+                                    className={`w-12 h-6 rounded-full transition-colors ${
+                                        showCode ? 'bg-green-500' : 'bg-gray-600'
+                                    }`}
+                                >
+                                    <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
+                                        showCode ? 'translate-x-6' : 'translate-x-1'
+                                    }`} />
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setDnaSequence(generateDNASequence())}
+                                className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
+                            >
+                                Generate New Sequence
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* DNA Helix Visualization */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className={`relative w-96 h-96 ${isTranscribing ? 'dna-helix' : ''}`}>
+                            {dnaSequence.map(renderBasePair)}
+                            
+                            {/* Transcription bubbles */}
+                            {isTranscribing && transcriptionPhase % 20 === 0 && (
+                                <div
+                                    className="absolute w-6 h-6 rounded-full transcription-bubble"
+                                    style={{
+                                        left: '50%',
+                                        top: '50%',
+                                        backgroundColor: dnaTheme.secondary.RNA,
+                                        boxShadow: `0 0 15px ${dnaTheme.secondary.RNA}`
+                                    }}
+                                />
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Code Sample Display */}
+                    {showCode && (
+                        <div className="absolute bottom-4 left-4 right-4 z-20">
+                            <div className="bg-black bg-opacity-80 p-6 rounded-lg backdrop-blur-sm border border-green-400">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h4 className="text-lg font-semibold flex items-center">
+                                        <Code size={20} className="mr-2 text-green-400" />
+                                        {codeExamples[currentExample].title}
+                                    </h4>
+                                    
+                                    <div className="flex space-x-2">
+                                        {codeExamples.map((_, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => setCurrentExample(index)}
+                                                className={`w-3 h-3 rounded-full transition-colors ${
+                                                    index === currentExample ? 'bg-green-400' : 'bg-gray-600'
+                                                }`}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                <div 
+                                    className="font-mono text-sm leading-relaxed"
+                                    dangerouslySetInnerHTML={{ 
+                                        __html: highlightCode(codeExamples[currentExample].code)
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Terminal Simulation */}
+                    <div className="absolute bottom-4 right-4 z-20 bg-black bg-opacity-90 p-4 rounded-lg font-mono text-sm">
+                        <div className="flex items-center space-x-2 mb-2">
+                            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+                            <span className="text-green-400">cursive-dna-terminal:~$</span>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-gray-300">$ dna-transcribe</div>
+                            <div className="text-green-400">🧬 Transcription started...</div>
+                            <div className="text-blue-400">Active base: {activeBase} ({dnaTheme.bases[activeBase].name})</div>
+                            <div className="text-yellow-400">Helix speed: {helixSpeed}%</div>
+                        </div>
+                    </div>
+
+                    {/* Background DNA Pattern */}
+                    <div className="absolute inset-0 opacity-10 pointer-events-none">
+                        <svg width="100%" height="100%">
+                            <defs>
+                                <pattern id="dna-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                                    <path d="M0,50 Q25,25 50,50 Q75,75 100,50" stroke="#4ECDC4" strokeWidth="1" fill="none" />
+                                    <path d="M0,50 Q25,75 50,50 Q75,25 100,50" stroke="#FF6B6B" strokeWidth="1" fill="none" />
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#dna-pattern)" />
+                        </svg>
+                    </div>
+
+                    {/* Feature Callouts */}
+                    <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 p-4 rounded-lg text-xs max-w-xs">
+                        <h4 className="font-semibold mb-2 text-green-400">🧬 Theme Features</h4>
+                        <ul className="space-y-1 text-gray-300">
+                            <li>• Base pair syntax highlighting</li>
+                            <li>• Genetic algorithm visualization</li>
+                            <li>• DNA replication animation</li>
+                            <li>• Scientific command lexicon</li>
+                            <li>• XR double helix support</li>
+                            <li>• Transcription simulation</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<DNAThemeShowcase />);
+    </script>
+</body>
+</html>

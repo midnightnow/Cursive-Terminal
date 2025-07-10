@@ -1,58 +1,52 @@
-# ✒️ Cursive Terminal Setup
+# Cursive Terminal Themes
 
 <div align="center">
 
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![macOS](https://img.shields.io/badge/macOS-12%2B-success.svg)](https://www.apple.com/macos/)
-[![Terminal](https://img.shields.io/badge/Terminal-iTerm2%20%7C%20Terminal.app-lightgrey.svg)](#terminal-setup)
-[![Fonts](https://img.shields.io/badge/Fonts-5%2B%20Cursive-purple.svg)](#recommended-fonts)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-*Transform your boring monospace terminal into a beautiful cursive writing experience!*
-
-![Cursive Terminal Themes](docs/images/theme-gallery-grid.png)
-
-**[Quick Start](#-quick-start) • [Font Gallery](docs/FONT_GALLERY.md) • [Contributing](CONTRIBUTING.md) • [Troubleshooting](TROUBLESHOOTING.md)**
+[![GitHub](https://img.shields.io/github/license/midnightnow/Cursive-Terminal)](LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
-
-## 🎨 What is this?
-
-This repository contains everything you need to set up a **fully cursive terminal** on macOS. Imagine coding in elegant, flowing script while maintaining perfect monospace alignment!
-
-## ✨ Features
-
-- **33 Beautiful Themes**: From Vampire's Letter to Ancient Papyrus
-- **5+ Cursive Monospace Fonts**: Victor Mono, Cascadia Code, JetBrains Mono, and more
-- **Interactive Theme Selector**: Browse, preview, and apply themes instantly
-- **Visual Font Gallery**: PNG previews showing each font's cursive style
-- **Animated Showcase**: GIF demonstrations of cursive terminal in action
-- **Enhanced Syntax Highlighting**: Make comments and strings extra beautiful
-- **Font Generation Tools**: Create your own oblique/cursive variants
-- **Complete Configuration**: iTerm2 profiles, Neovim configs, and more
-- **Professional Setup**: Full installation script and MIT license
 
 ## 🎨 33 Beautiful Themes
 
 Transform your terminal with our collection of 33 hand-crafted cursive themes. Each theme is carefully designed for comfort and beauty.
 
-<div align="center">
-
 ### ✨ Featured Themes
 
-| Dark Themes | Light Themes | Colorful Themes |
-|:-----------:|:------------:|:---------------:|
-| ![Vampire's Letter](docs/images/theme-demos/vampires-letter/demo.png) | ![Ancient Papyrus](docs/images/theme-demos/ancient-papyrus/demo.png) | ![Rainbow Prism](docs/images/theme-demos/rainbow-prism/demo.png) |
-| **🧛 Vampire's Letter** | **📜 Ancient Papyrus** | **🌈 Rainbow Prism** |
-| Dark velvet & blood red | Aged manuscript feel | Vibrant rainbow syntax |
+<div align="center">
+<table>
+<tr>
+<td align="center" width="33%">
+<b>Dark Themes</b><br><br>
+<img src="docs/Theme Photos/Vampire's Letter.png" width="90%" alt="Vampire's Letter"><br><br>
+<b>🧛 Vampire's Letter</b><br>
+Dark velvet & blood red
+</td>
+<td align="center" width="33%">
+<b>Light Themes</b><br><br>
+<img src="docs/Theme Photos/Ancient Parchment.png" width="90%" alt="Ancient Papyrus"><br><br>
+<b>📜 Ancient Papyrus</b><br>
+Aged manuscript feel
+</td>
+<td align="center" width="33%">
+<b>Colorful Themes</b><br><br>
+<img src="docs/Theme Photos/Rainbow Prism.png" width="90%" alt="Rainbow Prism"><br><br>
+<b>🌈 Rainbow Prism</b><br>
+Vibrant rainbow syntax
+</td>
+</tr>
+</table>
+</div>
 
-### 🌟 Theme Categories
+### 💫 Theme Categories
 
 - **Dark Themes (9)**: Perfect for late-night coding sessions
 - **Light Themes (6)**: Manuscript-inspired for bright environments  
 - **Colorful Themes (6)**: Vibrant colors for creative coding
 - **Business Themes (6)**: Professional document styles
 - **WCAG-AA Themes (6)**: High contrast, accessibility-focused
+
+<div align="center">
 
 [**🎨 Browse All 33 Themes →**](https://midnightnow.github.io/Cursive-Terminal/themes/)
 
@@ -80,178 +74,157 @@ source ~/.config/terminal-themes/vampires-letter.sh
 ```
 cursive-terminal-setup/
 ├── scripts/
-│   ├── cursive_font_demo.sh         # Demo script showing cursive features
-│   ├── colored_text_demo.sh         # Colorful text demo with cursive fonts
-│   ├── font_comparison.sh           # Compare different cursive fonts
-│   ├── showcase.sh                  # Animated feature showcase
-│   ├── font_preview_generator.py    # Generate font preview images
-│   ├── showcase_gif_generator.sh    # Create animated GIF demos
-│   ├── license_generator.sh         # Generate MIT license
-│   └── create_oblique_font.py       # Create custom slanted fonts
+│   ├── cursive_font_demo.sh      # Demo script showing cursive features
+│   ├── colored_text_demo.sh      # Colorful text demo with cursive fonts
+│   ├── font_comparison.sh        # Compare different cursive fonts
+│   └── showcase.sh               # Animated feature showcase
 ├── themes/
-│   └── cursive_terminal_themes.sh   # Beautiful terminal color themes
-├── configs/
-│   ├── cursive_iterm_profile.json   # iTerm2 profile with cursive settings
-│   ├── cursive_neovim_config.lua    # Neovim configuration for cursive
-│   └── starship.toml                # Starship prompt with cursive styling
-├── docs/
-│   ├── images/                      # Font previews and demo GIFs
-│   └── FONT_GALLERY.md             # Visual font comparison gallery
-├── install.sh                       # Complete installation script
-└── LICENSE                          # MIT license
+│   ├── dark/                     # 9 dark themes
+│   ├── light/                    # 6 light themes
+│   ├── colorful/                 # 6 vibrant themes
+│   ├── business/                 # 6 professional themes
+│   └── wcag/                     # 6 accessibility themes
+├── fonts/
+│   ├── VictorMono-Italic.ttf    # Primary cursive font
+│   └── FiraCode-Retina.ttf      # Fallback with ligatures
+└── docs/
+    └── Theme Photos/             # Theme screenshots
+
 ```
 
-## 🎯 Recommended Fonts
+## ✨ Features
 
-### Victor Mono (⭐ Most Cursive)
-The star of the show! Features beautiful semi-connected cursive italics.
+- **33 Unique Themes**: From gothic vampires to tropical paradise
+- **Cursive Typography**: Beautiful italic fonts throughout
+- **Smart Color Schemes**: Carefully selected for readability
+- **One-Click Install**: Simple installation script
+- **Theme Selector**: Interactive theme browser
+- **Font Included**: Victor Mono Italic pre-configured
+- **Cross-Platform**: Works on macOS, Linux, and WSL
+
+## 🎨 Theme Showcase
+
+### Dark Manuscript Themes
+- 🧛 **Vampire's Letter** - Dark velvet with blood red accents
+- 🏴‍☠️ **Pirate's Scroll** - Weather-beaten parchment aesthetic
+- 🧙 **Wizard's Grimoire** - Mystical purple and green
+- 💻 **Hacker's Manifesto** - Matrix-inspired green on black
+- 🌃 **Midnight in Tokyo** - Cyberpunk neon aesthetics
+
+### Light Manuscript Themes  
+- 📜 **Ancient Papyrus** - Aged Egyptian manuscript
+- 🖋️ **Calligraphy Practice** - Classic penmanship style
+- 📋 **Parchment Note** - Medieval manuscript feel
+- 🎨 **Illuminated Manuscript** - Ornate with gold accents
+- ⌨️ **Typewriter Draft** - Vintage typing aesthetic
+
+### Colorful Themes
+- 🌈 **Rainbow Prism** - Full spectrum syntax highlighting
+- 🌊 **Ocean Depths** - Deep sea blues and teals
+- 🌲 **Forest Grove** - Natural greens and browns
+- 🍭 **Cotton Candy** - Sweet pastel colors
+- 💡 **Neon Sign** - Electric glow effects
+
+<div align="center">
+
+[**View All Themes →**](https://midnightnow.github.io/Cursive-Terminal/themes/)
+
+</div>
+
+## 🛠️ Installation
+
+### Quick Install (Recommended)
 ```bash
-brew install font-victor-mono
+curl -sSL https://raw.githubusercontent.com/midnightnow/Cursive-Terminal/main/scripts/install.sh | bash
 ```
 
-### Other Great Options
-- **Cascadia Code**: Microsoft's elegant cursive italics
-- **JetBrains Mono**: Subtle cursive for long coding sessions
-- **Fira Code**: Not cursive, but amazing ligatures
-
-## 🖥️ Terminal Setup
-
-### For Terminal.app
-1. Press `⌘,` to open preferences
-2. Go to Profiles → Text
-3. Change font to "Victor Mono" → "Italic"
-
-### For iTerm2
-1. Press `⌘,` to open preferences
-2. Go to Profiles → Text → Font
-3. Select "Victor Mono Italic"
-4. Or import our custom profile: `configs/cursive_iterm_profile.json`
-
-## 🌈 Usage Examples
-
-### Test Cursive Rendering
+### Manual Installation
 ```bash
-echo -e "Regular text \e[3mThis appears in beautiful cursive!\e[0m"
+# 1. Clone the repository
+git clone https://github.com/midnightnow/Cursive-Terminal.git
+cd Cursive-Terminal
+
+# 2. Run the installation script
+./scripts/install-all-themes.sh
+
+# 3. Select a theme
+./scripts/theme-selector.sh
 ```
 
-### Full Cursive Mode
-Set Victor Mono Italic as your main terminal font to make EVERYTHING cursive!
+## 🎯 Usage
 
-## 📸 Screenshots
-
-### Font Showcase
-![Cursive Font Showcase](docs/images/cursive_font_showcase.png)
-*Beautiful cursive fonts in action*
-
-### ASCII Art Display
-![Cursive Font ASCII Art](docs/images/cursive_font_ascii_art.jpg)
-*ASCII art looks amazing in cursive fonts*
-
-### Font Comparison
-![Font Comparison](docs/images/font_comparison.jpg)
-*Side-by-side comparison of cursive fonts*
-
-### Colored Text Demo
-![Cursive Terminal Color Showcase](docs/images/color_screenshots/cursive_terminal_color_showcase.jpg)
-*Colorful text rendering with cursive fonts*
-
-![Cursive Code Color ASCII](docs/images/color_screenshots/cursive_code_color_ascii.jpg)
-*Colored ASCII art in cursive*
-
-![Cursive Code Color Text Styles](docs/images/color_screenshots/cursive_code_color_text_styles.jpg)
-*Various text styles and colors*
-
-![Cursor Code Color Effects](docs/images/color_screenshots/cursor_code_color_effects.jpg)
-*Beautiful color effects and gradients*
-
-<details>
-<summary>View code examples in cursive</summary>
-
-### Code Comments in Cursive
-```javascript
-// This comment appears in beautiful flowing script
-const message = "Even strings can be cursive!";
-```
-
-### Git Output
-Git commands show metadata in elegant cursive italics.
-
-### Man Pages
-Manual pages render with cursive emphasis for readability.
-
-</details>
-
-## 🛠️ Advanced Setup
-
-### Generate Font Previews
-Create visual comparisons of all cursive fonts:
+### Interactive Theme Selector
 ```bash
-# Requires: pip install Pillow
-python scripts/font_preview_generator.py
+# Launch the theme browser
+./scripts/theme-selector.sh
 ```
 
-### Create Animated Demo
-Generate a showcase GIF for your repository:
+### Apply a Specific Theme
 ```bash
-# Requires: brew install asciinema && cargo install --git https://github.com/asciinema/agg
-./scripts/showcase_gif_generator.sh
+# Source any theme directly
+source ~/.config/terminal-themes/vampires-letter.sh
+source ~/.config/terminal-themes/rainbow-prism.sh
+source ~/.config/terminal-themes/ancient-papyrus.sh
 ```
 
-### Create Your Own Oblique Font
+### Set as Default
+Add to your `.bashrc` or `.zshrc`:
 ```bash
-python scripts/create_oblique_font.py /path/to/font.ttf output.ttf
+# Set Vampire's Letter as default theme
+source ~/.config/terminal-themes/vampires-letter.sh
 ```
 
-### Custom Themes
-Apply beautiful color themes optimized for cursive:
+## 🖥️ Compatibility
+
+- **macOS**: Terminal.app, iTerm2, Alacritty, Kitty
+- **Linux**: GNOME Terminal, Konsole, Terminator, Alacritty
+- **Windows**: WSL, Windows Terminal, Git Bash
+- **Cross-Platform**: VS Code integrated terminal, Hyper
+
+## 🎨 Creating Custom Themes
+
+Want to create your own cursive theme? Check out our [Theme Creation Guide](docs/THEME_CREATION.md).
+
 ```bash
-source themes/cursive-elegance.sh
-source themes/cursive-noir.sh
-source themes/cursive-garden.sh
+# Use our theme template
+cp templates/theme-template.sh ~/.config/terminal-themes/my-theme.sh
+# Edit with your colors
+vim ~/.config/terminal-themes/my-theme.sh
 ```
 
 ## 🤝 Contributing
 
-Found a new cursive monospace font? Have a beautiful theme? PRs welcome!
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-We love contributions! Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-theme`)
+3. Commit your changes (`git commit -m 'Add Amazing Theme'`)
+4. Push to the branch (`git push origin feature/amazing-theme`)
+5. Open a Pull Request
 
-### Quick Contribution Ideas
-- 🔤 Add support for new cursive fonts
-- 🎨 Create new terminal themes
-- 📚 Improve documentation
-- 🐛 Fix bugs and issues
-- 🎬 Create demo videos or GIFs
-
-## 📋 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for detailed release notes and version history.
-
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-### Fonts
-- **[Victor Mono](https://rubjo.github.io/victor-mono/)** by Rune Bjørnerås
-- **[Cascadia Code](https://github.com/microsoft/cascadia-code)** by Microsoft
-- **[JetBrains Mono](https://www.jetbrains.com/lp/mono/)** by JetBrains
-- **[Fira Code](https://github.com/tonsky/FiraCode)** by Nikita Prokopov
+- **Victor Mono** for the beautiful italic font
+- **Community Contributors** for theme suggestions
+- **Color Theory Experts** for accessibility guidance
 
-### Tools & Inspiration
-- Terminal emulator developers for excellent font rendering
-- The typography community for beautiful monospace fonts
-- Developers who value aesthetics in their tools
+## 📞 Support
+
+- 📧 Email: support@cursiveterminal.com
+- 💬 Discord: [Join our community](https://discord.gg/cursive)
+- 🐛 Issues: [GitHub Issues](https://github.com/midnightnow/Cursive-Terminal/issues)
 
 ---
 
 <div align="center">
-
-**⚡ Fun Fact**: You're joining an elite group of developers who code entirely in cursive! Welcome to the club! ✨
-
-*Made with ❤️ and a love for beautiful typography*
-
-**[⭐ Star this repo](../../stargazers) if it made your terminal beautiful!**
-
+  <p>Made with 💜 by the Cursive Terminal Team</p>
+  <p>
+    <a href="https://github.com/midnightnow/Cursive-Terminal/stargazers">⭐ Star us on GitHub</a> •
+    <a href="https://twitter.com/cursiveterminal">🐦 Follow on Twitter</a> •
+    <a href="https://cursiveterminal.com">🌐 Visit our website</a>
+  </p>
 </div>

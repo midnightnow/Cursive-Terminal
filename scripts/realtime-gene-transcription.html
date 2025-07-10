@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧬 Real-Time Gene Transcription - Live Development Activity</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+        
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        /* Gene animations */
+        @keyframes transcribe {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+        
+        @keyframes float-dna {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            75% { transform: translateY(5px) translateX(-5px); }
+        }
+        
+        @keyframes ship-sail {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(100vw) rotate(5deg); }
+        }
+        
+        @keyframes helix-rotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .gene-bubble {
+            animation: float-dna 4s ease-in-out infinite;
+        }
+        
+        .transcribing {
+            animation: transcribe 2s ease-in-out;
+        }
+        
+        .sailing-ship {
+            animation: ship-sail 10s linear forwards;
+        }
+        
+        .dna-helix {
+            animation: helix-rotate 20s linear infinite;
+            transform-style: preserve-3d;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Code flow animation */
+        @keyframes code-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        .code-flow {
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.3), transparent);
+            background-size: 200% 100%;
+            animation: code-flow 3s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback } = React;
+        const { 
+            Code, FileText, Ship, Dna, GitBranch, Activity, 
+            Monitor, Zap, Package, Cloud, Database, Terminal,
+            Play, Pause, Settings, Eye, Globe, Anchor, Info
+        } = lucide;
+
+        // Real-time gene event system
+        const useRealTimeGeneEvents = () => {
+            const [state, setState] = useState({
+                genes: [],
+                ships: [],
+                cells: [],
+                stats: {
+                    totalGenes: 0,
+                    totalShips: 0,
+                    activeTranscriptions: 0,
+                    deliveredCargo: 0
+                }
+            });
+
+            const fileWatchers = useRef(new Map());
+            const gitMonitor = useRef(null);
+            const processMonitor = useRef(null);
+
+            // Simulate real file system events
+            const simulateFileEvent = useCallback((event) => {
+                const { type, path, content } = event;
+                
+                // Parse file to detect code patterns
+                const detectCodeType = (content) => {
+                    if (content.includes('function')) return 'function';
+                    if (content.includes('class')) return 'class';
+                    if (content.includes('const') || content.includes('let')) return 'const';
+                    if (content.includes('import') || content.includes('require')) return 'import';
+                    return 'unknown';
+                };
+
+                const codeType = detectCodeType(content || '');
+                const bases = { function: 'A', class: 'T', const: 'G', import: 'C', unknown: 'X' };
+                const colors = { A: '#FF6B6B', T: '#4ECDC4', G: '#45B7D1', C: '#96CEB4', X: '#999999' };
+                
+                const base = bases[codeType];
+                const gene = {
+                    id: `gene-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                    type: codeType,
+                    base,
+                    path,
+                    name: path.split('/').pop(),
+                    color: colors[base],
+                    size: content ? content.length : 100,
+                    timestamp: Date.now(),
+                    age: 0,
+                    transcribing: true,
+                    x: 10 + Math.random() * 20,
+                    y: 50 + Math.random() * 30,
+                    content: content ? content.substring(0, 200) : ''
+                };
+
+                setState(prev => ({
+                    ...prev,
+                    genes: [...prev.genes.slice(-50), gene],
+                    stats: {
+                        ...prev.stats,
+                        totalGenes: prev.stats.totalGenes + 1,
+                        activeTranscriptions: prev.stats.activeTranscriptions + 1
+                    }
+                }));
+            }, []);
+
+            // Simulate git events
+            const simulateGitEvent = useCallback((event) => {
+                const { type, message, files } = event;
+                
+                // Collect genes from recent activity
+                const cargoGenes = state.genes.slice(-5).filter(g => g.transcribing);
+                
+                if (cargoGenes.length > 0) {
+                    const ship = {
+                        id: `ship-${Date.now()}`,
+                        type: type,
+                        cargo: cargoGenes.map(g => g.id),
+                        cargoDetails: cargoGenes.map(g => ({
+                            base: g.base,
+                            type: g.type,
+                            size: g.size
+                        })),
+                        message: message,
+                        source: 'local',
+                        destination: type === 'push' ? 'github' : 'origin',
+                        x: 30,
+                        y: 70,
+                        progress: 0,
+                        sailing: true,
+                        color: type === 'push' ? '#FF6B6B' : '#4ECDC4'
+                    };
+
+                    setState(prev => ({
+                        ...prev,
+                        ships: [...prev.ships.slice(-20), ship],
+                        genes: prev.genes.map(g => 
+                            cargoGenes.find(c => c.id === g.id) 
+                                ? { ...g, transcribing: false, shipped: true }
+                                : g
+                        ),
+                        stats: {
+                            ...prev.stats,
+                            totalShips: prev.stats.totalShips + 1,
+                            activeTranscriptions: Math.max(0, prev.stats.activeTranscriptions - cargoGenes.length)
+                        }
+                    }));
+                }
+            }, [state.genes]);
+
+            // Simulation loop for demo
+            useEffect(() => {
+                const fileInterval = setInterval(() => {
+                    // Simulate file change events
+                    const files = [
+                        'src/components/Dashboard.jsx',
+                        'src/utils/dataProcessor.js',
+                        'src/api/endpoints.js',
+                        'src/constants/config.js',
+                        'src/App.jsx',
+                        'src/hooks/useData.js'
+                    ];
+                    
+                    const file = files[Math.floor(Math.random() * files.length)];
+                    const content = `// ${file}\n${Math.random() > 0.5 ? 'function' : 'const'} example = () => {\n  return data;\n}`;
+                    
+                    simulateFileEvent({
+                        type: 'change',
+                        path: file,
+                        content: content
+                    });
+                }, 3000);
+
+                const gitInterval = setInterval(() => {
+                    // Simulate git events
+                    if (state.genes.filter(g => g.transcribing).length >= 3) {
+                        const messages = [
+                            'feat: add new component',
+                            'fix: resolve data issue',
+                            'refactor: improve performance',
+                            'docs: update README'
+                        ];
+                        
+                        simulateGitEvent({
+                            type: Math.random() > 0.5 ? 'push' : 'commit',
+                            message: messages[Math.floor(Math.random() * messages.length)],
+                            files: state.genes.slice(-3).map(g => g.path)
+                        });
+                    }
+                }, 8000);
+
+                return () => {
+                    clearInterval(fileInterval);
+                    clearInterval(gitInterval);
+                };
+            }, [state.genes, simulateFileEvent, simulateGitEvent]);
+
+            // Update animation states
+            useEffect(() => {
+                const animationInterval = setInterval(() => {
+                    setState(prev => ({
+                        ...prev,
+                        genes: prev.genes.map(gene => ({
+                            ...gene,
+                            age: gene.age + 1,
+                            x: gene.x + (gene.shipped ? 2 : 0.1),
+                            transcribing: gene.transcribing && gene.age < 10
+                        })).filter(gene => gene.age < 100 && gene.x < 100),
+                        
+                        ships: prev.ships.map(ship => ({
+                            ...ship,
+                            progress: Math.min(100, ship.progress + 2),
+                            x: ship.x + 1.5,
+                            sailing: ship.progress < 100
+                        })).filter(ship => ship.x < 110),
+                        
+                        stats: {
+                            ...prev.stats,
+                            deliveredCargo: prev.ships.filter(s => s.progress >= 100).length
+                        }
+                    }));
+                }, 100);
+
+                return () => clearInterval(animationInterval);
+            }, []);
+
+            return state;
+        };
+
+        const RealTimeGeneTranscription = () => {
+            const { genes, ships, cells, stats } = useRealTimeGeneEvents();
+            const [isMonitoring, setIsMonitoring] = useState(true);
+            const [showDetails, setShowDetails] = useState(true);
+            const [viewMode, setViewMode] = useState('transcription'); // transcription, shipping, overview
+            const [selectedGene, setSelectedGene] = useState(null);
+
+            // DNA base color mapping
+            const baseColors = {
+                A: '#FF6B6B', // Adenine - Functions
+                T: '#4ECDC4', // Thymine - Classes  
+                G: '#45B7D1', // Guanine - Constants
+                C: '#96CEB4', // Cytosine - Imports
+                X: '#999999'  // Unknown
+            };
+
+            const baseNames = {
+                A: 'Adenine (Functions)',
+                T: 'Thymine (Classes)',
+                G: 'Guanine (Constants)',
+                C: 'Cytosine (Imports)',
+                X: 'Unknown'
+            };
+
+            // Icon wrapper
+            const Icon = ({ icon: IconComponent, ...props }) => {
+                useEffect(() => {
+                    lucide.createIcons();
+                }, []);
+                return <IconComponent {...props} />;
+            };
+
+            const renderGene = (gene) => {
+                const isSelected = selectedGene?.id === gene.id;
+                
+                return (
+                    <div
+                        key={gene.id}
+                        className={`absolute transition-all duration-500 cursor-pointer gene-bubble ${
+                            gene.transcribing ? 'transcribing' : ''
+                        }`}
+                        style={{
+                            left: `${gene.x}%`,
+                            top: `${gene.y}%`,
+                            transform: 'translate(-50%, -50%)',
+                            opacity: gene.shipped ? 0.3 : 1
+                        }}
+                        onClick={() => setSelectedGene(gene)}
+                    >
+                        <div
+                            className={`rounded-full border-2 flex items-center justify-center font-bold backdrop-blur-sm ${
+                                isSelected ? 'ring-4 ring-white ring-opacity-50' : ''
+                            }`}
+                            style={{
+                                width: `${30 + Math.min(gene.size / 50, 30)}px`,
+                                height: `${30 + Math.min(gene.size / 50, 30)}px`,
+                                backgroundColor: `${gene.color}30`,
+                                borderColor: gene.color,
+                                color: gene.color,
+                                boxShadow: gene.transcribing ? `0 0 20px ${gene.color}60` : 'none'
+                            }}
+                        >
+                            {gene.base}
+                        </div>
+                        
+                        {/* Gene label */}
+                        <div className="absolute top-full mt-1 text-xs text-center whitespace-nowrap">
+                            <div style={{ color: gene.color }} className="font-semibold">
+                                {gene.type}
+                            </div>
+                            <div className="text-gray-400 text-xs">
+                                {gene.name}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderShip = (ship) => {
+                return (
+                    <div
+                        key={ship.id}
+                        className={`absolute transition-all duration-300 ${
+                            ship.sailing ? 'sailing-ship' : ''
+                        }`}
+                        style={{
+                            left: `${ship.x}%`,
+                            top: `${ship.y}%`,
+                            transform: 'translate(-50%, -50%)'
+                        }}
+                    >
+                        <div
+                            className="relative w-16 h-12 rounded-lg border-2 backdrop-blur-sm flex items-center justify-center"
+                            style={{
+                                backgroundColor: `${ship.color}20`,
+                                borderColor: ship.color,
+                                boxShadow: `0 0 15px ${ship.color}40`
+                            }}
+                        >
+                            <Icon icon={Ship} size={24} style={{ color: ship.color }} />
+                            
+                            {/* Cargo count */}
+                            <div
+                                className="absolute -top-2 -right-2 w-6 h-6 rounded-full text-xs flex items-center justify-center font-bold bg-white text-black"
+                            >
+                                {ship.cargo.length}
+                            </div>
+
+                            {/* Progress bar */}
+                            <div
+                                className="absolute -bottom-1 left-0 h-1 rounded-full transition-all duration-300"
+                                style={{
+                                    width: `${ship.progress}%`,
+                                    backgroundColor: ship.color
+                                }}
+                            />
+
+                            {/* Cargo details */}
+                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                                {ship.cargoDetails.map((cargo, i) => (
+                                    <div
+                                        key={i}
+                                        className="w-4 h-4 rounded-full border flex items-center justify-center text-xs font-bold"
+                                        style={{
+                                            backgroundColor: `${baseColors[cargo.base]}30`,
+                                            borderColor: baseColors[cargo.base],
+                                            color: baseColors[cargo.base]
+                                        }}
+                                    >
+                                        {cargo.base}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Ship info */}
+                        <div className="absolute top-full mt-8 left-1/2 transform -translate-x-1/2 text-center">
+                            <div className="text-xs font-bold" style={{ color: ship.color }}>
+                                {ship.destination}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                                {ship.message}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderDNAHelix = () => {
+                const recentGenes = genes.slice(-8).filter(g => g.transcribing);
+                
+                return (
+                    <div className="absolute left-8 top-1/2 transform -translate-y-1/2 dna-helix">
+                        <div className="relative">
+                            {recentGenes.map((gene, index) => {
+                                const complement = gene.base === 'A' ? 'T' : 
+                                                 gene.base === 'T' ? 'A' : 
+                                                 gene.base === 'G' ? 'C' : 
+                                                 gene.base === 'C' ? 'G' : 'X';
+                                const angle = (index * 45) % 360;
+                                const radius = 40;
+                                const x = Math.cos(angle * Math.PI / 180) * radius;
+                                const z = Math.sin(angle * Math.PI / 180) * radius;
+                                
+                                return (
+                                    <div
+                                        key={gene.id}
+                                        className="absolute flex items-center"
+                                        style={{
+                                            transform: `translate3d(${x}px, ${index * 20}px, ${z}px)`,
+                                            transformStyle: 'preserve-3d'
+                                        }}
+                                    >
+                                        <div
+                                            className="w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold"
+                                            style={{
+                                                backgroundColor: `${gene.color}30`,
+                                                borderColor: gene.color,
+                                                color: gene.color
+                                            }}
+                                        >
+                                            {gene.base}
+                                        </div>
+                                        <div className="w-20 h-0.5 mx-2" style={{ backgroundColor: gene.color + '40' }} />
+                                        <div
+                                            className="w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold"
+                                            style={{
+                                                backgroundColor: `${baseColors[complement]}30`,
+                                                borderColor: baseColors[complement],
+                                                color: baseColors[complement]
+                                            }}
+                                        >
+                                            {complement}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="w-full h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden relative">
+                    {/* Background DNA pattern */}
+                    <div className="absolute inset-0 opacity-5">
+                        <div className="w-full h-full code-flow" />
+                    </div>
+
+                    {/* Header */}
+                    <div className="absolute top-0 left-0 right-0 z-20 glass p-4">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h1 className="text-3xl font-bold italic flex items-center">
+                                    <Icon icon={Dna} className="mr-3 text-green-400" size={36} />
+                                    Real-Time Gene Transcription
+                                </h1>
+                                <p className="text-sm opacity-75 mt-1">Live development activity → DNA → Ships</p>
+                            </div>
+                            
+                            <div className="flex items-center space-x-4">
+                                <div className="flex items-center space-x-2 bg-black bg-opacity-30 rounded-lg p-1">
+                                    {['transcription', 'shipping', 'overview'].map((mode) => (
+                                        <button
+                                            key={mode}
+                                            onClick={() => setViewMode(mode)}
+                                            className={`px-4 py-2 rounded-md transition-all capitalize ${
+                                                viewMode === mode 
+                                                    ? 'bg-purple-600 text-white' 
+                                                    : 'text-gray-300 hover:bg-white hover:bg-opacity-10'
+                                            }`}
+                                        >
+                                            {mode}
+                                        </button>
+                                    ))}
+                                </div>
+                                
+                                <button
+                                    onClick={() => setIsMonitoring(!isMonitoring)}
+                                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                                        isMonitoring ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
+                                    }`}
+                                >
+                                    <Icon icon={isMonitoring ? Pause : Play} size={16} />
+                                    <span>{isMonitoring ? 'Monitoring' : 'Paused'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Real-time stats */}
+                    <div className="absolute top-20 right-4 z-20 glass p-4 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-3 flex items-center">
+                            <Icon icon={Activity} size={20} className="mr-2 text-green-400" />
+                            Live Statistics
+                        </h3>
+                        <div className="space-y-2 text-sm">
+                            <div className="flex justify-between items-center">
+                                <span>Total Genes:</span>
+                                <span className="font-bold text-yellow-400 font-mono">{stats.totalGenes}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Active Transcriptions:</span>
+                                <span className="font-bold text-green-400 font-mono">{stats.activeTranscriptions}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Ships Launched:</span>
+                                <span className="font-bold text-blue-400 font-mono">{stats.totalShips}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span>Delivered Cargo:</span>
+                                <span className="font-bold text-purple-400 font-mono">{stats.deliveredCargo}</span>
+                            </div>
+                        </div>
+                        
+                        <div className="mt-4 pt-4 border-t border-gray-600">
+                            <h4 className="text-sm font-semibold mb-2">Base Distribution</h4>
+                            <div className="space-y-1">
+                                {Object.entries(baseColors).map(([base, color]) => {
+                                    const count = genes.filter(g => g.base === base && g.transcribing).length;
+                                    return (
+                                        <div key={base} className="flex items-center justify-between">
+                                            <div className="flex items-center">
+                                                <div
+                                                    className="w-4 h-4 rounded mr-2"
+                                                    style={{ backgroundColor: color }}
+                                                />
+                                                <span className="text-xs">{base}</span>
+                                            </div>
+                                            <span className="text-xs font-mono" style={{ color }}>
+                                                {count}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Gene details panel */}
+                    {showDetails && selectedGene && (
+                        <div className="absolute top-20 left-4 z-20 glass p-4 rounded-lg max-w-md">
+                            <h3 className="text-lg font-semibold mb-3 flex items-center">
+                                <Icon icon={Info} size={20} className="mr-2" />
+                                Gene Details
+                            </h3>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex items-center">
+                                    <div
+                                        className="w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold mr-3"
+                                        style={{
+                                            backgroundColor: `${selectedGene.color}30`,
+                                            borderColor: selectedGene.color,
+                                            color: selectedGene.color
+                                        }}
+                                    >
+                                        {selectedGene.base}
+                                    </div>
+                                    <div>
+                                        <div className="font-semibold">{selectedGene.name}</div>
+                                        <div className="text-xs text-gray-400">{baseNames[selectedGene.base]}</div>
+                                    </div>
+                                </div>
+                                <div className="border-t border-gray-600 pt-2">
+                                    <div className="text-xs text-gray-400">Path</div>
+                                    <div className="font-mono text-xs">{selectedGene.path}</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-gray-400">Size</div>
+                                    <div>{selectedGene.size} characters</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-gray-400">Status</div>
+                                    <div className={selectedGene.transcribing ? 'text-green-400' : 'text-gray-400'}>
+                                        {selectedGene.transcribing ? 'Transcribing' : selectedGene.shipped ? 'Shipped' : 'Idle'}
+                                    </div>
+                                </div>
+                                {selectedGene.content && (
+                                    <div className="border-t border-gray-600 pt-2">
+                                        <div className="text-xs text-gray-400 mb-1">Preview</div>
+                                        <pre className="text-xs bg-black bg-opacity-30 p-2 rounded overflow-x-auto">
+                                            {selectedGene.content}
+                                        </pre>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Main visualization area */}
+                    <div className="w-full h-full relative pt-20" onClick={() => setSelectedGene(null)}>
+                        {viewMode === 'transcription' && (
+                            <>
+                                {/* DNA Helix */}
+                                {renderDNAHelix()}
+                                
+                                {/* Transcription zone */}
+                                <div className="absolute left-32 top-1/2 transform -translate-y-1/2 w-48 h-48 border-2 border-dashed border-green-400 border-opacity-30 rounded-full flex items-center justify-center">
+                                    <div className="text-center">
+                                        <Icon icon={Dna} size={32} className="mx-auto mb-2 text-green-400 opacity-50" />
+                                        <span className="text-sm opacity-50">Transcription Zone</span>
+                                    </div>
+                                </div>
+                                
+                                {/* Genes */}
+                                {genes.map(renderGene)}
+                            </>
+                        )}
+                        
+                        {viewMode === 'shipping' && (
+                            <>
+                                {/* Shipping lanes */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-full h-px bg-white opacity-10" />
+                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-full h-px bg-white opacity-5 transform translate-y-10" />
+                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-full h-px bg-white opacity-5 transform -translate-y-10" />
+                                </div>
+                                
+                                {/* Ports */}
+                                <div className="absolute left-10 top-1/2 transform -translate-y-1/2">
+                                    <div className="glass p-4 rounded-lg">
+                                        <Icon icon={Anchor} size={32} className="text-blue-400 mb-2" />
+                                        <div className="text-sm font-semibold">Local Port</div>
+                                    </div>
+                                </div>
+                                
+                                <div className="absolute right-10 top-1/2 transform -translate-y-1/2">
+                                    <div className="glass p-4 rounded-lg">
+                                        <Icon icon={GitBranch} size={32} className="text-red-400 mb-2" />
+                                        <div className="text-sm font-semibold">GitHub</div>
+                                    </div>
+                                </div>
+                                
+                                {/* Ships */}
+                                {ships.map(renderShip)}
+                            </>
+                        )}
+                        
+                        {viewMode === 'overview' && (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <div className="grid grid-cols-3 gap-8">
+                                    <div className="glass p-6 rounded-lg text-center">
+                                        <Icon icon={FileText} size={48} className="mx-auto mb-4 text-yellow-400" />
+                                        <h3 className="text-xl font-semibold mb-2">File Changes</h3>
+                                        <p className="text-3xl font-bold text-yellow-400">{stats.totalGenes}</p>
+                                        <p className="text-sm text-gray-400 mt-2">Total genes created</p>
+                                    </div>
+                                    
+                                    <div className="glass p-6 rounded-lg text-center">
+                                        <Icon icon={Dna} size={48} className="mx-auto mb-4 text-green-400" />
+                                        <h3 className="text-xl font-semibold mb-2">Transcriptions</h3>
+                                        <p className="text-3xl font-bold text-green-400">{stats.activeTranscriptions}</p>
+                                        <p className="text-sm text-gray-400 mt-2">Active now</p>
+                                    </div>
+                                    
+                                    <div className="glass p-6 rounded-lg text-center">
+                                        <Icon icon={Ship} size={48} className="mx-auto mb-4 text-blue-400" />
+                                        <h3 className="text-xl font-semibold mb-2">Deployments</h3>
+                                        <p className="text-3xl font-bold text-blue-400">{stats.totalShips}</p>
+                                        <p className="text-sm text-gray-400 mt-2">Ships launched</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Legend */}
+                    <div className="absolute bottom-4 left-4 z-20 glass p-4 rounded-lg">
+                        <h3 className="font-semibold mb-2 flex items-center">
+                            <Icon icon={Info} size={16} className="mr-2" />
+                            DNA Code Mapping
+                        </h3>
+                        <div className="text-xs space-y-1">
+                            {Object.entries(baseNames).filter(([base]) => base !== 'X').map(([base, name]) => (
+                                <div key={base} className="flex items-center">
+                                    <div 
+                                        className="w-4 h-4 rounded mr-2" 
+                                        style={{ backgroundColor: baseColors[base] }} 
+                                    />
+                                    <span>{base} → {name.split(' ')[1]}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Activity feed */}
+                    <div className="absolute bottom-4 right-4 z-20 glass p-4 rounded-lg max-w-sm">
+                        <h3 className="font-semibold mb-2 flex items-center">
+                            <Icon icon={Terminal} size={16} className="mr-2" />
+                            Activity Stream
+                        </h3>
+                        <div className="text-xs space-y-1 font-mono max-h-32 overflow-y-auto">
+                            {genes.slice(-5).reverse().map(gene => (
+                                <div key={gene.id} className="flex items-center space-x-2">
+                                    <span className="text-gray-400">{new Date(gene.timestamp).toLocaleTimeString()}</span>
+                                    <span style={{ color: gene.color }}>+{gene.base}</span>
+                                    <span className="text-gray-300 truncate">{gene.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Status indicator */}
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30">
+                        {isMonitoring && (
+                            <div className="bg-green-600 bg-opacity-90 px-4 py-2 rounded-full flex items-center space-x-2">
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                                <span className="text-sm font-medium">Live Monitoring Active</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<RealTimeGeneTranscription />);
+    </script>
+</body>
+</html>

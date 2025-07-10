@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursive Terminal - Fullscreen Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital@1&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .terminal {
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .pirate-message {
+            text-align: center;
+            font-size: 1.5em;
+            line-height: 1.8;
+            max-width: 600px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid #ffd700;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .controls button {
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+        
+        .controls button:hover {
+            background: #ffd700;
+            color: #0a0a0a;
+            transform: scale(1.05);
+        }
+        
+        .fleet-dock {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .fleet-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(139, 69, 19, 0.8);
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fleet-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+        
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.4) 100%);
+        }
+        
+        body.fullscreen .vignette {
+            opacity: 1;
+        }
+        
+        body.fullscreen .controls {
+            bottom: 40px;
+        }
+        
+        .spawn-animation {
+            position: fixed;
+            font-size: 40px;
+            animation: spawn 1s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes spawn {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(360deg) translateY(-100px);
+                opacity: 0;
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(139, 69, 19, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid #ffd700;
+            font-size: 1.2em;
+            transition: transform 0.5s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            <h1>🏴‍☠️ Cursive Terminal - Cinematic Mode Demo</h1>
+        </div>
+        
+        <div class="content">
+            <div class="pirate-message">
+                <p>Ahoy, Captain! 👋</p>
+                <p>Press <kbd>⌘⇧F</kbd> to enter cinematic mode!</p>
+                <p>Or use the controls below, ye landlubber!</p>
+                <br>
+                <p style="font-size: 0.8em; opacity: 0.7;">Click the fleet icons to spawn yer crew!</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <span>Visual Effects:</span>
+            <input type="range" id="visualDial" min="0" max="100" value="50">
+            <span id="visualValue">50%</span>
+            <button onclick="toggleFullscreen()">🎬 Fullscreen</button>
+            <button onclick="dialPirate()">🏴‍☠️ Dial Pirate</button>
+        </div>
+        
+        <div class="fleet-dock">
+            <div class="fleet-icon" onclick="spawnFleet('ship')">⛵</div>
+            <div class="fleet-icon" onclick="spawnFleet('crew')">👥</div>
+            <div class="fleet-icon" onclick="spawnFleet('parrot')">🦜</div>
+        </div>
+        
+        <div class="vignette"></div>
+        <div class="notification" id="notification"></div>
+    </div>
+    
+    <script>
+        let isFullscreen = false;
+        let pirateLevel = 50;
+        let previousWindowState = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+        
+        // Visual effects dial
+        const visualDial = document.getElementById('visualDial');
+        const visualValue = document.getElementById('visualValue');
+        
+        visualDial.addEventListener('input', (e) => {
+            const value = e.target.value;
+            visualValue.textContent = value + '%';
+            applyVisualEffects(value);
+        });
+        
+        function applyVisualEffects(level) {
+            const blur = (100 - level) * 0.02;
+            const brightness = 0.5 + (level / 100) * 0.5;
+            const saturate = 0.5 + (level / 100) * 0.5;
+            
+            document.body.style.filter = `blur(${blur}px) brightness(${brightness}) saturate(${saturate})`;
+            
+            showNotification(`Visual effects: ${level}%`);
+        }
+        
+        // Fullscreen toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                enterFullscreen();
+            } else {
+                exitFullscreen();
+            }
+        }
+        
+        function enterFullscreen() {
+            // Store current state
+            previousWindowState = {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+            
+            // Request fullscreen
+            document.documentElement.requestFullscreen().then(() => {
+                document.body.classList.add('fullscreen');
+                isFullscreen = true;
+                showNotification("🎬 Entering cinematic mode!");
+                
+                // Play sound effect (if we had one)
+                // playSound('woosh.mp3');
+            });
+        }
+        
+        function exitFullscreen() {
+            document.exitFullscreen().then(() => {
+                document.body.classList.remove('fullscreen');
+                isFullscreen = false;
+                showNotification("📺 Back to normal view");
+                
+                // Restore window size (in Electron, we'd actually resize)
+                console.log('Would restore to:', previousWindowState);
+            });
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Cmd+Shift+F or Ctrl+Shift+F
+            if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'F') {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+            
+            // Escape to exit fullscreen
+            if (e.key === 'Escape' && document.fullscreenElement) {
+                exitFullscreen();
+            }
+        });
+        
+        // Fleet spawning
+        function spawnFleet(type) {
+            const icons = {
+                ship: '⛵',
+                crew: '👥',
+                parrot: '🦜'
+            };
+            
+            const messages = {
+                ship: "Arr! A fine vessel joins yer fleet!",
+                crew: "Yer crew be ready for adventure!",
+                parrot: "Squawk! Polly wants a cracker!"
+            };
+            
+            // Create spawn animation
+            const spawn = document.createElement('div');
+            spawn.className = 'spawn-animation';
+            spawn.textContent = icons[type];
+            spawn.style.left = (window.innerWidth - 100) + 'px';
+            spawn.style.top = (window.innerHeight / 2) + 'px';
+            document.body.appendChild(spawn);
+            
+            // Remove after animation
+            setTimeout(() => spawn.remove(), 1000);
+            
+            showNotification(messages[type]);
+        }
+        
+        // Pirate tone dial
+        function dialPirate() {
+            pirateLevel = (pirateLevel + 25) % 125;
+            const messages = {
+                0: "Speaking plainly now, Captain.",
+                25: "Aye, just a touch of the sea in me words.",
+                50: "Arr, now we be talkin' like proper sailors!",
+                75: "Shiver me timbers! The pirate spirit be strong!",
+                100: "ARRR! YE BE SPEAKIN' TO A TRUE BUCCANEER NOW!"
+            };
+            
+            showNotification(`🏴‍☠️ Pirate tone: ${pirateLevel}% - ${messages[pirateLevel] || messages[100]}`);
+        }
+        
+        // Notification system
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Initial notification
+        setTimeout(() => {
+            showNotification("🏴‍☠️ Welcome aboard, Captain!");
+        }, 1000);
+    </script>
+</body>
+</html>

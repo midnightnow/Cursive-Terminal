@@ -1,0 +1,489 @@
+#!/bin/bash
+
+# Generate complete theme gallery HTML with all 33 themes
+
+cat > ../docs/themes/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursive Terminal Themes Gallery - 33 Beautiful Themes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid #ffd700;
+        }
+        
+        .hero h1 {
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            font-size: 4em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #333;
+            background: transparent;
+            color: #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .theme-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+        }
+        
+        .theme-preview {
+            height: 200px;
+            padding: 20px;
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-info {
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .theme-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .theme-description {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .color-dots {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .install-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .install-command {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 40px;
+            display: inline-block;
+            font-family: 'Victor Mono', monospace;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        
+        .theme-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>Cursive Terminal Themes</h1>
+        <p style="font-size: 1.2em; opacity: 0.9;">33 Beautiful Themes for Your Cursive Coding Experience</p>
+    </header>
+    
+    <section class="install-section">
+        <h2>Quick Install</h2>
+        <div class="install-command">
+            <code>git clone github.com/midnightnow/Cursive-Terminal && cd Cursive-Terminal/scripts && ./install-all-themes.sh</code>
+        </div>
+    </section>
+    
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterThemes('all')">All Themes (33)</button>
+        <button class="filter-btn" onclick="filterThemes('dark')">Dark (9)</button>
+        <button class="filter-btn" onclick="filterThemes('light')">Light (6)</button>
+        <button class="filter-btn" onclick="filterThemes('colorful')">Colorful (6)</button>
+        <button class="filter-btn" onclick="filterThemes('business')">Business (6)</button>
+        <button class="filter-btn" onclick="filterThemes('feather')">WCAG-AA (6)</button>
+    </div>
+    
+    <main class="themes-grid" id="themesGrid">
+        <!-- Dark Themes (9) -->
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/cursive-elegance.jpg" alt="Cursive Elegance" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">✨ Cursive Elegance</div>
+                <div class="theme-description">Purple/Gold - Sophisticated and elegant</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/vampires-letter.jpg" alt="Vampire's Letter" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🧛 Vampire's Letter</div>
+                <div class="theme-description">Black/Red - Dark velvet night</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/pirate-scroll.jpg" alt="Pirate's Scroll" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🏴‍☠️ Pirate's Scroll</div>
+                <div class="theme-description">Brown/Gold - Weather-beaten parchment</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/midnight-in-tokyo.jpg" alt="Midnight in Tokyo" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌃 Midnight in Tokyo</div>
+                <div class="theme-description">Navy/Neon - Cyberpunk night</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/wizards-grimoire.jpg" alt="Wizard's Grimoire" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🧙 Wizard's Grimoire</div>
+                <div class="theme-description">Purple/Green - Mystical spellbook</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/love-letter.jpg" alt="Love Letter" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">💕 Love Letter</div>
+                <div class="theme-description">Pink/Red - Romance and passion</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/gothic-invitation.jpg" alt="Gothic Invitation" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🦇 Gothic Invitation</div>
+                <div class="theme-description">Black/Silver - Dark ceremony</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/secret-diary.jpg" alt="Secret Diary" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🔒 Secret Diary</div>
+                <div class="theme-description">Indigo/Lavender - Hidden thoughts</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="dark">
+            <img src="theme-demo-photos/hacker-manifesto.jpg" alt="Hacker's Manifesto" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">💻 Hacker's Manifesto</div>
+                <div class="theme-description">Green/Black - Matrix terminal</div>
+            </div>
+        </a>
+        
+        <!-- Light Manuscript Themes (6) -->
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/ancient-papyrus.jpg" alt="Ancient Papyrus" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📜 Ancient Papyrus</div>
+                <div class="theme-description">Beige/Brown - Aged papyrus</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/parchment-note.jpg" alt="Parchment Note" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📋 Parchment Note</div>
+                <div class="theme-description">Cream/Sepia - Medieval manuscript</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/calligraphy-practice.jpg" alt="Calligraphy Practice" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🖋️ Calligraphy Practice</div>
+                <div class="theme-description">White/Ink - Classic penmanship</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/illuminated-manuscript.jpg" alt="Illuminated Manuscript" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🎨 Illuminated Manuscript</div>
+                <div class="theme-description">Ivory/Gold - Ornate medieval art</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/invisible-ink.jpg" alt="Invisible Ink" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🔍 Invisible Ink</div>
+                <div class="theme-description">White/Pale Blue - Secret messages</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="light">
+            <img src="theme-demo-photos/typewriter-draft.jpg" alt="Typewriter Draft" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">⌨️ Typewriter Draft</div>
+                <div class="theme-description">Paper/Ink - Classic typing</div>
+            </div>
+        </a>
+        
+        <!-- Colorful Themes (6) -->
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/rainbow-prism.jpg" alt="Rainbow Prism" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌈 Rainbow Prism</div>
+                <div class="theme-description">Dark/Vibrant - Rainbow highlights</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/neon-sign.jpg" alt="Neon Sign" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">💡 Neon Sign</div>
+                <div class="theme-description">Black/Neon - Electric glow</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/artistic-palette.jpg" alt="Artistic Palette" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🎨 Artistic Palette</div>
+                <div class="theme-description">Canvas/Paint - Artist's colors</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/forest-grove.jpg" alt="Forest Grove" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌲 Forest Grove</div>
+                <div class="theme-description">Green/Brown - Natural woodland</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/ocean-depths.jpg" alt="Ocean Depths" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌊 Ocean Depths</div>
+                <div class="theme-description">Blue/Teal - Deep sea</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="colorful">
+            <img src="theme-demo-photos/cotton-candy.jpg" alt="Cotton Candy" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🍭 Cotton Candy</div>
+                <div class="theme-description">Pink/Blue - Sweet pastels</div>
+            </div>
+        </a>
+        
+        <!-- Business Document Themes (6) -->
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/executive-memo.jpg" alt="Executive Memo" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📊 Executive Memo</div>
+                <div class="theme-description">Gray/Blue - Corporate professional</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/legal-document.jpg" alt="Legal Document" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">⚖️ Legal Document</div>
+                <div class="theme-description">White/Black - Formal contract</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/invoice-statement.jpg" alt="Invoice Statement" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">💰 Invoice Statement</div>
+                <div class="theme-description">Cream/Green - Financial document</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/blueprint-tech.jpg" alt="Blueprint Tech" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📐 Blueprint Tech</div>
+                <div class="theme-description">Blue/White - Technical drawing</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/presentation-deck.jpg" alt="Presentation Deck" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📊 Presentation Deck</div>
+                <div class="theme-description">White/Accent - Clean slides</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="business">
+            <img src="theme-demo-photos/contract-seal.jpg" alt="Contract Seal" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">📜 Contract Seal</div>
+                <div class="theme-description">Ivory/Gold - Official document</div>
+            </div>
+        </a>
+        
+        <!-- Feather-Light WCAG Themes (6) -->
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/cloud-nine.jpg" alt="Cloud Nine" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">☁️ Cloud Nine</div>
+                <div class="theme-description">Sky Blue/White - Airy and light</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/vanilla-cream.jpg" alt="Vanilla Cream" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🍦 Vanilla Cream</div>
+                <div class="theme-description">Cream/Brown - Soft warmth</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/linen-sheet.jpg" alt="Linen Sheet" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🏳️ Linen Sheet</div>
+                <div class="theme-description">Off-White/Gray - Clean fabric</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/morning-mist.jpg" alt="Morning Mist" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌫️ Morning Mist</div>
+                <div class="theme-description">Gray/White - Soft fog</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/pearl-shimmer.jpg" alt="Pearl Shimmer" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🦪 Pearl Shimmer</div>
+                <div class="theme-description">Iridescent/White - Subtle shine</div>
+            </div>
+        </a>
+        
+        <a href="#" class="theme-card" data-category="feather">
+            <img src="theme-demo-photos/moonlight-sonata.jpg" alt="Moonlight Sonata" class="theme-image">
+            <div class="theme-info">
+                <div class="theme-name">🌙 Moonlight Sonata</div>
+                <div class="theme-description">Silver/White - Gentle night</div>
+            </div>
+        </a>
+    </main>
+    
+    <script>
+        function filterThemes(category) {
+            const cards = document.querySelectorAll('.theme-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent.includes('All'))) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show/hide cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+EOF
+
+echo "✅ Generated complete theme gallery with all 33 themes"

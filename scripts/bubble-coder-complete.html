@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🫧 Bubble Coder - Complete Code Generation System</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Victor Mono', monospace;
+            font-style: italic;
+            overflow: hidden;
+        }
+        
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        /* Bubble animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        @keyframes bubble-pop {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        @keyframes code-flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .bubble-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .bubble-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .bubble-pop {
+            animation: bubble-pop 0.5s ease-out forwards;
+        }
+        
+        .shimmer-text {
+            background: linear-gradient(
+                90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        .code-flow {
+            animation: code-flow 20s linear infinite;
+        }
+        
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(78, 205, 196, 0.5);
+            border-radius: 4px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(78, 205, 196, 0.8);
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Code syntax highlighting override */
+        pre[class*="language-"] {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        code[class*="language-"] {
+            font-family: 'Victor Mono', monospace !important;
+            font-style: italic !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback } = React;
+        const { 
+            Code, Sparkles, Zap, FileText, Package, GitBranch, 
+            Terminal, Ship, Anchor, Globe, Cloud, Database,
+            Play, Pause, RotateCcw, Settings, Download, Copy,
+            Check, X, AlertCircle, Info, ChevronRight, Hash,
+            Layers, Box, Cpu, Activity, Eye, EyeOff
+        } = lucide;
+
+        const BubbleCoderComplete = () => {
+            // State management
+            const [mode, setMode] = useState('generate'); // generate, edit, merge, deploy
+            const [isActive, setIsActive] = useState(false);
+            const [bubbles, setBubbles] = useState([]);
+            const [selectedBubbles, setSelectedBubbles] = useState([]);
+            const [generatedCode, setGeneratedCode] = useState('');
+            const [codeHistory, setCodeHistory] = useState([]);
+            const [bubbleTemplates, setBubbleTemplates] = useState({
+                function: true,
+                component: true,
+                class: true,
+                module: true,
+                helper: true,
+                test: true
+            });
+            const [settings, setSettings] = useState({
+                bubbleSpeed: 50,
+                codeComplexity: 'medium',
+                autoMerge: false,
+                syntaxHighlight: true,
+                pirateMode: true,
+                showFlow: true,
+                particleEffects: true
+            });
+            const [stats, setStats] = useState({
+                bubblesGenerated: 0,
+                codeBlocks: 0,
+                merges: 0,
+                deployments: 0
+            });
+            const [notifications, setNotifications] = useState([]);
+
+            // Refs
+            const canvasRef = useRef(null);
+            const codeAreaRef = useRef(null);
+            const animationRef = useRef(null);
+
+            // Bubble templates with enhanced code generation
+            const codeTemplates = {
+                function: {
+                    name: 'Function',
+                    icon: Code,
+                    color: '#4ECDC4',
+                    size: 'medium',
+                    complexity: 1,
+                    generate: (name = 'processData') => `function ${name}(data) {
+  // Process incoming data
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid data format');
+  }
+  
+  const result = {
+    processed: true,
+    timestamp: Date.now(),
+    data: { ...data }
+  };
+  
+  return result;
+}`
+                },
+                component: {
+                    name: 'React Component',
+                    icon: Box,
+                    color: '#45B7D1',
+                    size: 'large',
+                    complexity: 2,
+                    generate: (name = 'DataView') => `const ${name} = ({ data, onUpdate }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const handleUpdate = async () => {
+    setIsLoading(true);
+    try {
+      await onUpdate(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  return (
+    <div className="data-view">
+      {error && <div className="error">{error}</div>}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <button onClick={handleUpdate}>Update</button>
+      )}
+    </div>
+  );
+};`
+                },
+                class: {
+                    name: 'Class',
+                    icon: Package,
+                    color: '#96CEB4',
+                    size: 'large',
+                    complexity: 3,
+                    generate: (name = 'DataProcessor') => `class ${name} {
+  constructor(options = {}) {
+    this.options = {
+      maxRetries: 3,
+      timeout: 5000,
+      ...options
+    };
+    this.queue = [];
+    this.processing = false;
+  }
+  
+  async process(item) {
+    this.queue.push(item);
+    if (!this.processing) {
+      await this.processQueue();
+    }
+  }
+  
+  async processQueue() {
+    this.processing = true;
+    while (this.queue.length > 0) {
+      const item = this.queue.shift();
+      await this.processItem(item);
+    }
+    this.processing = false;
+  }
+  
+  async processItem(item) {
+    // Implementation here
+    console.log('Processing:', item);
+  }
+}`
+                },
+                module: {
+                    name: 'Module',
+                    icon: FileText,
+                    color: '#FFEAA7',
+                    size: 'large',
+                    complexity: 3,
+                    generate: (name = 'dataUtils') => `// ${name}.js
+export const formatData = (data) => {
+  return JSON.stringify(data, null, 2);
+};
+
+export const parseData = (str) => {
+  try {
+    return JSON.parse(str);
+  } catch (e) {
+    console.error('Parse error:', e);
+    return null;
+  }
+};
+
+export const validateData = (data, schema) => {
+  // Schema validation logic
+  return true;
+};
+
+export default {
+  formatData,
+  parseData,
+  validateData
+};`
+                },
+                helper: {
+                    name: 'Helper',
+                    icon: Zap,
+                    color: '#DFE6E9',
+                    size: 'small',
+                    complexity: 1,
+                    generate: (name = 'debounce') => `const ${name} = (func, delay = 300) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};`
+                },
+                test: {
+                    name: 'Test',
+                    icon: Check,
+                    color: '#00B894',
+                    size: 'medium',
+                    complexity: 2,
+                    generate: (name = 'DataProcessor') => `describe('${name}', () => {
+  let instance;
+  
+  beforeEach(() => {
+    instance = new ${name}();
+  });
+  
+  test('should process data correctly', async () => {
+    const data = { id: 1, value: 'test' };
+    const result = await instance.process(data);
+    
+    expect(result).toBeDefined();
+    expect(result.processed).toBe(true);
+  });
+  
+  test('should handle errors gracefully', async () => {
+    const invalidData = null;
+    
+    await expect(instance.process(invalidData))
+      .rejects.toThrow('Invalid data');
+  });
+});`
+                }
+            };
+
+            // Generate bubble
+            const generateBubble = useCallback(() => {
+                const enabledTemplates = Object.entries(bubbleTemplates)
+                    .filter(([_, enabled]) => enabled)
+                    .map(([key]) => key);
+                
+                if (enabledTemplates.length === 0) return;
+                
+                const templateKey = enabledTemplates[Math.floor(Math.random() * enabledTemplates.length)];
+                const template = codeTemplates[templateKey];
+                
+                const newBubble = {
+                    id: `bubble-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                    type: templateKey,
+                    template: template,
+                    x: Math.random() * (window.innerWidth - 150) + 75,
+                    y: window.innerHeight + 100,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: -(Math.random() * 2 + 1) * (settings.bubbleSpeed / 50),
+                    size: template.size === 'small' ? 60 : template.size === 'large' ? 100 : 80,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 2,
+                    opacity: 1,
+                    scale: 1,
+                    captured: false,
+                    merged: false,
+                    code: template.generate(`Custom${templateKey.charAt(0).toUpperCase() + templateKey.slice(1)}${Math.floor(Math.random() * 100)}`)
+                };
+                
+                setBubbles(prev => [...prev, newBubble]);
+                setStats(prev => ({ ...prev, bubblesGenerated: prev.bubblesGenerated + 1 }));
+            }, [bubbleTemplates, settings.bubbleSpeed]);
+
+            // Update bubbles physics
+            const updateBubbles = useCallback(() => {
+                setBubbles(prev => prev
+                    .map(bubble => {
+                        if (bubble.captured || bubble.merged) {
+                            return {
+                                ...bubble,
+                                opacity: Math.max(0, bubble.opacity - 0.02),
+                                scale: bubble.scale + 0.02
+                            };
+                        }
+                        
+                        // Physics update
+                        let newX = bubble.x + bubble.vx;
+                        let newY = bubble.y + bubble.vy;
+                        let newVx = bubble.vx;
+                        let newVy = bubble.vy;
+                        
+                        // Bounce off walls
+                        if (newX <= bubble.size / 2 || newX >= window.innerWidth - bubble.size / 2) {
+                            newVx = -bubble.vx * 0.8;
+                            newX = newX <= bubble.size / 2 ? bubble.size / 2 : window.innerWidth - bubble.size / 2;
+                        }
+                        
+                        // Float up with slight gravity
+                        newVy += 0.02;
+                        
+                        // Add some wobble
+                        newVx += (Math.random() - 0.5) * 0.1;
+                        
+                        return {
+                            ...bubble,
+                            x: newX,
+                            y: newY,
+                            vx: newVx,
+                            vy: newVy,
+                            rotation: bubble.rotation + bubble.rotationSpeed
+                        };
+                    })
+                    .filter(bubble => bubble.y > -200 && bubble.opacity > 0)
+                );
+            }, []);
+
+            // Handle bubble interaction
+            const handleBubbleClick = useCallback((bubbleId) => {
+                const bubble = bubbles.find(b => b.id === bubbleId);
+                if (!bubble || bubble.captured) return;
+                
+                if (mode === 'generate') {
+                    // Capture and generate code
+                    setBubbles(prev => prev.map(b => 
+                        b.id === bubbleId ? { ...b, captured: true } : b
+                    ));
+                    
+                    const newCode = bubble.code;
+                    setGeneratedCode(prev => prev + (prev ? '\n\n' : '') + newCode);
+                    setCodeHistory(prev => [...prev, { 
+                        id: Date.now(), 
+                        code: newCode, 
+                        type: bubble.type,
+                        timestamp: new Date().toISOString()
+                    }]);
+                    setStats(prev => ({ ...prev, codeBlocks: prev.codeBlocks + 1 }));
+                    
+                    addNotification(`Generated ${bubble.template.name}`, 'success');
+                } else if (mode === 'merge') {
+                    // Select for merging
+                    setSelectedBubbles(prev => {
+                        const isSelected = prev.includes(bubbleId);
+                        if (isSelected) {
+                            return prev.filter(id => id !== bubbleId);
+                        } else {
+                            return [...prev, bubbleId];
+                        }
+                    });
+                }
+            }, [bubbles, mode]);
+
+            // Merge selected bubbles
+            const mergeBubbles = useCallback(() => {
+                if (selectedBubbles.length < 2) {
+                    addNotification('Select at least 2 bubbles to merge', 'warning');
+                    return;
+                }
+                
+                const bubblestoMerge = bubbles.filter(b => selectedBubbles.includes(b.id));
+                const mergedCode = bubblestoMerge.map(b => b.code).join('\n\n');
+                
+                // Create merged bubble effect
+                const centerX = bubblestoMerge.reduce((sum, b) => sum + b.x, 0) / bubblestoMerge.length;
+                const centerY = bubblestoMerge.reduce((sum, b) => sum + b.y, 0) / bubblestoMerge.length;
+                
+                setBubbles(prev => {
+                    const remaining = prev.map(b => 
+                        selectedBubbles.includes(b.id) ? { ...b, merged: true, x: centerX, y: centerY } : b
+                    );
+                    
+                    // Add new merged bubble
+                    const mergedBubble = {
+                        id: `merged-${Date.now()}`,
+                        type: 'merged',
+                        template: {
+                            name: 'Merged Code',
+                            icon: Layers,
+                            color: '#E17055',
+                            size: 'large'
+                        },
+                        x: centerX,
+                        y: centerY,
+                        vx: 0,
+                        vy: -1,
+                        size: 120,
+                        rotation: 0,
+                        rotationSpeed: 1,
+                        opacity: 1,
+                        scale: 1,
+                        captured: false,
+                        merged: false,
+                        code: `// Merged from ${bubblestoMerge.length} bubbles\n${mergedCode}`
+                    };
+                    
+                    return [...remaining, mergedBubble];
+                });
+                
+                setSelectedBubbles([]);
+                setStats(prev => ({ ...prev, merges: prev.merges + 1 }));
+                addNotification(`Merged ${bubblestoMerge.length} bubbles`, 'success');
+            }, [selectedBubbles, bubbles]);
+
+            // Add notification
+            const addNotification = useCallback((message, type = 'info') => {
+                const id = Date.now();
+                setNotifications(prev => [...prev, { id, message, type }]);
+                setTimeout(() => {
+                    setNotifications(prev => prev.filter(n => n.id !== id));
+                }, 3000);
+            }, []);
+
+            // Copy code to clipboard
+            const copyCode = useCallback(() => {
+                if (!generatedCode) return;
+                
+                navigator.clipboard.writeText(generatedCode).then(() => {
+                    addNotification('Code copied to clipboard!', 'success');
+                }).catch(() => {
+                    addNotification('Failed to copy code', 'error');
+                });
+            }, [generatedCode]);
+
+            // Download code
+            const downloadCode = useCallback(() => {
+                if (!generatedCode) return;
+                
+                const blob = new Blob([generatedCode], { type: 'text/javascript' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `bubble-code-${Date.now()}.js`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                addNotification('Code downloaded!', 'success');
+            }, [generatedCode]);
+
+            // Animation loop
+            useEffect(() => {
+                if (!isActive) return;
+                
+                const animate = () => {
+                    updateBubbles();
+                    
+                    // Generate new bubbles
+                    if (Math.random() < 0.02) {
+                        generateBubble();
+                    }
+                    
+                    animationRef.current = requestAnimationFrame(animate);
+                };
+                
+                animationRef.current = requestAnimationFrame(animate);
+                
+                return () => {
+                    if (animationRef.current) {
+                        cancelAnimationFrame(animationRef.current);
+                    }
+                };
+            }, [isActive, updateBubbles, generateBubble]);
+
+            // Syntax highlighting
+            useEffect(() => {
+                if (settings.syntaxHighlight && generatedCode) {
+                    Prism.highlightAll();
+                }
+            }, [generatedCode, settings.syntaxHighlight]);
+
+            // Icon wrapper
+            const Icon = ({ icon: IconComponent, ...props }) => {
+                useEffect(() => {
+                    lucide.createIcons();
+                }, []);
+                return <IconComponent {...props} />;
+            };
+
+            return (
+                <div className="relative w-full h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
+                    {/* Background effects */}
+                    {settings.particleEffects && (
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                            {Array.from({ length: 30 }).map((_, i) => (
+                                <div
+                                    key={i}
+                                    className="absolute w-1 h-1 bg-white rounded-full opacity-20"
+                                    style={{
+                                        left: `${Math.random() * 100}%`,
+                                        top: `${Math.random() * 100}%`,
+                                        animation: `pulse ${3 + Math.random() * 4}s ease-in-out infinite`,
+                                        animationDelay: `${Math.random() * 3}s`
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Header */}
+                    <div className="absolute top-0 left-0 right-0 z-50 glass p-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4">
+                                <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                                    <Sparkles className="text-yellow-400" size={32} />
+                                    Bubble Coder
+                                </h1>
+                                
+                                {/* Mode selector */}
+                                <div className="flex items-center space-x-2 bg-black/20 rounded-lg p-1">
+                                    {[
+                                        { id: 'generate', icon: Code, label: 'Generate' },
+                                        { id: 'edit', icon: FileText, label: 'Edit' },
+                                        { id: 'merge', icon: GitBranch, label: 'Merge' },
+                                        { id: 'deploy', icon: Ship, label: 'Deploy' }
+                                    ].map(({ id, icon, label }) => (
+                                        <button
+                                            key={id}
+                                            onClick={() => setMode(id)}
+                                            className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all ${
+                                                mode === id 
+                                                    ? 'bg-purple-600 text-white' 
+                                                    : 'text-gray-300 hover:bg-white/10'
+                                            }`}
+                                        >
+                                            <Icon icon={icon} size={16} />
+                                            <span className="text-sm font-medium">{label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center space-x-4">
+                                <button
+                                    onClick={() => setIsActive(!isActive)}
+                                    className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                                        isActive 
+                                            ? 'bg-red-600 hover:bg-red-700 text-white' 
+                                            : 'bg-green-600 hover:bg-green-700 text-white'
+                                    }`}
+                                >
+                                    <Icon icon={isActive ? Pause : Play} size={20} />
+                                    <span>{isActive ? 'Pause' : 'Start'} Generation</span>
+                                </button>
+                                
+                                <button
+                                    onClick={() => {
+                                        setBubbles([]);
+                                        setGeneratedCode('');
+                                        setCodeHistory([]);
+                                        setSelectedBubbles([]);
+                                        setStats({
+                                            bubblesGenerated: 0,
+                                            codeBlocks: 0,
+                                            merges: 0,
+                                            deployments: 0
+                                        });
+                                    }}
+                                    className="p-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-all"
+                                >
+                                    <Icon icon={RotateCcw} size={20} />
+                                </button>
+                                
+                                <button
+                                    className="p-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all"
+                                >
+                                    <Icon icon={Settings} size={20} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Left Panel - Template Selector */}
+                    <div className="absolute left-4 top-24 bottom-4 w-64 glass rounded-lg p-4 overflow-y-auto custom-scrollbar">
+                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                            <Icon icon={Layers} size={20} />
+                            Code Templates
+                        </h3>
+                        
+                        <div className="space-y-2">
+                            {Object.entries(codeTemplates).map(([key, template]) => (
+                                <label
+                                    key={key}
+                                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 cursor-pointer transition-all"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={bubbleTemplates[key]}
+                                        onChange={(e) => setBubbleTemplates(prev => ({
+                                            ...prev,
+                                            [key]: e.target.checked
+                                        }))}
+                                        className="w-4 h-4 rounded text-purple-600"
+                                    />
+                                    <div className="flex items-center space-x-2 flex-1">
+                                        <div
+                                            className="w-8 h-8 rounded-full flex items-center justify-center"
+                                            style={{ backgroundColor: template.color + '33' }}
+                                        >
+                                            <Icon icon={template.icon} size={16} style={{ color: template.color }} />
+                                        </div>
+                                        <span className="text-white text-sm">{template.name}</span>
+                                    </div>
+                                    <span className="text-xs text-gray-400">
+                                        {template.complexity}x
+                                    </span>
+                                </label>
+                            ))}
+                        </div>
+                        
+                        <div className="mt-6">
+                            <h4 className="text-sm font-semibold text-white mb-3">Settings</h4>
+                            <div className="space-y-3">
+                                <div>
+                                    <label className="text-xs text-gray-400">Bubble Speed</label>
+                                    <input
+                                        type="range"
+                                        min="10"
+                                        max="100"
+                                        value={settings.bubbleSpeed}
+                                        onChange={(e) => setSettings(prev => ({
+                                            ...prev,
+                                            bubbleSpeed: parseInt(e.target.value)
+                                        }))}
+                                        className="w-full mt-1"
+                                    />
+                                    <div className="text-xs text-gray-500 text-right">{settings.bubbleSpeed}%</div>
+                                </div>
+                                
+                                <label className="flex items-center space-x-2 text-sm text-white">
+                                    <input
+                                        type="checkbox"
+                                        checked={settings.syntaxHighlight}
+                                        onChange={(e) => setSettings(prev => ({
+                                            ...prev,
+                                            syntaxHighlight: e.target.checked
+                                        }))}
+                                        className="rounded"
+                                    />
+                                    <span>Syntax Highlighting</span>
+                                </label>
+                                
+                                <label className="flex items-center space-x-2 text-sm text-white">
+                                    <input
+                                        type="checkbox"
+                                        checked={settings.pirateMode}
+                                        onChange={(e) => setSettings(prev => ({
+                                            ...prev,
+                                            pirateMode: e.target.checked
+                                        }))}
+                                        className="rounded"
+                                    />
+                                    <span>Pirate Mode 🏴‍☠️</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        {/* Stats */}
+                        <div className="mt-6 p-4 bg-black/30 rounded-lg">
+                            <h4 className="text-sm font-semibold text-white mb-3">Statistics</h4>
+                            <div className="space-y-2 text-xs">
+                                <div className="flex justify-between text-gray-300">
+                                    <span>Bubbles Generated</span>
+                                    <span className="text-yellow-400 font-mono">{stats.bubblesGenerated}</span>
+                                </div>
+                                <div className="flex justify-between text-gray-300">
+                                    <span>Code Blocks</span>
+                                    <span className="text-green-400 font-mono">{stats.codeBlocks}</span>
+                                </div>
+                                <div className="flex justify-between text-gray-300">
+                                    <span>Merges</span>
+                                    <span className="text-blue-400 font-mono">{stats.merges}</span>
+                                </div>
+                                <div className="flex justify-between text-gray-300">
+                                    <span>Deployments</span>
+                                    <span className="text-purple-400 font-mono">{stats.deployments}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Panel - Code Display */}
+                    <div className="absolute right-4 top-24 bottom-4 w-96 glass rounded-lg p-4 flex flex-col">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                                <Icon icon={Terminal} size={20} />
+                                Generated Code
+                            </h3>
+                            <div className="flex items-center space-x-2">
+                                <button
+                                    onClick={copyCode}
+                                    disabled={!generatedCode}
+                                    className="p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:opacity-50 text-white rounded transition-all"
+                                >
+                                    <Icon icon={Copy} size={16} />
+                                </button>
+                                <button
+                                    onClick={downloadCode}
+                                    disabled={!generatedCode}
+                                    className="p-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:opacity-50 text-white rounded transition-all"
+                                >
+                                    <Icon icon={Download} size={16} />
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div className="flex-1 bg-black/50 rounded-lg p-4 overflow-y-auto custom-scrollbar">
+                            {generatedCode ? (
+                                <pre className="text-sm">
+                                    <code className={settings.syntaxHighlight ? "language-javascript" : ""}>
+                                        {generatedCode}
+                                    </code>
+                                </pre>
+                            ) : (
+                                <div className="text-gray-400 text-center py-8">
+                                    <Icon icon={Code} size={48} className="mx-auto mb-4 opacity-50" />
+                                    <p>Click bubbles to generate code</p>
+                                    <p className="text-xs mt-2">Code will appear here</p>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {mode === 'merge' && selectedBubbles.length > 0 && (
+                            <button
+                                onClick={mergeBubbles}
+                                className="mt-4 w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+                            >
+                                <Icon icon={GitBranch} size={20} />
+                                Merge {selectedBubbles.length} Bubbles
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Main Canvas - Bubbles */}
+                    <div className="absolute inset-0 pointer-events-none">
+                        {bubbles.map(bubble => {
+                            const IconComponent = bubble.template.icon;
+                            const isSelected = selectedBubbles.includes(bubble.id);
+                            
+                            return (
+                                <div
+                                    key={bubble.id}
+                                    onClick={() => handleBubbleClick(bubble.id)}
+                                    className={`absolute cursor-pointer transition-all duration-300 pointer-events-auto ${
+                                        bubble.captured || bubble.merged ? 'bubble-pop' : 'bubble-float'
+                                    }`}
+                                    style={{
+                                        left: bubble.x - bubble.size / 2,
+                                        top: bubble.y - bubble.size / 2,
+                                        width: bubble.size,
+                                        height: bubble.size,
+                                        transform: `rotate(${bubble.rotation}deg) scale(${bubble.scale})`,
+                                        opacity: bubble.opacity
+                                    }}
+                                >
+                                    <div
+                                        className={`w-full h-full rounded-full flex items-center justify-center transition-all ${
+                                            isSelected ? 'ring-4 ring-white ring-opacity-50' : ''
+                                        }`}
+                                        style={{
+                                            background: `radial-gradient(circle at 30% 30%, ${bubble.template.color}88, ${bubble.template.color}44)`,
+                                            border: `2px solid ${bubble.template.color}`,
+                                            boxShadow: `0 0 20px ${bubble.template.color}66`
+                                        }}
+                                    >
+                                        <Icon icon={IconComponent} size={bubble.size * 0.4} color="white" />
+                                    </div>
+                                    {!bubble.captured && !bubble.merged && (
+                                        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-white whitespace-nowrap opacity-75">
+                                            {bubble.template.name}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Notifications */}
+                    <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-50 space-y-2">
+                        {notifications.map(notification => (
+                            <div
+                                key={notification.id}
+                                className={`px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${
+                                    notification.type === 'success' ? 'bg-green-600' :
+                                    notification.type === 'warning' ? 'bg-yellow-600' :
+                                    notification.type === 'error' ? 'bg-red-600' :
+                                    'bg-blue-600'
+                                } text-white`}
+                            >
+                                <Icon 
+                                    icon={
+                                        notification.type === 'success' ? Check :
+                                        notification.type === 'warning' ? AlertCircle :
+                                        notification.type === 'error' ? X :
+                                        Info
+                                    }
+                                    size={20}
+                                />
+                                <span className="font-medium">{notification.message}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Bottom status bar */}
+                    <div className="absolute bottom-0 left-0 right-0 glass p-3">
+                        <div className="flex items-center justify-between text-sm text-gray-300">
+                            <div className="flex items-center space-x-4">
+                                <span className="flex items-center gap-2">
+                                    <Activity size={16} className="text-green-400" />
+                                    {isActive ? 'Active' : 'Paused'}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <Icon icon={mode === 'generate' ? Code : mode === 'merge' ? GitBranch : mode === 'edit' ? FileText : Ship} size={16} />
+                                    {mode.charAt(0).toUpperCase() + mode.slice(1)} Mode
+                                </span>
+                            </div>
+                            <div className="flex items-center space-x-4">
+                                <span>{bubbles.length} active bubbles</span>
+                                <span>{codeHistory.length} code blocks</span>
+                                {settings.pirateMode && (
+                                    <span className="text-yellow-400">🏴‍☠️ Ahoy, matey!</span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BubbleCoderComplete />);
+    </script>
+</body>
+</html>

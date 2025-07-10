@@ -1,0 +1,152 @@
+/* 🎨 Cursive Terminal - Theme Gallery CSS Polish
+ * Ensures perfect alignment across all 33 themes
+ * Fixes card height, titles, descriptions, and hover effects
+ */
+
+.theme-card {
+  display: flex;               /* vertical stack */
+  flex-direction: column;
+  justify-content: space-between;   /* pushes footer to bottom */
+  height: 100%;                      /* equal-height cards */
+  padding: 1rem;
+  border-radius: .75rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  transition: transform .15s ease-in-out;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.theme-card:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.theme-card img.preview {
+  width: 100%;
+  height: 140px;               /* fixed preview height */
+  object-fit: cover;           /* no stretching */
+  border-radius: .5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.theme-card h3 {               /* title */
+  margin: .75rem 0 .25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: center;
+  color: #2d3748;
+  line-height: 1.3;
+}
+
+.theme-card p.desc {           /* description */
+  flex: 1;                     /* let it grow/shrink between title & footer */
+  font-size: .9rem;
+  line-height: 1.35;
+  text-align: center;
+  color: #5c6773;
+  margin: 0;
+}
+
+/* Optional: subtle footer with on-hover link */
+.theme-card .footer {
+  margin-top: .75rem;
+  text-align: center;
+  font-size: .8rem;
+  opacity: .75;
+  color: #718096;
+}
+
+/* DNA color indicators for themes */
+.theme-card .dna-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 2px;
+}
+
+.theme-card .dna-a { background-color: #FF6B6B; }  /* Adenine */
+.theme-card .dna-t { background-color: #4ECDC4; }  /* Thymine */
+.theme-card .dna-g { background-color: #45B7D1; }  /* Guanine */
+.theme-card .dna-c { background-color: #96CEB4; }  /* Cytosine */
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .theme-card {
+    background: #1a202c;
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
+  
+  .theme-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,.3);
+  }
+  
+  .theme-card h3 {
+    color: #e2e8f0;
+  }
+  
+  .theme-card p.desc {
+    color: #a0aec0;
+  }
+  
+  .theme-card .footer {
+    color: #718096;
+  }
+}
+
+/* Responsive grid improvements */
+@media (max-width: 768px) {
+  .theme-card {
+    padding: 0.75rem;
+  }
+  
+  .theme-card h3 {
+    font-size: 1rem;
+  }
+  
+  .theme-card p.desc {
+    font-size: 0.85rem;
+  }
+}
+
+/* Loading state for theme previews */
+.theme-card img.preview[src=""] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Accessibility improvements */
+.theme-card:focus {
+  outline: 2px solid #4ECDC4;
+  outline-offset: 2px;
+}
+
+.theme-card[aria-label] {
+  cursor: pointer;
+}
+
+/* Category badges */
+.theme-category {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.theme-category.dark { background: #2d3748; }
+.theme-category.light { background: #718096; }
+.theme-category.colorful { background: linear-gradient(45deg, #FF6B6B, #4ECDC4); }
+.theme-category.business { background: #4a5568; }
+.theme-category.wcag { background: #38a169; }

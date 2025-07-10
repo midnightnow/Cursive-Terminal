@@ -70,12 +70,12 @@
         
         .themes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
             max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
-            grid-auto-rows: 1fr;
+            grid-auto-rows: auto;
         }
         
         .theme-card {
@@ -90,6 +90,8 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            max-width: 400px;
+            margin: 0 auto;
         }
         
         .theme-card:hover {
@@ -110,14 +112,14 @@
         
         .theme-info {
             padding: 20px;
-            background: rgba(0,0,0,0.5);
-            min-height: 140px;
+            background: rgba(0,0,0,0.7);
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            flex: 1;
+            flex-shrink: 0;
         }
         
         .theme-name {
@@ -169,10 +171,23 @@
         
         .theme-image {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 0;
+            padding-bottom: 100%; /* 1:1 Aspect Ratio for square */
+            position: relative;
             background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
             flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .theme-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background: #1a1a1a;
         }
         
         .theme-image-placeholder {
@@ -212,7 +227,9 @@
     <main class="themes-grid" id="themesGrid">
         <\!-- Dark Themes (9) -->
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Cursive Elegance.png" alt="Cursive Elegance" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Cursive Elegance.png" alt="Cursive Elegance">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">✨ Cursive Elegance</div>
                 <div class="theme-description">Purple/Gold - Sophisticated and elegant</div>
@@ -220,7 +237,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Vampire's Letter.png" alt="Vampire's Letter" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Vampire's Letter.png" alt="Vampire's Letter">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🧛 Vampire's Letter</div>
                 <div class="theme-description">Black/Red - Dark velvet night</div>
@@ -228,7 +247,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Pirate Scroll.png" alt="Pirate's Scroll" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Pirate Scroll.png" alt="Pirate's Scroll">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🏴‍☠️ Pirate's Scroll</div>
                 <div class="theme-description">Brown/Gold - Weather-beaten parchment</div>
@@ -236,7 +257,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Neon Cyberpunk.png" alt="Midnight in Tokyo" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Neon Cyberpunk.png" alt="Midnight in Tokyo">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌃 Midnight in Tokyo</div>
                 <div class="theme-description">Navy/Neon - Cyberpunk night</div>
@@ -244,7 +267,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Midnight Quill.png" alt="Wizard's Grimoire" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Midnight Quill.png" alt="Wizard's Grimoire">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🧙 Wizard's Grimoire</div>
                 <div class="theme-description">Purple/Green - Mystical spellbook</div>
@@ -252,7 +277,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Sunset Glow.png" alt="Love Letter" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Sunset Glow.png" alt="Love Letter">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">💕 Love Letter</div>
                 <div class="theme-description">Pink/Red - Romance and passion</div>
@@ -260,7 +287,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Cursive Noir.png" alt="Gothic Invitation" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Cursive Noir.png" alt="Gothic Invitation">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🦇 Gothic Invitation</div>
                 <div class="theme-description">Black/Silver - Dark ceremony</div>
@@ -268,7 +297,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Ditto Spirit.png" alt="Secret Diary" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ditto Spirit.png" alt="Secret Diary">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🔒 Secret Diary</div>
                 <div class="theme-description">Indigo/Lavender - Hidden thoughts</div>
@@ -276,7 +307,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="dark">
-            <img src="../Theme Photos/Aurora Borealis.png" alt="Hacker's Manifesto" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Aurora Borealis.png" alt="Hacker's Manifesto">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">💻 Hacker's Manifesto</div>
                 <div class="theme-description">Green/Black - Matrix terminal</div>
@@ -285,7 +318,9 @@
         
         <\!-- Light Manuscript Themes (6) -->
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Ancient Parchment.png" alt="Ancient Papyrus" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ancient Parchment.png" alt="Ancient Papyrus">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📜 Ancient Papyrus</div>
                 <div class="theme-description">Beige/Brown - Aged papyrus</div>
@@ -293,7 +328,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Ivory Parchment.png" alt="Parchment Note" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ivory Parchment.png" alt="Parchment Note">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📋 Parchment Note</div>
                 <div class="theme-description">Cream/Sepia - Medieval manuscript</div>
@@ -301,7 +338,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Calligraphy Flourish.png" alt="Calligraphy Practice" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Calligraphy Flourish.png" alt="Calligraphy Practice">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🖋️ Calligraphy Practice</div>
                 <div class="theme-description">White/Ink - Classic penmanship</div>
@@ -309,7 +348,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Illuminated Manuscript.png" alt="Illuminated Manuscript" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Illuminated Manuscript.png" alt="Illuminated Manuscript">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🎨 Illuminated Manuscript</div>
                 <div class="theme-description">Ivory/Gold - Ornate medieval art</div>
@@ -317,7 +358,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Invisible Ink.png" alt="Invisible Ink" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Invisible Ink.png" alt="Invisible Ink">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🔍 Invisible Ink</div>
                 <div class="theme-description">White/Pale Blue - Secret messages</div>
@@ -325,7 +368,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="light">
-            <img src="../Theme Photos/Linen Manuscript.png" alt="Typewriter Draft" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Linen Manuscript.png" alt="Typewriter Draft">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">⌨️ Typewriter Draft</div>
                 <div class="theme-description">Paper/Ink - Classic typing</div>
@@ -334,7 +379,9 @@
         
         <\!-- Colorful Themes (6) -->
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Rainbow Prism.png" alt="Rainbow Prism" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Rainbow Prism.png" alt="Rainbow Prism">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌈 Rainbow Prism</div>
                 <div class="theme-description">Dark/Vibrant - Rainbow highlights</div>
@@ -342,7 +389,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Neon Cyberpunk.png" alt="Neon Sign" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Neon Cyberpunk.png" alt="Neon Sign">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">💡 Neon Sign</div>
                 <div class="theme-description">Black/Neon - Electric glow</div>
@@ -350,7 +399,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Sunset Festival.png" alt="Artistic Palette" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Sunset Festival.png" alt="Artistic Palette">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🎨 Artistic Palette</div>
                 <div class="theme-description">Canvas/Paint - Artist's colors</div>
@@ -358,7 +409,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Cursive Garden.png" alt="Forest Grove" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Cursive Garden.png" alt="Forest Grove">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌲 Forest Grove</div>
                 <div class="theme-description">Green/Brown - Natural woodland</div>
@@ -366,7 +419,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Ocean Mist.png" alt="Ocean Depths" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ocean Mist.png" alt="Ocean Depths">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌊 Ocean Depths</div>
                 <div class="theme-description">Blue/Teal - Deep sea</div>
@@ -374,7 +429,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="colorful">
-            <img src="../Theme Photos/Tropical Paradise.png" alt="Cotton Candy" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Tropical Paradise.png" alt="Cotton Candy">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🍭 Cotton Candy</div>
                 <div class="theme-description">Pink/Blue - Sweet pastels</div>
@@ -383,7 +440,9 @@
         
         <\!-- Business Document Themes (6) -->
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Office Memo.png" alt="Executive Memo" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Office Memo.png" alt="Executive Memo">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📊 Executive Memo</div>
                 <div class="theme-description">Gray/Blue - Corporate professional</div>
@@ -391,7 +450,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Legal Document.png" alt="Legal Document" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Legal Document.png" alt="Legal Document">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">⚖️ Legal Document</div>
                 <div class="theme-description">White/Black - Formal contract</div>
@@ -399,7 +460,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Receipt Paper.png" alt="Invoice Statement" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Receipt Paper.png" alt="Invoice Statement">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">💰 Invoice Statement</div>
                 <div class="theme-description">Cream/Green - Financial document</div>
@@ -407,7 +470,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Carbon Copy.png" alt="Blueprint Tech" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Carbon Copy.png" alt="Blueprint Tech">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📐 Blueprint Tech</div>
                 <div class="theme-description">Blue/White - Technical drawing</div>
@@ -415,7 +480,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Calligraphy Scroll.png" alt="Presentation Deck" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Calligraphy Scroll.png" alt="Presentation Deck">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📊 Presentation Deck</div>
                 <div class="theme-description">White/Accent - Clean slides</div>
@@ -423,7 +490,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="business">
-            <img src="../Theme Photos/Papyrus Scroll.png" alt="Contract Seal" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Papyrus Scroll.png" alt="Contract Seal">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">📜 Contract Seal</div>
                 <div class="theme-description">Ivory/Gold - Official document</div>
@@ -432,7 +501,9 @@
         
         <\!-- Feather-Light WCAG Themes (6) -->
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Ocean Mist.png" alt="Cloud Nine" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ocean Mist.png" alt="Cloud Nine">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">☁️ Cloud Nine</div>
                 <div class="theme-description">Sky Blue/White - Airy and light</div>
@@ -440,7 +511,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Ivory Parchment.png" alt="Vanilla Cream" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ivory Parchment.png" alt="Vanilla Cream">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🍦 Vanilla Cream</div>
                 <div class="theme-description">Cream/Brown - Soft warmth</div>
@@ -448,7 +521,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Linen Manuscript.png" alt="Linen Sheet" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Linen Manuscript.png" alt="Linen Sheet">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🏳️ Linen Sheet</div>
                 <div class="theme-description">Off-White/Gray - Clean fabric</div>
@@ -456,7 +531,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Ocean Mist.png" alt="Morning Mist" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Ocean Mist.png" alt="Morning Mist">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌫️ Morning Mist</div>
                 <div class="theme-description">Gray/White - Soft fog</div>
@@ -464,7 +541,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Invisible Ink Revealed.png" alt="Pearl Shimmer" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Invisible Ink Revealed.png" alt="Pearl Shimmer">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🦪 Pearl Shimmer</div>
                 <div class="theme-description">Iridescent/White - Subtle shine</div>
@@ -472,7 +551,9 @@
         </a>
         
         <a href="#" class="theme-card" data-category="feather">
-            <img src="../Theme Photos/Midnight Quill.png" alt="Moonlight Sonata" class="theme-image">
+            <div class="theme-image">
+                <img src="../Theme Photos/Midnight Quill.png" alt="Moonlight Sonata">
+            </div>
             <div class="theme-info">
                 <div class="theme-name">🌙 Moonlight Sonata</div>
                 <div class="theme-description">Silver/White - Gentle night</div>

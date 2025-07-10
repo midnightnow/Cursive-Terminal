@@ -30,7 +30,7 @@
         .hero h1 {
             font-family: 'Victor Mono', monospace;
             font-style: italic;
-            font-size: 4em;
+            font-size: clamp(2.5em, 8vw, 4em);
             margin-bottom: 20px;
             background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
             -webkit-background-clip: text;
@@ -196,7 +196,7 @@
     <section class="install-section">
         <h2>Quick Install</h2>
         <div class="install-command">
-            <code>git clone github.com/midnightnow/Cursive-Terminal && cd Cursive-Terminal/scripts && ./install-all-themes.sh</code>
+            <code>git clone https://github.com/midnightnow/Cursive-Terminal && cd Cursive-Terminal && ./scripts/theme-selector.sh</code>
         </div>
     </section>
     
@@ -480,6 +480,16 @@
         </a>
     </main>
     
+    <footer style="background: rgba(255,255,255,0.02); padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 80px;">
+        <h3 style="margin-bottom: 20px;">Missing Your Favorite Theme?</h3>
+        <p style="margin-bottom: 30px; opacity: 0.8;">We have 27 theme screenshots but 33 themes total. Some themes are using placeholder images.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://github.com/midnightnow/Cursive-Terminal/issues" style="color: #ffd700; text-decoration: none; padding: 10px 20px; border: 2px solid #ffd700; border-radius: 25px; transition: all 0.3s;">Report Issue</a>
+            <a href="https://github.com/midnightnow/Cursive-Terminal/blob/main/CONTRIBUTING.md" style="color: #ffd700; text-decoration: none; padding: 10px 20px; border: 2px solid #ffd700; border-radius: 25px; transition: all 0.3s;">Contribute Theme</a>
+        </div>
+        <p style="margin-top: 40px; opacity: 0.6; font-size: 0.9em;">Made with 💜 by the Cursive Terminal Team</p>
+    </footer>
+    
     <script>
         function filterThemes(category) {
             const cards = document.querySelectorAll('.theme-card');
@@ -497,7 +507,7 @@
             // Show/hide cards
             cards.forEach(card => {
                 if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
+                    card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
                 }

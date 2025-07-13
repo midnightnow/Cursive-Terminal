@@ -1,0 +1,58 @@
+I got bored coding in monospace so built Cursive Coder to write code in flowing cursive script with extensive color and theme control.
+
+🎨 Just released: 33 Cursive Terminal Themes with Interactive Selector
+
+Built a complete cursive terminal theme system with Victor Mono italic font. Features both CLI and web-based theme selectors.
+
+**Quick Install:**
+```
+git clone github.com/midnightnow/Cursive-Terminal
+cd Cursive-Terminal/scripts
+./install-all-themes.sh
+./theme-selector.sh
+```
+
+**What's included:**
+• 33 hand-crafted themes across 5 categories
+• Interactive CLI selector with live preview
+• Web-based visual theme picker
+• One-command installation
+• Saves theme preference to shell profile
+
+**Theme Categories:**
+- Dark (9): Including pirate-scroll 🏴‍☠️ and vampires-letter 🧛
+- Light Manuscript (6): Ancient papyrus, calligraphy styles
+- Colorful (6): Rainbow prism, neon cyberpunk, cotton candy
+- Business (6): Office memo, blueprint tech, legal document  
+- WCAG-AA (6): High contrast, accessibility focused
+
+**Cool features:**
+- Press 'r' for random theme discovery
+- Direct theme access: just type theme name
+- Search by name or description
+- Categories right in main menu (no sub-menus!)
+- Preview mode to try before applying
+
+**Color Demo:**
+Run `./colored_text_demo.sh` to see:
+- Rainbow text effects
+- Syntax highlighting
+- Git status colors
+- 256-color gradients
+- True color support
+- ASCII art in cursive
+
+The selector shows live previews with code samples. Each theme completely transforms your terminal - from vampire's blood-red on black velvet to pirate's weathered parchment with gold accents.
+
+Works with bash/zsh on macOS/Linux. Best with Victor Mono or any italic-supporting font.
+
+**Example themes:**
+- `vampires-letter`: Dark velvet with blood-red cursor
+- `pirate-scroll`: Weather-beaten parchment, treasure-gold
+- `rainbow-prism`: Dark background, vibrant rainbow syntax
+- `ancient-papyrus`: Aged manuscript feel
+- `neon-cyberpunk`: Matrix-style green on black
+
+Repository: github.com/midnightnow/Cursive-Terminal
+
+Transform every command into calligraphy. Because life's too short for boring monospace!

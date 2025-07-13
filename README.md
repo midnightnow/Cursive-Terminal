@@ -1,51 +1,73 @@
-# ✒️ Cursive Terminal Setup
+# ✒️ Cursive Terminal - 33 Beautiful Themes for Elegant Coding
 
 <div align="center">
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![macOS](https://img.shields.io/badge/macOS-12%2B-success.svg)](https://www.apple.com/macos/)
 [![Terminal](https://img.shields.io/badge/Terminal-iTerm2%20%7C%20Terminal.app-lightgrey.svg)](#terminal-setup)
+[![Themes](https://img.shields.io/badge/Themes-33%20Beautiful-ff69b4.svg)](#theme-gallery)
 [![Fonts](https://img.shields.io/badge/Fonts-5%2B%20Cursive-purple.svg)](#recommended-fonts)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-♥️-ea4aaa.svg)](https://github.com/sponsors/midnightnow)
 
-*Transform your boring monospace terminal into a beautiful cursive writing experience!*
+*Transform your boring monospace terminal into a beautiful cursive writing experience with 33 stunning themes!*
 
 ![Victor Mono Cursive](https://raw.githubusercontent.com/rubjo/victor-mono/master/public/header.gif)
 
-**[Quick Start](#-quick-start) • [Font Gallery](docs/FONT_GALLERY.md) • [Contributing](CONTRIBUTING.md) • [Troubleshooting](TROUBLESHOOTING.md)**
+**[Quick Start](#-quick-start) • [33 Themes](#-theme-gallery) • [Support Us](#-support-this-project) • [Gallery](docs/FONT_GALLERY.md)**
 
 </div>
 
 ## 🎨 What is this?
 
-This repository contains everything you need to set up a **fully cursive terminal** on macOS. Imagine coding in elegant, flowing script while maintaining perfect monospace alignment!
+The **ultimate collection** of cursive terminal themes and fonts for macOS. Code in elegant, flowing script with 33 professionally designed color themes - from elegant manuscripts to cyberpunk neon!
 
 ## ✨ Features
 
-- **5+ Cursive Monospace Fonts**: Victor Mono, Cascadia Code, JetBrains Mono, and more
-- **Visual Font Gallery**: PNG previews showing each font's cursive style
-- **Animated Showcase**: GIF demonstrations of cursive terminal in action
-- **Custom Terminal Themes**: Beautiful color schemes optimized for cursive fonts
-- **Enhanced Syntax Highlighting**: Make comments and strings extra beautiful
-- **Font Generation Tools**: Create your own oblique/cursive variants
-- **Complete Configuration**: iTerm2 profiles, Neovim configs, and more
-- **Professional Setup**: Full installation script and MIT license
+- **🎨 33 Beautiful Themes**: Dark, light, colorful, business, and manuscript-inspired
+- **✍️ 5+ Cursive Monospace Fonts**: Victor Mono, Cascadia Code, JetBrains Mono, and more
+- **🌈 Theme Categories**:
+  - 9 Dark themes (Elegance, Noir, Vampire's Letter...)
+  - 6 Light manuscript themes (Ancient Papyrus, Royal Parchment...)
+  - 6 Colorful themes (Rainbow Prism, Neon Cyberpunk...)
+  - 6 Business document themes (Office Memo, Blueprint Tech...)
+  - 6 Feather-light WCAG-AA compliant themes
+- **🚀 One-Click Installation**: Simple scripts for instant beauty
+- **📸 Visual Previews**: See every theme before you choose
+- **🛠️ Professional Tools**: Theme selector, font generator, and more
+- **♿ Accessibility**: WCAG-AA compliant light themes included
+
+## 💝 Support This Project
+
+Love coding in cursive? Support the development of new themes and features!
+
+### Ways to Support:
+- **[GitHub Sponsors](https://github.com/sponsors/midnightnow)** - Monthly support with perks
+- **[Buy Me a Coffee](https://buymeacoffee.com/midnightnow)** - One-time donations
+- **[PayPal](https://paypal.me/midnightnow)** - Quick tips
+- **Bitcoin**: `bc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+- **Ethereum**: `0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
+
+### Sponsor Perks:
+- 🌟 Early access to new themes
+- 🎨 Custom theme requests
+- 📱 Priority support
+- 🏆 Sponsor badge in contributors list
 
 ## 🚀 Quick Start
 
 ```bash
 # Clone this repository
-git clone https://github.com/yourusername/cursive-terminal-setup.git
-cd cursive-terminal-setup
+git clone https://github.com/midnightnow/Cursive-Terminal.git
+cd Cursive-Terminal
 
-# Run the quick setup
+# Run the quick setup (installs all 33 themes!)
 ./quick_setup.sh
 
-# Test cursive rendering
-./scripts/cursive_font_demo.sh
+# Launch the interactive theme selector
+./scripts/theme-selector.sh
 
-# View colorful cursive demo
-./scripts/colored_text_demo.sh
+# Test cursive fonts
+./scripts/cursive_font_demo.sh
 ```
 
 ## 📦 What's Included
@@ -175,12 +197,58 @@ Generate a showcase GIF for your repository:
 python scripts/create_oblique_font.py /path/to/font.ttf output.ttf
 ```
 
-### Custom Themes
-Apply beautiful color themes optimized for cursive:
+## 🎨 Theme Gallery
+
+### Dark Themes (9)
 ```bash
-source themes/cursive-elegance.sh
-source themes/cursive-noir.sh
-source themes/cursive-garden.sh
+# Elegant dark themes for focused coding
+source ~/.config/terminal-themes/cursive-elegance.sh    # Purple/Gold elegance
+source ~/.config/terminal-themes/cursive-noir.sh        # Black/Silver sophistication
+source ~/.config/terminal-themes/pirate-scroll.sh       # Brown/Gold adventure
+source ~/.config/terminal-themes/vampires-letter.sh     # Black/Red gothic
+source ~/.config/terminal-themes/ocean-mist.sh          # Blue/Teal serenity
+source ~/.config/terminal-themes/midnight-quill.sh      # Indigo/Silver mystery
+```
+
+### Light Manuscript Themes (6)
+```bash
+# Professional light themes inspired by classic manuscripts
+source ~/.config/terminal-themes/ancient-papyrus.sh      # Cream/Brown classic
+source ~/.config/terminal-themes/royal-parchment.sh      # Ivory/Purple royalty
+source ~/.config/terminal-themes/calligraphy-master.sh   # White/Black precision
+source ~/.config/terminal-themes/illuminated-manuscript.sh # Gold/Cream luxury
+```
+
+### Colorful Themes (6)
+```bash
+# Vibrant themes for creative coding sessions
+source ~/.config/terminal-themes/rainbow-prism.sh        # Full spectrum colors
+source ~/.config/terminal-themes/neon-cyberpunk.sh       # Neon green/pink future
+source ~/.config/terminal-themes/tropical-paradise.sh    # Teal/Coral beach vibes
+source ~/.config/terminal-themes/cotton-candy.sh         # Pink/Purple sweetness
+```
+
+### Business Document Themes (6)
+```bash
+# Professional themes for work environments
+source ~/.config/terminal-themes/office-memo.sh          # Navy/White corporate
+source ~/.config/terminal-themes/blueprint-tech.sh       # Blueprint blue technical
+source ~/.config/terminal-themes/legal-document.sh       # Brown/White formal
+```
+
+### Feather-Light Themes (6) - WCAG-AA Compliant
+```bash
+# High-contrast light themes for accessibility
+source ~/.config/terminal-themes/papyrus-scroll.sh       # Ochre/Brown (5.21:1)
+source ~/.config/terminal-themes/linen-sheet.sh          # White/Charcoal (7.89:1)
+source ~/.config/terminal-themes/calligraphy-flourish.sh # Pearl/Black (19.56:1)
+source ~/.config/terminal-themes/invisible-ink.sh        # Easter egg theme!
+```
+
+### Interactive Theme Selector
+```bash
+# Can't decide? Use our interactive selector!
+./scripts/theme-selector.sh
 ```
 
 ## 🤝 Contributing

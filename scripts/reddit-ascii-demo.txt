@@ -1,0 +1,44 @@
+═══════════════════════════════════════════════════════
+     ____                _           
+    / ___|   _ _ __ ___ (_)_   _____ 
+   | |  | | | | '__/ __|| \ \ / / _ \
+   | |__| |_| | |  \__ \| |\ V /  __/
+    \____\__,_|_|  |___/|_| \_/ \___|
+                                     
+   ╔═══════════════════════════════════╗
+   ║  Terminal Theme Selector Demo     ║
+   ╚═══════════════════════════════════╝
+═══════════════════════════════════════════════════════
+
+Example themes in action:
+
+🏴‍☠️ PIRATE SCROLL:
+   "Ahoy! Weather-beaten parchment 
+    with treasure-gold cursor..."
+
+🧛 VAMPIRE'S LETTER:
+   "Written in blood-red ink on 
+    black velvet darkness..."
+
+🌈 RAINBOW PRISM:
+   "Every color dancing across 
+    your terminal canvas..."
+
+✒️ CALLIGRAPHY FLOURISH:
+   "Pearl paper, jet-black strokes,
+    high contrast elegance..."
+
+═══════════════════════════════════════════════════════
+Main Menu Preview:
+  1) All Themes (33)
+  2) Dark Themes (9)
+  3) Light Manuscript (6)
+  4) Colorful Themes (6)
+  5) Business Documents (6)
+  6) Feather-Light WCAG (6)
+
+  s) Search themes
+  r) Random theme
+  p) Toggle preview mode
+  q) Quit
+═══════════════════════════════════════════════════════

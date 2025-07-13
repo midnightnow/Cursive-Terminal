@@ -1,0 +1,38 @@
+🎨 Just released: 33 Cursive Terminal Themes with Interactive Selector
+
+Built a complete cursive terminal theme system with Victor Mono italic font. Features both CLI and web-based theme selectors.
+
+**Quick Install:**
+```
+git clone github.com/midnightnow/Cursive-Terminal
+cd Cursive-Terminal/scripts
+./install-all-themes.sh
+./theme-selector.sh
+```
+
+**What's included:**
+• 33 hand-crafted themes across 5 categories
+• Interactive CLI selector with live preview
+• Web-based visual theme picker
+• One-command installation
+• Saves theme preference to shell profile
+
+**Theme Categories:**
+- Dark (9): Including pirate-scroll 🏴‍☠️ and vampires-letter 🧛
+- Light Manuscript (6): Ancient papyrus, calligraphy styles
+- Colorful (6): Rainbow prism, neon cyberpunk, cotton candy
+- Business (6): Office memo, blueprint tech, legal document
+- WCAG-AA (6): High contrast, accessibility focused
+
+**Cool features:**
+- Press 'r' for random theme discovery
+- Search themes by name or description
+- Preview mode to try before applying
+- Direct theme application by name
+- Categories right in main menu
+
+The selector shows ASCII art previews and code samples in each theme. Works with bash/zsh on macOS/Linux.
+
+Check out the screenshots - each theme transforms your terminal into a unique cursive writing experience!
+
+Repository: github.com/midnightnow/Cursive-Terminal

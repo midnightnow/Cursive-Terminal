@@ -100,15 +100,21 @@ cursive-terminal-setup/
 
 Comprehensive guides for users and developers:
 
-- **[README.md](README.md)** - This file! Main project overview
-- **[SCRIPTS_REFERENCE.md](SCRIPTS_REFERENCE.md)** - Complete guide to all 40+ scripts
-- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Developer contribution guide
+### For Users
+- **[README.md](README.md)** - This file! Main project overview and quick start
+- **[FAQ.md](FAQ.md)** - Frequently asked questions with quick answers
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and detailed solutions
+- **[docs/FONT_GALLERY.md](docs/FONT_GALLERY.md)** - Visual font comparison gallery
+
+### For Developers
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete developer guide and contribution workflow
+- **[SCRIPTS_REFERENCE.md](SCRIPTS_REFERENCE.md)** - Detailed guide to all 40+ scripts
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines and best practices
+
+### Project History
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and release notes
 - **[WORK_LOG.md](WORK_LOG.md)** - Detailed development session logs
-- **[SESSION_TRACKER.md](SESSION_TRACKER.md)** - Quick session reference
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
-- **[CHANGELOG.md](CHANGELOG.md)** - Version history
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
-- **[docs/FONT_GALLERY.md](docs/FONT_GALLERY.md)** - Visual font comparison
+- **[SESSION_TRACKER.md](SESSION_TRACKER.md)** - Quick session summary reference
 
 ## 🎯 Recommended Fonts
 

@@ -40,8 +40,8 @@ Thank you for your interest in contributing! This project thrives on community c
 ### Development Setup
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/cursive-terminal-setup.git
-   cd cursive-terminal-setup
+   git clone https://github.com/YOUR_USERNAME/Cursive-Terminal.git
+   cd Cursive-Terminal
    ```
 
 2. **Test Current Setup**
@@ -85,12 +85,15 @@ Before submitting a PR:
 
 ### File Organization
 ```
-cursive-terminal-setup/
+Cursive-Terminal/
 ├── scripts/           # Executable tools and utilities
 ├── configs/          # Configuration files
 ├── themes/           # Color schemes and themes
 ├── docs/            # Documentation and images
-└── .github/         # GitHub templates and workflows
+├── website/         # Web resources
+├── install.sh       # Full installation script
+├── quick_setup.sh   # Quick theme installation
+└── *.md            # Comprehensive documentation
 ```
 
 ## 🔤 Adding New Fonts

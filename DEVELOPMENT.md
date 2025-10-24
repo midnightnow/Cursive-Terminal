@@ -4,6 +4,7 @@ Welcome to the Cursive Terminal development guide! This document helps contribut
 
 ## 📋 Table of Contents
 
+- [About This Project](#about-this-project)
 - [Quick Start for Developers](#quick-start-for-developers)
 - [Project Structure](#project-structure)
 - [Development Workflow](#development-workflow)
@@ -11,6 +12,28 @@ Welcome to the Cursive Terminal development guide! This document helps contribut
 - [Testing](#testing)
 - [Documentation](#documentation)
 - [Release Process](#release-process)
+
+## 🎨 About This Project
+
+**Cursive Terminal** is a comprehensive theming and font system that transforms your terminal into a beautiful cursive writing experience. The project combines:
+
+- **33 Professional Themes** across 5 categories (dark, light, colorful, business, accessibility)
+- **5+ Cursive Fonts** with full monospace compatibility
+- **Complete Configuration System** for iTerm2, Terminal.app, Neovim, and Starship
+- **40+ Utility Scripts** for demos, installation, testing, and deployment
+
+### Project Goals
+1. Make terminal coding aesthetically beautiful with cursive fonts
+2. Provide professional themes for all coding scenarios
+3. Maintain perfect monospace alignment for code
+4. Ensure accessibility with WCAG-AA compliant themes
+5. Support easy installation and customization
+
+### Target Users
+- Developers who value aesthetics in their tools
+- Typography enthusiasts
+- Content creators making terminal demos
+- Anyone wanting a more elegant coding environment
 
 ## 🚀 Quick Start for Developers
 

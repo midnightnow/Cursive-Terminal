@@ -96,6 +96,20 @@ cursive-terminal-setup/
 └── LICENSE                          # MIT license
 ```
 
+## 📚 Documentation
+
+Comprehensive guides for users and developers:
+
+- **[README.md](README.md)** - This file! Main project overview
+- **[SCRIPTS_REFERENCE.md](SCRIPTS_REFERENCE.md)** - Complete guide to all 40+ scripts
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Developer contribution guide
+- **[WORK_LOG.md](WORK_LOG.md)** - Detailed development session logs
+- **[SESSION_TRACKER.md](SESSION_TRACKER.md)** - Quick session reference
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
+- **[docs/FONT_GALLERY.md](docs/FONT_GALLERY.md)** - Visual font comparison
+
 ## 🎯 Recommended Fonts
 
 ### Victor Mono (⭐ Most Cursive)

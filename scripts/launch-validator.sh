@@ -108,7 +108,8 @@ test_component() {
     
     echo -ne "${CYAN}Testing:${NC} $test_name... "
     
-    if eval "$test_command" >/dev/null 2>&1; then
+    # Run in subshell for isolation (safer than eval)
+    if bash -c "$test_command" >/dev/null 2>&1; then
         echo -e "${GREEN}✓ PASSED${NC}"
         echo "✓ **$test_name**: PASSED" >> "$LAUNCH_REPORT"
         echo "- [x] $test_name" >> "$LAUNCH_CHECKLIST"
@@ -313,8 +314,9 @@ generate_deployment_commands() {
 
 ### Quick Installation
 ```bash
-# One-line installation
-curl -fsSL https://raw.githubusercontent.com/yourusername/cursive-terminal/main/install.sh | bash
+# Download and install (safer than piping to bash)
+curl -fsSL -o /tmp/cursive-install.sh https://raw.githubusercontent.com/midnightnow/cursive-terminal/main/install.sh
+bash /tmp/cursive-install.sh
 ```
 
 ### Manual Installation

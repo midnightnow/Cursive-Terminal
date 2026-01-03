@@ -82,7 +82,8 @@ execute_stage() {
     
     STAGES["$stage_name"]="running"
     
-    if eval "$stage_command"; then
+    # Run command in subshell for isolation (safer than eval)
+    if bash -c "$stage_command"; then
         STAGES["$stage_name"]="completed"
         echo -e "\n${GREEN}✅ $stage_description - COMPLETED${NC}"
         return 0

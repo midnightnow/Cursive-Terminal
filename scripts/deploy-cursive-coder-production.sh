@@ -33,7 +33,6 @@ print_section() {
 }
 
 # Configuration
-GITHUB_USER="${GITHUB_USER:-yourusername}"
 REPO_NAME="cursive-coder"
 DATE=$(date '+%Y-%m-%d')
 TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
@@ -43,8 +42,16 @@ echo -e "${GREEN}Target:${NC} Professional developers, coding teams, educators"
 echo -e "${GREEN}Innovation:${NC} Native Claude integration with specialized AI personas"
 echo -e "${GREEN}USP:${NC} DNA visualization + AI-powered development with personality"
 
-read -p "Enter your GitHub username (default: $GITHUB_USER): " input_user
-GITHUB_USER=${input_user:-$GITHUB_USER}
+# Require GitHub username (no unsafe defaults)
+if [[ -n "${GITHUB_USER:-}" ]]; then
+    echo -e "${GREEN}Using GITHUB_USER:${NC} $GITHUB_USER"
+else
+    read -p "Enter your GitHub username (required): " GITHUB_USER
+    if [[ -z "$GITHUB_USER" ]]; then
+        echo -e "${RED}ERROR: GitHub username is required${NC}"
+        exit 1
+    fi
+fi
 
 read -p "Continue with Cursive Coder deployment? (y/N): " confirm
 if [[ ! $confirm =~ ^[Yy]$ ]]; then
@@ -1722,6 +1729,3 @@ echo -e "   • ${GREEN}AI Integration${NC} (Cursive Coder) ✅ ${BOLD}← YOU A
 echo -e "   • ${YELLOW}Elite Community${NC} (Cursive Coders) → Next phase"
 echo ""
 
-<function_calls>
-<invoke name="TodoWrite">
-<parameter name="todos">[{"content": "Deploy Cursive Coder production repository with Claude integration", "status": "completed", "priority": "high", "id": "1"}, {"content": "Implement MOEX/Switcher system for AI personas", "status": "completed", "priority": "high", "id": "2"}, {"content": "Create 5 Cursive Captains with distinct personalities", "status": "completed", "priority": "high", "id": "3"}, {"content": "Set up native Claude integration architecture", "status": "completed", "priority": "medium", "id": "4"}, {"content": "Create production-ready HTML with AI features", "status": "completed", "priority": "medium", "id": "5"}]

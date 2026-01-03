@@ -22,8 +22,12 @@ WHITE='\033[1;37m'
 NC='\033[0m'
 BOLD='\033[1m'
 
-# Configuration
-GITHUB_USER="${GITHUB_USER:-yourusername}"
+# Configuration - GITHUB_USER must be set (no unsafe defaults)
+if [[ -z "${GITHUB_USER:-}" ]]; then
+    echo -e "${RED}ERROR: GITHUB_USER environment variable is required${NC}"
+    echo "Usage: GITHUB_USER=yourusername ./deploy-cursive-ecosystem.sh"
+    exit 1
+fi
 DATE=$(date '+%Y-%m-%d')
 TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
 
@@ -195,8 +199,9 @@ Cursive Terminal is part of a four-tier product strategy:
 ## 🚀 Quick Start
 
 \`\`\`bash
-# Install Cursive Terminal
-curl -fsSL https://raw.githubusercontent.com/$GITHUB_USER/cursive-terminal/main/install.sh | bash
+# Install Cursive Terminal (download first for safety)
+curl -fsSL -o /tmp/cursive-install.sh https://raw.githubusercontent.com/$GITHUB_USER/cursive-terminal/main/install.sh
+bash /tmp/cursive-install.sh
 
 # Apply a theme
 cursive theme dna

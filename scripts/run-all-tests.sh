@@ -56,7 +56,8 @@ run_test() {
     
     echo -ne "${CYAN}Testing:${NC} $test_name... "
     
-    if eval "$test_command" >/dev/null 2>&1; then
+    # Run in subshell for isolation (safer than eval)
+    if bash -c "$test_command" >/dev/null 2>&1; then
         echo -e "${GREEN}✓ PASSED${NC}"
         TEST_RESULTS["$test_name"]="PASSED"
         ((PASSED_TESTS++))

@@ -411,15 +411,15 @@
     <div class="customizer" id="customizer">
         <h3>Customize Theme</h3>
         <div class="slider-group">
-            <label>Background Darkness: <span id="bgValue">50</span>%</label>
+            <label>Background Brightness: <span id="bgValue">50</span>%</label>
             <input type="range" id="bgSlider" min="0" max="100" value="50">
         </div>
         <div class="slider-group">
-            <label>Text Contrast: <span id="contrastValue">75</span>%</label>
+            <label>Text Visibility: <span id="contrastValue">75</span>%</label>
             <input type="range" id="contrastSlider" min="0" max="100" value="75">
         </div>
         <div class="slider-group">
-            <label>Accent Intensity: <span id="accentValue">80</span>%</label>
+            <label>Accent Saturation: <span id="accentValue">80</span>%</label>
             <input type="range" id="accentSlider" min="0" max="100" value="80">
         </div>
         <button id="resetCustom">Reset to Default</button>
@@ -884,21 +884,42 @@
             const factor = value / 50;
             const theme = themes[currentTheme];
             const bg = adjustBrightness(theme.colors.bg, factor);
-            document.documentElement.style.setProperty('--bg-color', bg);
+            // Update preview panel code sample, not the whole page
+            const codePreview = document.querySelector('.code-preview');
+            if (codePreview) codePreview.style.background = bg;
+            // Also update all theme card preview boxes
+            document.querySelectorAll('.theme-card .preview').forEach(preview => {
+                const cardTheme = themes[preview.closest('.theme-card').dataset.theme];
+                if (cardTheme) preview.style.background = adjustBrightness(cardTheme.colors.bg, factor);
+            });
         }
-        
+
         function adjustThemeContrast(value) {
             const factor = value / 75;
             const theme = themes[currentTheme];
             const text = adjustContrast(theme.colors.text, theme.colors.bg, factor);
-            document.documentElement.style.setProperty('--text-color', text);
+            // Update preview panel code sample text
+            const codePreview = document.querySelector('.code-preview');
+            if (codePreview) codePreview.style.color = text;
+            // Also update all theme card preview boxes
+            document.querySelectorAll('.theme-card .preview').forEach(preview => {
+                const cardTheme = themes[preview.closest('.theme-card').dataset.theme];
+                if (cardTheme) preview.style.color = adjustContrast(cardTheme.colors.text, cardTheme.colors.bg, factor);
+            });
         }
-        
+
         function adjustAccentIntensity(value) {
             const factor = value / 80;
             const theme = themes[currentTheme];
             const accent = adjustSaturation(theme.colors.accent, factor);
-            document.documentElement.style.setProperty('--accent-color', accent);
+            // Update preview panel border
+            const codePreview = document.querySelector('.code-preview');
+            if (codePreview) codePreview.style.borderColor = accent;
+            // Also update all theme card preview box borders
+            document.querySelectorAll('.theme-card .preview').forEach(preview => {
+                const cardTheme = themes[preview.closest('.theme-card').dataset.theme];
+                if (cardTheme) preview.style.borderColor = adjustSaturation(cardTheme.colors.accent, factor);
+            });
         }
         
         function adjustBrightness(hex, factor) {

@@ -26,9 +26,15 @@ CURSIVE_DIR="/Users/studio/Cursive-Terminal"
 RELEASE_DIR="cursive-terminal-release-$(date +%Y%m%d)"
 DEPLOYMENT_LOG="deployment-prep-$(date +%Y%m%d-%H%M%S).log"
 
-# GitHub repository info (update these)
-GITHUB_USER="yourusername"
+# GitHub repository info - GITHUB_USER must be set
+GITHUB_USER="${GITHUB_USER:-}"
 GITHUB_REPO="cursive-terminal"
+
+if [[ -z "$GITHUB_USER" ]]; then
+    echo -e "${RED}ERROR: GITHUB_USER environment variable is required${NC}"
+    echo "Usage: GITHUB_USER=yourusername ./prepare-deployment.sh"
+    exit 1
+fi
 
 # Version info
 VERSION="1.0.0"
@@ -124,7 +130,9 @@ cat > "RELEASE_NOTES_${VERSION}.md" << EOF
 
 ### 📦 Installation
 \`\`\`bash
-curl -fsSL https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/install.sh | bash
+# Download and install (safer approach)
+curl -fsSL -o /tmp/cursive-install.sh https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/install.sh
+bash /tmp/cursive-install.sh
 \`\`\`
 
 ### 🔧 Requirements

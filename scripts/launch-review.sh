@@ -53,7 +53,8 @@ check_item() {
     local condition="$2"
     TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
     
-    if eval "$condition"; then
+    # Run in subshell for isolation (safer than eval)
+    if bash -c "$condition"; then
         echo -e "${GREEN}${CHECK}${NC} $description"
         PASSED_CHECKS=$((PASSED_CHECKS + 1))
         echo "- ✅ $description" >> "$REPORT_FILE"

@@ -47,6 +47,24 @@ remove_zshrc_config() {
     fi
 }
 
+# Function to reset terminal colors to defaults
+reset_terminal_colors() {
+    print_status "Resetting terminal colors to defaults..."
+
+    # Reset all 256 colors to defaults
+    printf '\033]104\007'
+
+    # Reset foreground, background, cursor
+    printf '\033]110\007'  # Reset foreground
+    printf '\033]111\007'  # Reset background
+    printf '\033]112\007'  # Reset cursor color
+
+    # Reset text attributes (bold, italic, underline off)
+    printf '\033[0m'
+
+    print_success "Terminal colors reset to defaults"
+}
+
 # Function to remove config files
 remove_configs() {
     print_status "Removing configuration files..."
@@ -78,15 +96,55 @@ remove_configs() {
 remove_brew_packages() {
     print_status "Removing Homebrew packages..."
 
-    # Fonts
+    # Fonts - individual selection
     fonts=("font-victor-mono" "font-cascadia-code" "font-jetbrains-mono" "font-fira-code")
+    installed_fonts=()
+
     for font in "${fonts[@]}"; do
         if brew list --cask "$font" &>/dev/null; then
-            brew uninstall --cask "$font" 2>/dev/null && \
-                print_success "Removed $font" || \
-                print_warning "Failed to remove $font"
+            installed_fonts+=("$font")
         fi
     done
+
+    if [[ ${#installed_fonts[@]} -gt 0 ]]; then
+        echo ""
+        echo -e "${YELLOW}Installed fonts:${NC}"
+        for i in "${!installed_fonts[@]}"; do
+            echo "  [$((i+1))] ${installed_fonts[$i]}"
+        done
+        echo "  [A] All fonts"
+        echo "  [N] None (keep all)"
+        echo ""
+        read -p "Remove which fonts? (e.g., 1,3 or A or N): " font_choice
+
+        case "$font_choice" in
+            [Aa])
+                for font in "${installed_fonts[@]}"; do
+                    brew uninstall --cask "$font" 2>/dev/null && \
+                        print_success "Removed $font" || \
+                        print_warning "Failed to remove $font"
+                done
+                ;;
+            [Nn])
+                print_warning "Keeping all fonts"
+                ;;
+            *)
+                # Parse comma-separated numbers
+                IFS=',' read -ra selections <<< "$font_choice"
+                for sel in "${selections[@]}"; do
+                    sel=$(echo "$sel" | tr -d ' ')
+                    if [[ "$sel" =~ ^[0-9]+$ ]] && [[ $sel -ge 1 ]] && [[ $sel -le ${#installed_fonts[@]} ]]; then
+                        font="${installed_fonts[$((sel-1))]}"
+                        brew uninstall --cask "$font" 2>/dev/null && \
+                            print_success "Removed $font" || \
+                            print_warning "Failed to remove $font"
+                    fi
+                done
+                ;;
+        esac
+    else
+        print_warning "No Cursive Terminal fonts found"
+    fi
 
     # Tools (ask first since user might want to keep them)
     tools=("starship" "bat" "eza" "figlet" "lolcat" "zsh-syntax-highlighting")
@@ -118,10 +176,12 @@ case "$choice" in
     [Yy]*)
         remove_zshrc_config
         remove_configs
+        reset_terminal_colors
         ;;
     [Ff]ull|full|FULL)
         remove_zshrc_config
         remove_configs
+        reset_terminal_colors
         remove_brew_packages
         ;;
     [Nn]*)
@@ -138,8 +198,10 @@ esac
 echo ""
 print_success "Uninstall complete!"
 echo ""
-echo "To finish cleanup:"
-echo "  1. Restart your terminal or run: source ~/.zshrc"
-echo "  2. Reset your terminal font to default if desired"
+echo "Terminal colors have been reset to defaults."
+echo ""
+echo "To change font back (if italic still showing):"
+echo "  • Terminal.app: Cmd+, → Profiles → Text → Font → SF Mono or Menlo"
+echo "  • iTerm2: Cmd+, → Profiles → Text → Font → change from Victor Mono"
 echo ""
 echo "To reinstall later: ./install.sh"

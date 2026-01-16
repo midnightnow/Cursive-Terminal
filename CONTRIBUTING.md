@@ -40,8 +40,8 @@ Thank you for your interest in contributing! This project thrives on community c
 ### Development Setup
 1. **Fork and Clone**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/cursive-terminal-setup.git
-   cd cursive-terminal-setup
+   git clone https://github.com/YOUR_USERNAME/Cursive-Terminal.git
+   cd Cursive-Terminal
    ```
 
 2. **Test Current Setup**
